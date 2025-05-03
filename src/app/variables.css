@@ -1,0 +1,15 @@
+  :root {
+    --background: #ffffff;
+    --foreground: #171717;
+    --color-accent: #15803d !important;
+      /* Typographie */
+  --font-size-h1: 3rem;
+  --font-size-h2: 2rem;
+  --font-size-body: 1rem;
+
+  /* Espacements */
+  --spacing-base: 1rem;
+  --spacing-lg: 2rem;
+  
+  }
+  

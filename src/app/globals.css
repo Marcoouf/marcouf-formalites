@@ -1,0 +1,70 @@
+@import "./variables.css";
+@import "tailwindcss";
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+    --color-accent: #15803d !important;
+  }
+}
+
+.btn-accent:hover {
+  background-color: var(--accent);
+  color: white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transform: scale(1.03);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+text-accent {
+  color: var(--accent);
+}
+
+@keyframes halo-strong {
+  0% {
+    box-shadow: 0 0 0 0 rgba(1, 121, 111, 0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(1, 121, 111, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(1, 121, 111, 0);
+  }
+}
+
+@keyframes gradientBG {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-gradient-bg {
+  background-size: 400% 400%;
+  animation: gradientBG 10s ease infinite;
+}
+
+.btn-devis {
+  position: relative;
+  
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  transition: all 0.3s ease-in-out;
+
+  animation: halo-strong 2s infinite;
+}
+
+/* Hover conserve le halo animé */
+.btn-devis:hover {
+  background-color: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
