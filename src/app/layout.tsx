@@ -3,8 +3,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "../components/Header"; // Header peut rester client
-import Hero from "@/components/Hero";
-import APropos from "../components/APropos";
+
 
 // Génération de la variable CSS :
 //            ↓           ↓  
@@ -26,11 +25,6 @@ export default function RootLayout({
     <html lang="fr" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body className="antialiased bg-white text-black">
         <Header />
-              <Hero />
-        <APropos />
-      
-
-
         <main className="pt-[80px] min-h-screen bg-white text-black">
           {children}
         </main>
