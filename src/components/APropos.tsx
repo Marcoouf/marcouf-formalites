@@ -31,7 +31,7 @@ export default function APropos() {
           </h2>
 
           <p className="text-lg text-gray-600">
-            Juriste indépendant depuis plusieurs années, j&apos;interviens principalement dans le domaine du droit des affaires, de la propriété intellectuelle et des formalités juridiques.
+            Juriste indépendant, j&apos;interviens principalement dans le domaine du droit des affaires, de la propriété intellectuelle et des formalités juridiques.
             Fort d&apos;une expérience dans l&apos;accompagnement des entrepreneurs et des PME, je propose un service personnalisé, accessible et rigoureux.
           </p>
 
