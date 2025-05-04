@@ -1,48 +1,28 @@
-import { notFound } from 'next/navigation'
-import type { Metadata } from 'next'
+import { Metadata } from 'next';
 
-const titles: Record<string, string> = {
-  creation: 'Création d’entreprise',
-  modification: 'Modification de société',
-  liquidation: 'Clôture / Liquidation',
-  marque: 'Propriété intellectuelle',
-  cession: 'Cession de parts',
-}
-
-// Type attendu par Next.js pour la route dynamique
 type Props = {
   params: {
-    slug: keyof typeof titles
-  }
-}
+    slug: string;
+  };
+};
 
-// Génère les routes statiques à build-time
-export async function generateStaticParams() {
-  return Object.keys(titles).map((slug) => ({ slug }))
-}
-
-// Génère les métadonnées dynamiques pour chaque page
-export function generateMetadata({ params }: Props): Metadata {
-  const title = titles[params.slug] ?? 'Expertise'
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
-    title: `${title} | Marcouf Formalités`,
-  }
+    title: `Expertise – ${params.slug}`,
+  };
 }
 
-// Affichage de la page
 export default function ExpertisePage({ params }: Props) {
-  const title = titles[params.slug]
-
-  if (!title) {
-    notFound()
-  }
+  const { slug } = params;
 
   return (
-    <main className="min-h-screen px-6 py-24 max-w-3xl mx-auto">
-      <h1 className="text-3xl font-bold mb-4">{title}</h1>
-      <p className="text-gray-700 text-lg">
-        Cette page décrira prochainement mon accompagnement pour <strong>{title}</strong>.
+    <div className="min-h-screen p-8">
+      <h1 className="text-3xl font-bold text-accent">
+        Domaine d&apos;expertise : {slug}
+      </h1>
+      <p className="mt-4 text-gray-600">
+        Cette page est en cours de rédaction. Vous y trouverez bientôt une présentation détaillée de ce domaine juridique.
       </p>
-    </main>
-  )
+    </div>
+  );
 }
