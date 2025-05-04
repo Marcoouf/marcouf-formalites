@@ -1,20 +1,21 @@
 import { Metadata } from 'next'
 
-interface PageProps {
-  params: {
-    slug: string
-  }
-}
-
-// Pour le SEO dynamique
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string }
+}): Promise<Metadata> {
   return {
     title: `Expertise – ${params.slug}`,
-    description: `Découvrez l'accompagnement juridique personnalisé dans le domaine : ${params.slug}`,
+    description: `Découvrez mes services dans le domaine : ${params.slug}`,
   }
 }
 
-export default function ExpertisePage({ params }: PageProps) {
+export default function ExpertisePage({
+  params,
+}: {
+  params: { slug: string }
+}) {
   const { slug } = params
 
   return (
@@ -23,7 +24,7 @@ export default function ExpertisePage({ params }: PageProps) {
         {slug.replace('-', ' ')}
       </h1>
       <p className="mt-6 text-lg text-gray-600 max-w-2xl mx-auto">
-        Cette page présentera bientôt en détail mes services dans le domaine <strong>{slug}</strong>. Vous y découvrirez les étapes d’accompagnement, mes conseils, et les informations pratiques.
+        Cette page présentera bientôt mon accompagnement juridique spécifique en matière de <strong>{slug}</strong>.
       </p>
     </section>
   )
