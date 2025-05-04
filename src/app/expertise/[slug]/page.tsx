@@ -1,31 +1,44 @@
-import { notFound } from 'next/navigation'
+import { notFound } from "next/navigation";
 
-type Props = {
-  params: { slug: string }
+interface Props {
+  params: {
+    slug: string;
+  };
 }
 
-const validSlugs = [
-  'creation-societe',
-  'modification-societe',
-  'propriete-intellectuelle',
-  'formalites',
-  'redaction-juridique',
-]
+export async function generateStaticParams() {
+  return [
+    { slug: "creation" },
+    { slug: "modification" },
+    { slug: "liquidation" },
+    { slug: "marque" },
+    { slug: "cession" },
+  ];
+}
 
-export default function ExpertiseSlugPage({ params }: Props) {
-  const { slug } = params
+export default function ExpertisePage({ params }: Props) {
+  const { slug } = params;
 
-  if (!validSlugs.includes(slug)) {
-    notFound()
+  const titles: Record<string, string> = {
+    creation: "Création d’entreprise",
+    modification: "Modification de société",
+    liquidation: "Clôture / Liquidation",
+    marque: "Propriété intellectuelle",
+    cession: "Cession de parts",
+  };
+
+  const title = titles[slug];
+
+  if (!title) {
+    notFound();
   }
 
   return (
-    <div className="p-10 max-w-3xl mx-auto">
-      <h1 className="text-3xl font-bold capitalize text-accent mb-4">{slug.replace('-', ' ')}</h1>
+    <main className="min-h-screen py-20 px-6 max-w-3xl mx-auto">
+      <h1 className="text-3xl font-bold mb-4">{title}</h1>
       <p className="text-gray-700">
-        Voici la page dédiée au service <strong>{slug.replace('-', ' ')}</strong>. Vous trouverez ici une
-        description détaillée de l’accompagnement proposé pour ce domaine d’expertise.
+        Cette page est en construction. Elle expliquera prochainement les détails de mon accompagnement pour « {title} ».
       </p>
-    </div>
-  )
+    </main>
+  );
 }
