@@ -1,73 +1,59 @@
-'use client'
+'use client';
 
-import React from 'react'
-import Link from 'next/link'
-import { motion } from 'framer-motion'
+import React from 'react';
+import { useRouter } from 'next/navigation';
 
-const domaines = [
+const expertiseList = [
   {
-    title: "Création d’entreprise",
-    slug: "creation-entreprise",
-    description: "Sociétés sur mesure (EURL, SASU, SARL...), statuts, conseils stratégiques.",
+    title: 'Création d’entreprise',
+    description: 'Sociétés sur mesure (EURL, SASU, SARL...), statuts, conseils stratégiques.',
+    path: '/expertise/creation',
   },
   {
-    title: "Propriété intellectuelle",
-    slug: "propriete-intellectuelle",
-    description: "Marques, droits d’auteur, logiciels, cessions et oppositions INPI.",
+    title: 'Propriété intellectuelle',
+    description: 'Marques, droits d’auteur, logiciels, cessions et oppositions INPI.',
+    path: '/expertise/propriete-intellectuelle',
   },
   {
-    title: "Modification de société",
-    slug: "modification-societe",
-    description: "Transfert de siège, changement de dirigeant, augmentation de capital.",
+    title: 'Modification de société',
+    description: 'Transfert de siège, changement de dirigeant, augmentation de capital.',
+    path: '/expertise/modification',
   },
   {
-    title: "Formalités juridiques",
-    slug: "formalites-juridiques",
-    description: "Dissolution, liquidation, greffe, annonces légales.",
+    title: 'Formalités juridiques',
+    description: 'Dissolution, liquidation, greffe, annonces légales.',
+    path: '/expertise/formalites',
   },
   {
-    title: "Contrats commerciaux",
-    slug: "contrats-commerciaux",
-    description: "CGV, prestations, partenariats, conventions personnalisées.",
+    title: 'Contrats commerciaux',
+    description: 'CGV, prestations, partenariats, conventions personnalisées.',
+    path: '/expertise/contrats-commerciaux',
   },
-]
+];
 
 export default function Expertise() {
-  return (
-    <section id="expertise" className="bg-white py-20 px-6">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-4xl font-semibold text-black text-center mb-16">
-          Mes domaines d’expertise
-        </h2>
+  const router = useRouter();
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {domaines.map((domaine, index) => (
-            <motion.div
-              key={domaine.slug}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className="group border border-gray-200 p-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 bg-white flex flex-col justify-between h-full"
+  return (
+    <section className="px-6 py-20 sm:py-28 bg-white">
+      <h2 className="text-3xl sm:text-4xl font-bold text-center mb-16">Mes domaines d’expertise</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        {expertiseList.map((item, index) => (
+          <div
+            key={index}
+            className="border border-gray-200 rounded-xl p-6 hover:shadow-md hover:border-green-600 transition duration-300"
+          >
+            <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
+            <p className="text-gray-600 text-sm mb-4">{item.description}</p>
+            <button
+              onClick={() => router.push(item.path)}
+              className="border border-green-600 text-green-600 text-sm rounded-full px-4 py-2 hover:bg-green-50 transition"
             >
-              <div>
-                <h3 className="text-xl font-semibold text-black mb-2">
-                  {domaine.title}
-                </h3>
-                <p className="text-gray-600 text-sm">
-                  {domaine.description}
-                </p>
-              </div>
-              <Link
-                href={`/expertise/${domaine.slug}`}
-                className="mt-6 inline-block rounded-full border border-green-700 text-green-700 hover:bg-green-700 hover:text-white transition px-5 py-2 text-sm text-center font-medium group-hover:underline"
-              >
-                En savoir plus
-              </Link>
-            </motion.div>
-          ))}
-        </div>
+              En savoir plus
+            </button>
+          </div>
+        ))}
       </div>
     </section>
-  )
+  );
 }
