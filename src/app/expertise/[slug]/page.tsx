@@ -1,11 +1,5 @@
 import { notFound } from "next/navigation";
 
-interface Props {
-  params: {
-    slug: string;
-  };
-}
-
 export async function generateStaticParams() {
   return [
     { slug: "creation" },
@@ -16,7 +10,12 @@ export async function generateStaticParams() {
   ];
 }
 
-export default function ExpertisePage({ params }: Props) {
+// ✅ Le bon typage ici
+export default function ExpertisePage({
+  params,
+}: {
+  params: { slug: string };
+}) {
   const { slug } = params;
 
   const titles: Record<string, string> = {
