@@ -1,35 +1,37 @@
-import { notFound } from 'next/navigation';
+import { notFound } from 'next/navigation'
+import { type Metadata } from 'next'
 
-// Liste des slugs valides
-const validSlugs = ['creation', 'modification', 'liquidation', 'marque', 'cession'];
+// Slugs valides
+const validSlugs = ['creation', 'modification', 'liquidation', 'marque', 'cession']
 
-// Génère les chemins statiques pour le build
-export async function generateStaticParams(): Promise<{ slug: string }[]> {
-  return validSlugs.map((slug) => ({ slug }));
+// Génération des chemins statiques
+export async function generateStaticParams() {
+  return validSlugs.map((slug) => ({ slug }))
 }
 
-// Typage explicite correct
-type PageProps = {
-  params: {
-    slug: string;
-  };
-};
+// SEO dynamique
+export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
+  const title = titles[params.slug] ?? 'Expertise'
+  return {
+    title: `${title} | Marcouf Formalités`,
+  }
+}
 
-export default function ExpertisePage({ params }: PageProps) {
-  const { slug } = params;
+// Mapping des titres
+const titles: Record<string, string> = {
+  creation: "Création d’entreprise",
+  modification: "Modification de société",
+  liquidation: "Clôture / Liquidation",
+  marque: "Propriété intellectuelle",
+  cession: "Cession de parts",
+}
 
-  const titles: Record<string, string> = {
-    creation: "Création d’entreprise",
-    modification: "Modification de société",
-    liquidation: "Clôture / Liquidation",
-    marque: "Propriété intellectuelle",
-    cession: "Cession de parts",
-  };
-
-  const title = titles[slug];
+// Composant principal
+export default function Page({ params }: { params: { slug: string } }) {
+  const title = titles[params.slug]
 
   if (!title) {
-    notFound();
+    notFound()
   }
 
   return (
@@ -39,5 +41,5 @@ export default function ExpertisePage({ params }: PageProps) {
         Cette page présentera bientôt mon accompagnement sur <strong>{title}</strong>.
       </p>
     </main>
-  );
+  )
 }
