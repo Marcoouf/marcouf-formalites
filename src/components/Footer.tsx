@@ -41,7 +41,7 @@ export default function Footer() {
             <li className="flex items-center space-x-2">
               <FaLinkedin className="text-blue-400" />
               <a
-                href="https://www.linkedin.com/in/marcouf-lebar" // à personnaliser
+                href="https://www.linkedin.com/in/marcouf-lebar-25b86a1a2/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:underline"
