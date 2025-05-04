@@ -1,28 +1,30 @@
-import { Metadata } from 'next';
+import { Metadata } from 'next'
 
-type Props = {
+interface PageProps {
   params: {
-    slug: string;
-  };
-};
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  return {
-    title: `Expertise – ${params.slug}`,
-  };
+    slug: string
+  }
 }
 
-export default function ExpertisePage({ params }: Props) {
-  const { slug } = params;
+// Pour le SEO dynamique
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  return {
+    title: `Expertise – ${params.slug}`,
+    description: `Découvrez l'accompagnement juridique personnalisé dans le domaine : ${params.slug}`,
+  }
+}
+
+export default function ExpertisePage({ params }: PageProps) {
+  const { slug } = params
 
   return (
-    <div className="min-h-screen p-8">
-      <h1 className="text-3xl font-bold text-accent">
-        Domaine d&apos;expertise : {slug}
+    <section className="min-h-screen px-6 py-16 sm:py-24 text-center">
+      <h1 className="text-4xl font-bold text-accent capitalize">
+        {slug.replace('-', ' ')}
       </h1>
-      <p className="mt-4 text-gray-600">
-        Cette page est en cours de rédaction. Vous y trouverez bientôt une présentation détaillée de ce domaine juridique.
+      <p className="mt-6 text-lg text-gray-600 max-w-2xl mx-auto">
+        Cette page présentera bientôt en détail mes services dans le domaine <strong>{slug}</strong>. Vous y découvrirez les étapes d’accompagnement, mes conseils, et les informations pratiques.
       </p>
-    </div>
-  );
+    </section>
+  )
 }
