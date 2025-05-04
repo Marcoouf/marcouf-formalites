@@ -1,15 +1,12 @@
 import { notFound } from 'next/navigation'
 import { type Metadata } from 'next'
 
-// Slugs valides
 const validSlugs = ['creation', 'modification', 'liquidation', 'marque', 'cession']
 
-// Génération des chemins statiques
 export async function generateStaticParams() {
   return validSlugs.map((slug) => ({ slug }))
 }
 
-// SEO dynamique
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const title = titles[params.slug] ?? 'Expertise'
   return {
@@ -17,7 +14,6 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   }
 }
 
-// Mapping des titres
 const titles: Record<string, string> = {
   creation: "Création d’entreprise",
   modification: "Modification de société",
@@ -26,7 +22,6 @@ const titles: Record<string, string> = {
   cession: "Cession de parts",
 }
 
-// Composant principal
 export default function Page({ params }: { params: { slug: string } }) {
   const title = titles[params.slug]
 
