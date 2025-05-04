@@ -1,22 +1,21 @@
-import { notFound } from "next/navigation";
+import { notFound } from 'next/navigation';
 
 // Liste des slugs valides
-const validSlugs = ["creation", "modification", "liquidation", "marque", "cession"];
+const validSlugs = ['creation', 'modification', 'liquidation', 'marque', 'cession'];
 
-// Génère les chemins statiques
-export async function generateStaticParams() {
+// Génération statique des chemins
+export function generateStaticParams() {
   return validSlugs.map((slug) => ({ slug }));
 }
 
-// Définition des props avec typage correct
-interface PageProps {
+// Typage correct
+type Props = {
   params: {
     slug: string;
   };
-}
+};
 
-// Page dynamique
-export default function ExpertisePage({ params }: PageProps) {
+export default function ExpertisePage({ params }: Props) {
   const { slug } = params;
 
   const titles: Record<string, string> = {
@@ -34,10 +33,10 @@ export default function ExpertisePage({ params }: PageProps) {
   }
 
   return (
-    <main className="min-h-screen py-20 px-6 max-w-3xl mx-auto">
+    <main className="min-h-screen px-6 py-24 max-w-3xl mx-auto">
       <h1 className="text-3xl font-bold mb-4">{title}</h1>
       <p className="text-gray-700">
-        Cette page vous présentera bientôt les détails de mon accompagnement sur « {title} ».
+        Cette page vous présentera prochainement mon accompagnement sur : <strong>{title}</strong>.
       </p>
     </main>
   );
