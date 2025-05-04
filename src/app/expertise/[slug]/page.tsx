@@ -1,21 +1,22 @@
 import { notFound } from "next/navigation";
 
+// Liste des slugs valides
+const validSlugs = ["creation", "modification", "liquidation", "marque", "cession"];
+
+// Génère les chemins statiques
 export async function generateStaticParams() {
-  return [
-    { slug: "creation" },
-    { slug: "modification" },
-    { slug: "liquidation" },
-    { slug: "marque" },
-    { slug: "cession" },
-  ];
+  return validSlugs.map((slug) => ({ slug }));
 }
 
-// ✅ Le bon typage ici
-export default function ExpertisePage({
-  params,
-}: {
-  params: { slug: string };
-}) {
+// Définition des props avec typage correct
+interface PageProps {
+  params: {
+    slug: string;
+  };
+}
+
+// Page dynamique
+export default function ExpertisePage({ params }: PageProps) {
   const { slug } = params;
 
   const titles: Record<string, string> = {
@@ -36,7 +37,7 @@ export default function ExpertisePage({
     <main className="min-h-screen py-20 px-6 max-w-3xl mx-auto">
       <h1 className="text-3xl font-bold mb-4">{title}</h1>
       <p className="text-gray-700">
-        Cette page est en construction. Elle expliquera prochainement les détails de mon accompagnement pour « {title} ».
+        Cette page vous présentera bientôt les détails de mon accompagnement sur « {title} ».
       </p>
     </main>
   );
