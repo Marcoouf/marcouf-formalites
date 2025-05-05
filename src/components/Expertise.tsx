@@ -1,59 +1,85 @@
-'use client';
+'use client'
+import Button from '@/components/Button'
+import { motion } from 'framer-motion'
 
-import React from 'react';
-import { useRouter } from 'next/navigation';
-
-const expertiseList = [
+const domaines = [
   {
-    title: 'Création d’entreprise',
-    description: 'Sociétés sur mesure (EURL, SASU, SARL...), statuts, conseils stratégiques.',
-    path: '/expertise/creation',
+    titre: 'Création d’entreprise',
+    description:
+      'Choisissez la structure la plus adaptée et démarrez sur des bases solides, avec un accompagnement complet.',
+    href: '/expertise/creation',
   },
   {
-    title: 'Propriété intellectuelle',
-    description: 'Marques, droits d’auteur, logiciels, cessions et oppositions INPI.',
-    path: '/expertise/propriete-intellectuelle',
+    titre: 'Propriété intellectuelle',
+    description:
+      'Protégez vos créations, marques et idées. Dépôts, recherches d’antériorité, stratégie de protection.',
+    href: '/expertise/propriete-intellectuelle',
   },
   {
-    title: 'Modification de société',
-    description: 'Transfert de siège, changement de dirigeant, augmentation de capital.',
-    path: '/expertise/modification',
+    titre: 'Modification de société',
+    description:
+      'Adaptez votre structure à l’évolution de votre activité : transfert, changement de dirigeant, augmentation de capital…',
+    href: '/expertise/modification-societe',
   },
   {
-    title: 'Formalités juridiques',
-    description: 'Dissolution, liquidation, greffe, annonces légales.',
-    path: '/expertise/formalites',
+    titre: 'Formalités juridiques',
+    description:
+      'Clôture, radiation, dissolution ou publication d’annonce légale : je m’occupe de toutes les démarches.',
+    href: '/expertise/formalites-juridiques',
   },
   {
-    title: 'Contrats commerciaux',
-    description: 'CGV, prestations, partenariats, conventions personnalisées.',
-    path: '/expertise/contrats-commerciaux',
+    titre: 'Contrats commerciaux',
+    description:
+      'Mettez en place des contrats solides et adaptés à votre activité : CGV, partenariats, prestations de service…',
+    href: '/expertise/contrats-commerciaux',
   },
-];
+]
 
 export default function Expertise() {
-  const router = useRouter();
-
   return (
-    <section className="px-6 py-20 sm:py-28 bg-white">
-      <h2 className="text-3xl sm:text-4xl font-bold text-center mb-16">Mes domaines d’expertise</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-        {expertiseList.map((item, index) => (
-          <div
-            key={index}
-            className="border border-gray-200 rounded-xl p-6 hover:shadow-md hover:border-green-600 transition duration-300"
-          >
-            <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
-            <p className="text-gray-600 text-sm mb-4">{item.description}</p>
-            <button
-              onClick={() => router.push(item.path)}
-              className="border border-green-600 text-green-600 text-sm rounded-full px-4 py-2 hover:bg-green-50 transition"
-            >
-              En savoir plus
-            </button>
-          </div>
-        ))}
+    <section id="expertise" className="py-24 px-6 sm:px-10 lg:px-24 bg-white">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-extrabold text-gray-900 mb-4">Mes domaines d’expertise</h2>
+          <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+            J’interviens sur l’ensemble des sujets juridiques liés à la structuration, l’évolution et la protection de votre activité.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {domaines.map((domaine, index) => {
+            const isMiddle = index === 2
+
+            return (
+              <motion.div
+                key={domaine.titre}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className={`rounded-xl border border-black/10 shadow-md p-6 flex flex-col justify-between transition-all duration-500 ease-in-out hover:scale-[1.02] hover:shadow-xl ${
+                  isMiddle
+                    ? 'lg:col-span-2 text-center bg-gradient-to-br from-green-100 via-white to-green-50'
+                    : 'bg-white text-left'
+                }`}
+              >
+                <div>
+                  <h3 className="text-xl font-bold mb-2">{domaine.titre}</h3>
+                  <p className="text-gray-600 text-sm">{domaine.description}</p>
+                </div>
+                <div className="mt-4 flex justify-center">
+                  <Button
+                    href={domaine.href}
+                    className="text-sm px-3 py-1 border border-black rounded-full hover:bg-black hover:text-white transition"
+                  >
+                    En savoir plus
+                  </Button>
+                </div>
+              </motion.div>
+            )
+          })}
+        </div>
       </div>
     </section>
-  );
+  )
 }
