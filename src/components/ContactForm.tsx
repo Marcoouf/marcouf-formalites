@@ -16,6 +16,7 @@ interface Errors {
   subject?: string
   message?: string
   consent?: string
+  general?: string
 }
 
 export default function ContactForm() {
@@ -35,7 +36,7 @@ export default function ContactForm() {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value, type } = e.target
-    const checked = (e.target as HTMLInputElement).checked
+    const checked = type === 'checkbox' ? (e.target as HTMLInputElement).checked : undefined
 
     setFormData((prev) => ({
       ...prev,
@@ -43,39 +44,53 @@ export default function ContactForm() {
     }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     const newErrors: Errors = {}
 
-    if (!formData.name) newErrors.name = 'Le nom est requis.'
+    if (!formData.name.trim()) newErrors.name = 'Le nom est requis.'
     if (!formData.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = 'Un email valide est requis.'
     }
-    if (!formData.subject) newErrors.subject = 'L’objet est requis.'
-    if (!formData.message) newErrors.message = 'Le message est requis.'
+    if (!formData.subject.trim()) newErrors.subject = 'L’objet est requis.'
+    if (!formData.message.trim()) newErrors.message = 'Le message est requis.'
     if (!formData.consent) newErrors.consent = 'Veuillez accepter la politique de confidentialité.'
 
     setErrors(newErrors)
 
     if (Object.keys(newErrors).length === 0) {
       setLoading(true)
-      setTimeout(() => {
-        setLoading(false)
-        setSubmitted(true)
-        setFormData({ name: '', email: '', subject: '', message: '', consent: false })
-      }, 1500)
+      try {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+        })
+
+        const result = await response.json()
+        if (result.success) {
+          setSubmitted(true)
+          setFormData({ name: '', email: '', subject: '', message: '', consent: false })
+        } else {
+          setErrors({ general: "Une erreur est survenue. Veuillez réessayer." })
+        }
+      } catch {
+        setErrors({ general: "Impossible d'envoyer le message. Veuillez réessayer plus tard." })
+      }
+      setLoading(false)
     }
   }
 
   return (
-    <section className="py-20 px-6 bg-gradient-to-b from-white to-gray-50">
+    <section className="py-24 px-6 bg-gradient-to-br from-white via-gray-50 to-slate-100">
       <div className="max-w-xl mx-auto text-center mb-12">
         <h2 className="text-4xl font-bold text-accent">Un projet, une question ?</h2>
         <p className="text-gray-600 mt-3">Laissez-moi un message, je vous répondrai sous 24h.</p>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-6 max-w-xl mx-auto bg-white shadow-xl p-8 rounded-xl">
+      <form onSubmit={handleSubmit} className="space-y-6 max-w-xl mx-auto bg-white shadow-2xl p-10 rounded-2xl border border-gray-100">
         {submitted && <p className="text-green-600 text-center">Message envoyé avec succès !</p>}
+        {errors.general && <p className="text-red-500 text-center">{errors.general}</p>}
 
         <div>
           <label className="block mb-2 text-sm font-medium">Nom</label>
@@ -84,7 +99,7 @@ export default function ContactForm() {
             name="name"
             value={formData.name}
             onChange={handleChange}
-            className="w-full bg-white border border-gray-300 rounded-lg px-4 py-2 text-black placeholder-gray-500 shadow-sm focus:outline-none focus:ring-2 focus:ring-accent"
+            className="w-full bg-white border border-gray-300 rounded-md px-4 py-2 text-black placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-accent"
             placeholder="Votre nom"
           />
           {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
@@ -97,7 +112,7 @@ export default function ContactForm() {
             name="email"
             value={formData.email}
             onChange={handleChange}
-            className="w-full bg-white border border-gray-300 rounded-lg px-4 py-2 text-black placeholder-gray-500 shadow-sm focus:outline-none focus:ring-2 focus:ring-accent"
+            className="w-full bg-white border border-gray-300 rounded-md px-4 py-2 text-black placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-accent"
             placeholder="Votre adresse email"
           />
           {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
@@ -110,7 +125,7 @@ export default function ContactForm() {
             name="subject"
             value={formData.subject}
             onChange={handleChange}
-            className="w-full bg-white border border-gray-300 rounded-lg px-4 py-2 text-black placeholder-gray-500 shadow-sm focus:outline-none focus:ring-2 focus:ring-accent"
+            className="w-full bg-white border border-gray-300 rounded-md px-4 py-2 text-black placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-accent"
             placeholder="Objet de votre message"
           />
           {errors.subject && <p className="text-red-500 text-sm mt-1">{errors.subject}</p>}
@@ -123,7 +138,7 @@ export default function ContactForm() {
             rows={5}
             value={formData.message}
             onChange={handleChange}
-            className="w-full bg-white border border-gray-300 rounded-lg px-4 py-2 text-black placeholder-gray-500 shadow-sm focus:outline-none focus:ring-2 focus:ring-accent"
+            className="w-full bg-white border border-gray-300 rounded-md px-4 py-2 text-black placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-accent"
             placeholder="Votre message"
           />
           {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
@@ -135,9 +150,9 @@ export default function ContactForm() {
             name="consent"
             checked={formData.consent}
             onChange={handleChange}
-            className="mr-2 mt-1"
+            className="mt-1 mr-2"
           />
-          <label className="text-sm text-gray-700 leading-snug">
+          <label className="text-sm text-gray-700">
             J’ai lu et j’accepte la{' '}
             <a href="/confidentialite" className="underline text-green-600 hover:text-green-500">
               politique de confidentialité
