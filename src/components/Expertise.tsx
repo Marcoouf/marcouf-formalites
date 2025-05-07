@@ -19,13 +19,13 @@ const domaines = [
     titre: 'Modification de société',
     description:
       'Adaptez votre structure à l’évolution de votre activité : transfert, changement de dirigeant, augmentation de capital…',
-    href: '/expertise/modification-societe',
+    href: '/expertise/modification',
   },
   {
     titre: 'Formalités juridiques',
     description:
       'Clôture, radiation, dissolution ou publication d’annonce légale : je m’occupe de toutes les démarches.',
-    href: '/expertise/formalites-juridiques',
+    href: '/expertise/formalites',
   },
   {
     titre: 'Contrats commerciaux',
