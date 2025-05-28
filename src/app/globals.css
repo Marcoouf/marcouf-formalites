@@ -10,9 +10,12 @@
     --color-accent: #15803d !important;
   }
 }
+html, body, main {
+  background-color: transparent !important;
+}
 
 .btn-accent:hover {
-  background-color: var(--accent);
+  background-color: transparent !important;
   color: white;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   transform: scale(1.03);
@@ -85,3 +88,9 @@ text-accent {
   outline: none;
   box-shadow: 0 0 0 3px var(--accent), 0 0 0 6px white;
 }
+.bg-noise {
+  background-image: url('/textures/brilliant.png');
+  background-repeat: repeat;
+  background-size: auto;
+  opacity: 0.06;
+  }

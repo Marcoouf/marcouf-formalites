@@ -55,8 +55,8 @@ export default function Header() {
         </div>
 
         <nav className="hidden lg:flex items-center gap-4">
-          <Button onClick={() => handleSmartScroll('expertise')}>Services</Button>
           <Button onClick={() => handleSmartScroll('apropos')}>À propos</Button>
+          <Button onClick={() => handleSmartScroll('expertise')}>Services</Button>
           <Button onClick={() => handleSmartScroll('contact')}>Contact</Button>
         </nav>
 

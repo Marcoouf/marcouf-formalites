@@ -24,9 +24,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body className="antialiased bg-white text-black">
+<body className="antialiased bg-transparent text-black" suppressHydrationWarning={true}>
         <Header />
-        <main className="pt-[80px] min-h-screen bg-white text-black">
+      <main className="pt-[80px] min-h-screen bg-transparent text-black">
           {children}
         </main>
         <Footer />

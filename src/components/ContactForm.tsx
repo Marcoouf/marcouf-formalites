@@ -84,7 +84,7 @@ export default function ContactForm() {
   return (
     <section id="contact" className="py-24 px-6 bg-gradient-to-br from-white via-gray-50 to-slate-100">
       <div className="max-w-xl mx-auto text-center mb-12">
-        <h2 className="text-4xl font-bold text-accent">Un projet, une question ?</h2>
+        <h2 className="text-4xl font-bold text-black">Un projet, une question ?</h2>
         <p className="text-gray-600 mt-3">Laissez-moi un message, je vous répondrai sous 24h.</p>
       </div>
 
