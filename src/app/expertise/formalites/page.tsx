@@ -1,120 +1,153 @@
 'use client'
 
 import React from 'react'
+import { motion } from 'framer-motion'
+import { usePathname, useRouter } from 'next/navigation'
 
-export default function CreationPage() {
-  const scrollToContact = () => {
-    const contactSection = document.getElementById('contact')
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' })
+export default function FormalitesPage() {
+  const pathname = usePathname()
+  const router = useRouter()
+  const handleSmartScroll = (id: string) => {
+    if (pathname === '/') {
+      const section = document.getElementById(id)
+      section?.scrollIntoView({ behavior: 'smooth' })
+    } else {
+      router.push(`/#${id}`)
     }
   }
 
   return (
-    <section className="min-h-screen px-6 py-16 sm:py-24 max-w-5xl mx-auto text-gray-800">
-      <h1 className="text-4xl font-bold text-accent text-center">Formalités juridiques</h1>
-      <p className="mt-6 text-lg text-center text-gray-600">
-        Anticipez et facilitez vos démarches administratives avec un accompagnement complet.
-      </p>
+    <main className="relative z-10 min-h-screen mx-auto max-w-6xl px-6 sm:px-16 py-16 space-y-16 text-gray-800 overflow-hidden bg-white bg-noise-paper bg-repeat">
+      {/* HERO – même présentation que Création/Modification/PI */}
+      <motion.header
+        className="text-center space-y-4"
+        initial={{ opacity: 0, y: -30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+      >
+        <h1 className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-green-700">Formalités juridiques</h1>
+        <p className="text-lg text-gray-600">
+          Anticipez et facilitez vos démarches administratives avec un accompagnement complet : constitution du dossier,
+          annonces légales, dépôt au greffe et suivi jusqu’au K‑bis.
+        </p>
+      </motion.header>
 
-      <div className="mt-12 space-y-12">
-        <div>
-          <h2 className="text-2xl font-semibold mb-4">1. Pourquoi faire appel à un juriste pour vos formalités ?</h2>
-          <ul className="list-disc list-inside space-y-2">
-            <li>Gagner du temps et de l’efficacité : dossiers complets et conformes dès la première soumission.</li>
-            <li>Éviter les erreurs coûteuses : omission de pièces, formulaires mal remplis, délais non respectés.</li>
-            <li>Limiter les risques de sanctions : pénalités financières, oppositions d’actes, rejet de dossiers.</li>
-          </ul>
+      {/* Badges confiance */}
+      <section className="flex flex-wrap items-center justify-center gap-3 md:gap-4">
+        <span className="inline-flex items-center gap-2 rounded-full border border-gray-200 px-3 py-1 text-sm text-gray-700">📂 Dossier complet</span>
+        <span className="inline-flex items-center gap-2 rounded-full border border-gray-200 px-3 py-1 text-sm text-gray-700">📰 Annonce légale</span>
+        <span className="inline-flex items-center gap-2 rounded-full border border-gray-200 px-3 py-1 text-sm text-gray-700">🏛️ Dépôt & suivi greffe</span>
+      </section>
+
+      {/* Étapes – 4 cartes */}
+      <section>
+        <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">Un accompagnement en 4 étapes</h2>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          {[
+            { title: 'Recueil & vérification', desc: 'Vérification de la situation, liste des pièces, planning personnalisé.' },
+            { title: 'Préparation du dossier', desc: 'Formulaires, justificatifs, rédaction conforme des actes.' },
+            { title: 'Dépôt & échanges', desc: 'Transmission dématérialisée, relances et réponses au greffe.' },
+            { title: 'Obtention & archivage', desc: 'K‑bis, attestations de parution, dossiers certifiés et rappels.' },
+          ].map((step, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.35, delay: i * 0.05 }}
+              className="rounded-xl border border-gray-200 p-6 bg-white shadow-sm"
+            >
+              <div className="text-green-700 font-semibold mb-2">{String(i + 1).padStart(2, '0')}</div>
+              <h3 className="font-semibold text-lg">{step.title}</h3>
+              <p className="text-gray-700 mt-1">{step.desc}</p>
+            </motion.div>
+          ))}
         </div>
+      </section>
 
-        <div>
-          <h2 className="text-2xl font-semibold mb-4">2. Notre approche : un suivi rigoureux, étape par étape</h2>
-          <ul className="list-disc list-inside space-y-2">
-            <li><strong>Recueil des informations</strong><br/>Vérification de votre situation, liste des pièces, planning personnalisé</li>
-            <li><strong>Préparation des dossiers</strong><br/>Formulaires, justificatifs, rédaction conforme</li>
-            <li><strong>Dépôt et suivi</strong><br/>Transmission, relances, suivi jusqu’à obtention du K-bis</li>
-            <li><strong>Publication et publicité</strong><br/>Annonces légales, attestations de parution</li>
-            <li><strong>Archivage et mise à jour</strong><br/>Dossiers certifiés, rappels d’échéance</li>
+      {/* Pourquoi + Garanties – 2 colonnes */}
+      <section className="grid grid-cols-1 md:grid-cols-2 gap-10">
+        <div className="space-y-4">
+          <h2 className="text-2xl md:text-3xl font-bold">Pourquoi faire appel à un juriste ?</h2>
+          <ul className="space-y-3 text-gray-800">
+            <li><span className="font-medium">Gagner du temps :</span> dossiers complets et conformes dès la première soumission.</li>
+            <li><span className="font-medium">Éviter les erreurs :</span> pièces, formulaires et délais maîtrisés.</li>
+            <li><span className="font-medium">Limiter les risques :</span> pénalités, oppositions et rejets de dossiers.</li>
           </ul>
+          <p className="italic text-gray-600">Un suivi rigoureux évite des retards et des coûts supplémentaires.</p>
         </div>
-
-        <div>
-          <h2 className="text-2xl font-semibold mb-4">3. Les formalités courantes prises en charge</h2>
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border border-gray-200">
-              <thead className="bg-gray-100">
-                <tr>
-                  <th className="p-2 border">Type de formalité</th>
-                  <th className="p-2 border">Objectif</th>
-                  <th className="p-2 border">Détail des prestations</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td className="p-2 border">Création d’entreprise</td>
-                  <td className="p-2 border">Immatriculation</td>
-                  <td className="p-2 border">Formulaire M0, statuts, dépôt de fonds</td>
-                </tr>
-                <tr>
-                  <td className="p-2 border">Modifications statutaires</td>
-                  <td className="p-2 border">Mise à jour</td>
-                  <td className="p-2 border">Formulaires M2/M3/M4, procès‑verbaux</td>
-                </tr>
-                <tr>
-                  <td className="p-2 border">Cessation d’activité</td>
-                  <td className="p-2 border">Radiation</td>
-                  <td className="p-2 border">Formulaire P4, bilans, publicité</td>
-                </tr>
-                <tr>
-                  <td className="p-2 border">Cessions de parts</td>
-                  <td className="p-2 border">Transmission</td>
-                  <td className="p-2 border">Avenants, registre</td>
-                </tr>
-                <tr>
-                  <td className="p-2 border">Annonce légale</td>
-                  <td className="p-2 border">Publication</td>
-                  <td className="p-2 border">Rédaction et gestion</td>
-                </tr>
-                <tr>
-                  <td className="p-2 border">Dépôts fiscaux</td>
-                  <td className="p-2 border">Déclarations</td>
-                  <td className="p-2 border">TVA, CVAE, URSSAF, DSN</td>
-                </tr>
-              </tbody>
-            </table>
+        <div className="space-y-4">
+          <h3 className="text-xl font-semibold">Mes garanties</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {[
+              ['Réactivité', 'Retour sous 24 h'],
+              ['Transparence', 'Devis clair et étapes expliquées'],
+              ['Conformité', 'Documents à jour et pièces vérifiées'],
+              ['Sécurité', 'Confidentialité et archivage sécurisé'],
+            ].map(([t, d], i) => (
+              <div key={i} className="rounded-lg border border-gray-200 p-4 bg-white">
+                <div className="font-medium">{t}</div>
+                <div className="text-gray-700 text-sm">{d}</div>
+              </div>
+            ))}
           </div>
         </div>
+      </section>
 
-        <div>
-          <h2 className="text-2xl font-semibold mb-4">4. Nos conseils d’expert</h2>
-          <ul className="list-disc list-inside space-y-2">
-            <li>Anticipez les échéances pour éviter les retards et relances</li>
-            <li>Centralisez vos documents pour fluidifier les démarches</li>
-            <li>Préparez tous les éléments dès le début du traitement</li>
-            <li>Utilisez la dématérialisation pour plus de sécurité</li>
-          </ul>
+      {/* Tarif */}
+      <section className="rounded-2xl border border-gray-200 bg-gray-50 p-8 md:p-10">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div>
+            <h2 className="text-2xl md:text-3xl font-bold">Tarif indicatif</h2>
+            <p className="text-gray-700 mt-1">Selon la formalité (création, modification, radiation, annonce légale, dépôts fiscaux) et l’urgence.</p>
+          </div>
+          <div className="text-center md:text-right">
+            <div className="text-3xl font-extrabold">Sur devis</div>
+            <div className="text-gray-600">Planning adapté à vos échéances</div>
+            <div className="mt-3">
+              <button onClick={() => handleSmartScroll('contact')} className="btn-devis">
+                Demander un devis
+              </button>
+            </div>
+          </div>
         </div>
+      </section>
 
-        <div>
-          <h2 className="text-2xl font-semibold mb-4">5. Nos garanties de qualité</h2>
-          <ul className="list-disc list-inside space-y-2">
-            <li>Réactivité sous 24 h</li>
-            <li>Transparence tarifaire</li>
-            <li>Expertise éprouvée (200+ dossiers/an)</li>
-            <li>Sécurité et confidentialité</li>
-          </ul>
+      {/* FAQ */}
+      <section>
+        <h2 className="text-2xl md:text-3xl font-bold mb-6">Questions fréquentes</h2>
+        <div className="space-y-4">
+          {[
+            ['Quelles pièces dois‑je fournir ?', 'Je vous transmets une checklist personnalisée selon la formalité (statuts, justificatifs, attestations, etc.).'],
+            ['Faut‑il publier une annonce légale ?', 'Oui pour la plupart des créations et modifications statutaires ; je rédige et publie pour vous.'],
+            ['Quels sont les délais au greffe ?', 'Variable selon les juridictions ; je gère les relances et vous informe des étapes.'],
+            ['Qui signe les documents ?', 'Selon le cas : gérant/président, associé(s) ou mandataire. Je précise les signataires et pièces.'],
+          ].map(([q, a], i) => (
+            <details key={i} className="group rounded-lg border border-gray-200 p-4">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4">
+                <span className="font-medium">{q}</span>
+                <span className="transition-transform group-open:rotate-180">▾</span>
+              </summary>
+              <p className="mt-2 text-gray-700">{a}</p>
+            </details>
+          ))}
         </div>
-      </div>
+      </section>
 
-<div className="flex justify-center mt-12">
-          <button
-            className="btn-devis"
-            onClick={scrollToContact}
-          >
-            Obtenir un devis
-          </button>
-        </div>
-
-    </section>
+      {/* CTA Final */}
+      <motion.section
+        className="text-center space-y-6"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.4 }}
+        viewport={{ once: true }}
+      >
+        <h2 className="text-2xl font-semibold text-green-700">Prêt à lancer vos formalités ?</h2>
+        <p className="text-lg text-gray-700">Expliquez‑moi votre situation et vos délais ; je sécurise la procédure et les pièces.</p>
+        <button className="btn-devis" onClick={() => handleSmartScroll('contact')}>
+          Obtenir un devis
+        </button>
+      </motion.section>
+    </main>
   )
 }

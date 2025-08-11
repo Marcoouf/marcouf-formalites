@@ -1,114 +1,152 @@
-
-
 'use client'
 
 import React from 'react'
+import { motion } from 'framer-motion'
+import { usePathname, useRouter } from 'next/navigation'
 
-export default function CreationPage() {
-  const scrollToContact = () => {
-    const contactSection = document.getElementById('contact')
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' })
+export default function ProprieteIntellectuellePage() {
+  const pathname = usePathname()
+  const router = useRouter()
+  const handleSmartScroll = (id: string) => {
+    if (pathname === '/') {
+      const section = document.getElementById(id)
+      section?.scrollIntoView({ behavior: 'smooth' })
+    } else {
+      router.push(`/#${id}`)
     }
   }
+
   return (
-    <main className="max-w-4xl mx-auto px-4 py-20 space-y-8">
-      <h1 className="text-4xl font-bold text-center text-accent">Propriété intellectuelle</h1>
-      <p className="text-lg text-center text-gray-700">Protégez vos marques, logos, créations, contrats de cession ou de licence. Je vous accompagne dans toutes les démarches.</p>
+    <main className="relative z-10 min-h-screen mx-auto max-w-6xl px-6 sm:px-16 py-16 space-y-16 text-gray-800 overflow-hidden bg-white bg-noise-paper bg-repeat">
+      {/* HERO – même présentation que Création/Modification */}
+      <motion.header
+        className="text-center space-y-4"
+        initial={{ opacity: 0, y: -30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+      >
+        <h1 className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-green-700">Propriété intellectuelle</h1>
+        <p className="text-lg text-gray-600">
+          Protégez vos marques, logos, créations et contrats de cession ou de licence. J’accompagne vos démarches de l’audit au dépôt, puis à l’exploitation de vos droits.
+        </p>
+      </motion.header>
 
-      <section>
-        <h2 className="text-2xl font-semibold text-accent mb-4">1. Pourquoi faire appel à un juriste en propriété intellectuelle ?</h2>
-        <ul className="list-disc pl-6 space-y-2">
-          <li><strong>Sécurisation de vos droits</strong> : identifier et protéger vos marques et œuvres originales pour éviter toute contrefaçon.</li>
-          <li><strong>Valorisation de votre innovation</strong> : structurer vos contrats de cession ou de licence pour maximiser la monétisation de vos créations.</li>
-          <li><strong>Prévention des litiges</strong> : anticiper les conflits et prévoir des mécanismes de résolution adaptés.</li>
-        </ul>
-        <p className="mt-4">Un juriste spécialisé vous garantit une stratégie cohérente et solide, depuis le dépôt jusqu’à l’exploitation de vos droits.</p>
+      {/* Badges confiance (ligne de puces) */}
+      <section className="flex flex-wrap items-center justify-center gap-3 md:gap-4">
+        <span className="inline-flex items-center gap-2 rounded-full border border-gray-200 px-3 py-1 text-sm text-gray-700">🔎 Recherche d’antériorités</span>
+        <span className="inline-flex items-center gap-2 rounded-full border border-gray-200 px-3 py-1 text-sm text-gray-700">🏛️ Dépôt INPI complet</span>
+        <span className="inline-flex items-center gap-2 rounded-full border border-gray-200 px-3 py-1 text-sm text-gray-700">📜 Cession & licence</span>
       </section>
 
+      {/* Étapes – grille 4 cartes */}
       <section>
-        <h2 className="text-2xl font-semibold text-accent mb-4">2. Notre approche : un accompagnement complet et personnalisé</h2>
-        <h3 className="font-bold mt-2">Audit et analyse</h3>
-        <ul className="list-disc pl-6">
-          <li>Recensement de vos actifs (marques, droits d’auteur, noms de domaine…)</li>
-          <li>Évaluation de l’état de la protection existante et des risques</li>
-        </ul>
-        <h3 className="font-bold mt-4">Stratégie de protection</h3>
-        <ul className="list-disc pl-6">
-          <li>Dépôt de marques à l’INPI</li>
-          <li>Enregistrement de droits d’auteur (enveloppe Soleau)</li>
-          <li>Réservation de noms de domaine</li>
-        </ul>
-        <h3 className="font-bold mt-4">Rédaction des contrats</h3>
-        <ul className="list-disc pl-6">
-          <li>Contrats de cession ou de licence</li>
-          <li>Clauses de confidentialité, audits, propriété des améliorations</li>
-        </ul>
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-semibold text-accent mb-4">3. Domaines de compétences</h2>
-        <div className="overflow-x-auto">
-          <table className="w-full text-left border border-gray-300">
-            <thead>
-              <tr className="bg-gray-100">
-                <th className="p-2 border">Domaine</th>
-                <th className="p-2 border">Services clés</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td className="p-2 border">Marques</td>
-                <td className="p-2 border">Recherche d’antériorités, dépôt, renouvellement</td>
-              </tr>
-              <tr>
-                <td className="p-2 border">Droits d’auteur</td>
-                <td className="p-2 border">Dépôt d’œuvres, preuve de paternité</td>
-              </tr>
-              <tr>
-                <td className="p-2 border">Cession de droits</td>
-                <td className="p-2 border">Rédaction d’avenants, garanties</td>
-              </tr>
-              <tr>
-                <td className="p-2 border">Contrats de licence</td>
-                <td className="p-2 border">Redevances, territoire, durée</td>
-              </tr>
-            </tbody>
-          </table>
+        <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">Un accompagnement en 4 étapes</h2>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          {[
+            { title: 'Audit & analyse', desc: 'Recensement des actifs (marques, droits d’auteur, noms de domaine) et évaluation des risques.' },
+            { title: 'Stratégie de protection', desc: 'Choix des classes, territoires, procédures (INPI, enveloppe Soleau), calendrier et budget.' },
+            { title: 'Dépôt & suivi', desc: 'Dépôt de marque à l’INPI, gestion des échanges, renouvellements et surveillances.' },
+            { title: 'Contrats & exploitation', desc: 'Cession, licence, confidentialité, propriété des améliorations et redevances.' },
+          ].map((step, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.35, delay: i * 0.05 }}
+              className="rounded-xl border border-gray-200 p-6 bg-white shadow-sm"
+            >
+              <div className="text-green-700 font-semibold mb-2">{String(i + 1).padStart(2, '0')}</div>
+              <h3 className="font-semibold text-lg">{step.title}</h3>
+              <p className="text-gray-700 mt-1">{step.desc}</p>
+            </motion.div>
+          ))}
         </div>
       </section>
 
-      <section>
-        <h2 className="text-2xl font-semibold text-accent mb-4">4. Nos conseils d’expert</h2>
-        <ul className="list-disc pl-6 space-y-2">
-          <li><strong>Priorisez le dépôt</strong> : anticiper dès la création pour éviter les conflits.</li>
-          <li><strong>Adaptez votre périmètre</strong> : classes et territoires en fonction de votre marché.</li>
-          <li><strong>Renouvelez à temps</strong> : évitez la perte de droits.</li>
-          <li><strong>Intégrez la PI dans votre stratégie</strong> : valorisez vos actifs immatériels.</li>
-        </ul>
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-semibold text-accent mb-4">5. Nos garanties de qualité</h2>
-        <ul className="list-disc pl-6 space-y-2">
-          <li><strong>Réactivité</strong> : retour sous 24 h.</li>
-          <li><strong>Transparence tarifaire</strong> : formules claires.</li>
-          <li><strong>Confidentialité</strong> : protection totale des données.</li>
-        </ul>
-      </section>
-
-      <div className="text-center mt-10">
-        <p className="text-lg font-medium mb-4">Prêt à sécuriser vos créations ?</p>
-
-        <div className="flex justify-center mt-12">
-          <button
-            className="btn-devis"
-            onClick={scrollToContact}
-          >
-            Obtenir un devis
-          </button>
+      {/* Pourquoi + Garanties – 2 colonnes */}
+      <section className="grid grid-cols-1 md:grid-cols-2 gap-10">
+        <div className="space-y-4">
+          <h2 className="text-2xl md:text-3xl font-bold">Pourquoi faire appel à un juriste ?</h2>
+          <ul className="space-y-3 text-gray-800">
+            <li><span className="font-medium">Sécurisation de vos droits :</span> identifier et protéger vos marques et œuvres pour prévenir la contrefaçon.</li>
+            <li><span className="font-medium">Valorisation de l’innovation :</span> structurer la cession ou la licence pour monétiser durablement vos créations.</li>
+            <li><span className="font-medium">Prévention des litiges :</span> anticiper les conflits et prévoir des mécanismes de résolution adaptés.</li>
+          </ul>
+          <p className="italic text-gray-600">Une stratégie de PI cohérente protège et valorise vos actifs immatériels.</p>
         </div>
-      </div>
+        <div className="space-y-4">
+          <h3 className="text-xl font-semibold">Mes garanties</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {[
+              ['Réactivité', 'Retour sous 24 h'],
+              ['Transparence', 'Process clair et étapes expliquées'],
+              ['Conformité', 'Dossiers complets et délais respectés'],
+              ['Confidentialité', 'Protection stricte de vos données'],
+            ].map(([t, d], i) => (
+              <div key={i} className="rounded-lg border border-gray-200 p-4 bg-white">
+                <div className="font-medium">{t}</div>
+                <div className="text-gray-700 text-sm">{d}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Tarif */}
+      <section className="rounded-2xl border border-gray-200 bg-gray-50 p-8 md:p-10">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div>
+            <h2 className="text-2xl md:text-3xl font-bold">Tarif indicatif</h2>
+            <p className="text-gray-700 mt-1">Selon le périmètre (recherche d’antériorités, classes INPI, territoires) et les contrats associés.</p>
+          </div>
+          <div className="text-center md:text-right">
+            <div className="text-3xl font-extrabold">Sur devis</div>
+            <div className="text-gray-600">Planning adapté à votre calendrier</div>
+            <div className="mt-3">
+              <button onClick={() => handleSmartScroll('contact')} className="btn-devis">
+                Discuter de mon projet
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section>
+        <h2 className="text-2xl md:text-3xl font-bold mb-6">Questions fréquentes</h2>
+        <div className="space-y-4">
+          {[
+            ['Dois‑je déposer une marque ?', 'Utile dès que vous exploitez un nom/logo. Le choix des classes dépend de vos produits/services actuels et à venir.'],
+            ['Combien de classes INPI choisir ?', 'On cible l’essentiel selon votre marché. Trop de classes peuvent coûter cher sans utilité.'],
+            ['Cession ou licence : quelle différence ?', 'La cession transfère le droit, la licence l’autorise contre contrepartie (redevances).'],
+            ['Comment prouver mes droits d’auteur ?', 'Enveloppe Soleau, dépôts de preuves, traçabilité des versions et contrats encadrant les contributions.'],
+          ].map(([q, a], i) => (
+            <details key={i} className="group rounded-lg border border-gray-200 p-4">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4">
+                <span className="font-medium">{q}</span>
+                <span className="transition-transform group-open:rotate-180">▾</span>
+              </summary>
+              <p className="mt-2 text-gray-700">{a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      {/* CTA Final */}
+      <motion.section
+        className="text-center space-y-6"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.4 }}
+        viewport={{ once: true }}
+      >
+        <h2 className="text-2xl font-semibold text-green-700">Prêt à sécuriser vos créations ?</h2>
+        <p className="text-lg text-gray-700">Expliquez‑moi vos besoins (marque, licence, cession, droits d’auteur) et je vous propose la meilleure stratégie.</p>
+        <button className="btn-devis" onClick={() => handleSmartScroll('contact')}>
+          Obtenir un devis
+        </button>
+      </motion.section>
     </main>
   )
 }

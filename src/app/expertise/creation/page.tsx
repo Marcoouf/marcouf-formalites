@@ -4,151 +4,150 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { usePathname, useRouter } from 'next/navigation'
 
-export default function CreationPage() {
+export default function CreationService() {
   const pathname = usePathname()
   const router = useRouter()
   const handleSmartScroll = (id: string) => {
     if (pathname === '/') {
       const section = document.getElementById(id)
-      if (section) {
-        section.scrollIntoView({ behavior: 'smooth' })
-      }
+      section?.scrollIntoView({ behavior: 'smooth' })
     } else {
       router.push(`/#${id}`)
     }
   }
 
   return (
-    <>
-      <div className="absolute top-0 left-0 w-full h-[3000px] z-[-10] pointer-events-none">
-        <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-          <defs>
-            <pattern id="lines" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-              <line x1="0" y1="0" x2="0" y2="40" stroke="#34d399" strokeWidth="2" />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#lines)" opacity="0.1" />
-        </svg>
-      </div>
+    <main className="relative z-10 min-h-screen mx-auto max-w-6xl px-6 sm:px-16 py-16 space-y-16 text-gray-800 overflow-hidden bg-white bg-noise-paper bg-repeat">
+      {/* HERO – on garde ton héro existant */}
+      <motion.header
+        className="text-center space-y-4"
+        initial={{ opacity: 0, y: -30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+      >
+        <h1 className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-green-700">Création d’entreprise</h1>
+        <p className="text-lg text-gray-600">
+          Choisissez la structure la plus adaptée et démarrez sur des bases solides, avec un accompagnement complet.
+        </p>
+      </motion.header>
 
-      <main className="relative z-10 min-h-screen px-6 sm:px-16 py-16 max-w-6xl mx-auto space-y-16 text-gray-800 overflow-hidden bg-transparent">
-        <motion.header
-          className="text-center space-y-4"
-          initial={{ opacity: 0, y: -30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
-        >
-          <h1 className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-green-700">Création d’entreprise</h1>
-          <p className="text-lg text-gray-600">
-            Choisissez la structure la plus adaptée et démarrez sur des bases solides, avec un accompagnement complet.
-          </p>
-        </motion.header>
+      {/* Badges confiance (style Mukio) */}
+      <section className="flex flex-wrap items-center justify-center gap-3 md:gap-4">
+        <span className="inline-flex items-center gap-2 rounded-full border border-gray-200 px-3 py-1 text-sm text-gray-700">⏱ Délai moyen 48 h</span>
+        <span className="inline-flex items-center gap-2 rounded-full border border-gray-200 px-3 py-1 text-sm text-gray-700">💶 À partir de 180 € HT</span>
+        <span className="inline-flex items-center gap-2 rounded-full border border-gray-200 px-3 py-1 text-sm text-gray-700">🏢 +150 créations accompagnées</span>
+      </section>
 
-        {[{
-          title: 'Pourquoi faire appel à un juriste ?',
-          content: (
-            <div className="space-y-4">
-              <div className="flex flex-col md:flex-row gap-4">
-                <h3 className="w-full md:w-1/3 font-semibold text-black text-lg">Sécurité juridique</h3>
-                <p className="w-full md:w-2/3">Éviter les clauses abusives et sécuriser vos relations contractuelles.</p>
-              </div>
-              <div className="flex flex-col md:flex-row gap-4">
-                <h3 className="w-full md:w-1/3 font-semibold text-black text-lg">Optimisation fiscale et sociale</h3>
-                <p className="w-full md:w-2/3">Choisir le régime le plus avantageux pour limiter les charges.</p>
-              </div>
-              <div className="flex flex-col md:flex-row gap-4">
-                <h3 className="w-full md:w-1/3 font-semibold text-black text-lg">Prévention des litiges</h3>
-                <p className="w-full md:w-2/3">Anticiper les risques pour protéger votre activité et votre patrimoine.</p>
-              </div>
-              <p className="italic text-gray-600"> En confiant votre projet à un juriste, vous gagnez en sérénité et réduisez les coûts cachés d’une erreur.</p>
-            </div>
-          )
-        }, {
-          title: 'Notre accompagnement',
-          content: (
-            <div className="space-y-4">
-              {[
-                ['Diagnostic personnalisé', 'Analyse de votre activité, objectifs et modèle économique.'],
-                ['Choix de la structure juridique', 'Comparatif EURL, SASU, SARL, SAS… et simulations fiscales.'],
-                ['Rédaction des statuts', 'Clairs, adaptés à vos besoins, déposés avec un dossier complet.'],
-                ['Formalités de création', 'Capital, annonces légales, dépôt au greffe, suivi Kbis.'],
-                ['Conseils post-création', 'Gouvernance, évolutions statutaires, veille juridique.']
-              ].map(([title, text], i) => (
-                <div key={i} className="flex flex-col md:flex-row gap-4">
-                  <h3 className="w-full md:w-1/3 font-semibold text-black text-lg">{title}</h3>
-                  <p className="w-full md:w-2/3">{text}</p>
-                </div>
-              ))}
-            </div>
-          )
-        }, {
-          title: 'Quelle structure choisir ?',
-          content: (
-            <div className="space-y-4">
-              {[
-                ['EURL / SASU', 'Idéal pour les entrepreneurs seuls, gestion simplifiée, responsabilité limitée.'],
-                ['SARL / SAS', 'Adaptées aux associés multiples, souplesse contractuelle et gouvernance ajustable.'],
-                ['SA', 'Structure exigeante mais adaptée à des projets avec levée de fonds ou forte crédibilité.']
-              ].map(([title, text], i) => (
-                <div key={i} className="flex flex-col md:flex-row gap-4">
-                  <h3 className="w-full md:w-1/3 font-semibold text-black text-lg">{title}</h3>
-                  <p className="w-full md:w-2/3">{text}</p>
-                </div>
-              ))}
-              <p className="italic text-gray-600">La SAS offre souvent la liberté contractuelle la plus large, tandis que la SARL convient bien aux projets familiaux.</p>
-            </div>
-          )
-        }, {
-          title: 'Nos garanties',
-          content: (
-            <div className="space-y-4">
-              {[
-                ['Réactivité', 'Réponse sous 24 h.'],
-                ['Transparence', 'Devis clair et adapté à votre projet.'],
-                ['Expérience', 'Plus de 150 entreprises accompagnées.'],
-                ['Confidentialité', 'Secret professionnel et sécurité de vos données.']
-              ].map(([title, text], i) => (
-                <div key={i} className="flex flex-col md:flex-row gap-4">
-                  <h3 className="w-full md:w-1/3 font-semibold text-black text-lg">{title}</h3>
-                  <p className="w-full md:w-2/3">{text}</p>
-                </div>
-              ))}
-            </div>
-          )
-        }].map(({ title, content }, i) => (
-          <motion.section
-            key={i}
-            className="flex flex-col md:flex-row gap-6"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: i * 0.1 }}
-            viewport={{ once: true }}
-          >
-            <div className="w-[280px] bg-white border-2 border-green-700 shadow-xl rounded-xl p-6 flex items-center justify-center h-fit transition-all duration-200">
-              <h2 className="text-2xl font-semibold text-black mb-0 text-center">{title}</h2>
-            </div>
-            <div className="w-full md:w-2/3 bg-white/60 backdrop-blur-sm border border-gray-200 shadow-md rounded-xl p-6 flex flex-col justify-center hover:shadow-lg transition-all duration-200">
-              {content}
-            </div>
-          </motion.section>
-        ))}
+      {/* Étapes – grille 4 cartes */}
+      <section>
+        <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">Mon accompagnement en 4 étapes</h2>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          {[
+            { title: 'Diagnostic', desc: 'Analyse de votre activité, objectifs et modèle économique.' },
+            { title: 'Choix de la structure', desc: 'Comparatif EURL, SASU, SARL, SAS… et simulations fiscales/sociales.' },
+            { title: 'Statuts sur mesure', desc: 'Rédaction claire, adaptée à votre projet et conforme au droit.' },
+            { title: 'Formalités & Kbis', desc: 'Annonce légale, dépôt au greffe, suivi jusqu’au Kbis.' },
+          ].map((step, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.35, delay: i * 0.05 }}
+              className="rounded-xl border border-gray-200 p-6 bg-white shadow-sm"
+            >
+              <div className="text-green-700 font-semibold mb-2">{String(i + 1).padStart(2, '0')}</div>
+              <h3 className="font-semibold text-lg">{step.title}</h3>
+              <p className="text-gray-700 mt-1">{step.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
 
-        <motion.section
-          className="text-center space-y-6"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, delay: 0.4 }}
-          viewport={{ once: true }}
-        >
-          <h2 className="text-2xl font-semibold text-green-700">Prêt à démarrer ?</h2>
-          <p className="text-lg text-gray-700">
-            Contactez-nous pour une première consultation offerte de 30 minutes. Ensemble, structurons votre projet sur des bases solides.
-          </p>
-          <button className="btn-devis" onClick={() => handleSmartScroll('contact')}>
-            Discuter de mon besoin
-          </button>
-        </motion.section>
-      </main>
-    </>
+      {/* Pourquoi + Garanties – 2 colonnes */}
+      <section className="grid grid-cols-1 md:grid-cols-2 gap-10">
+        <div className="space-y-4">
+          <h2 className="text-2xl md:text-3xl font-bold">Pourquoi faire appel à un juriste ?</h2>
+          <ul className="space-y-3 text-gray-800">
+            <li><span className="font-medium">Sécurité juridique :</span> éviter les erreurs dans les statuts et les clauses abusives.</li>
+            <li><span className="font-medium">Optimisation fiscale & sociale :</span> choisir le régime le plus avantageux.</li>
+            <li><span className="font-medium">Prévention des litiges :</span> anticiper les risques et protéger votre patrimoine.</li>
+          </ul>
+          <p className="italic text-gray-600">En confiant votre projet à un juriste, vous gagnez en sérénité et réduisez les coûts cachés d’une erreur.</p>
+        </div>
+        <div className="space-y-4">
+          <h3 className="text-xl font-semibold">Mes garanties</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {[
+              ['Réactivité', 'Réponse sous 24 h'],
+              ['Transparence', 'Devis clair et adapté'],
+              ['Expérience', '+150 créations accompagnées'],
+              ['Confidentialité', 'Secret professionnel'],
+            ].map(([t, d], i) => (
+              <div key={i} className="rounded-lg border border-gray-200 p-4 bg-white">
+                <div className="font-medium">{t}</div>
+                <div className="text-gray-700 text-sm">{d}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Tarif */}
+      <section className="rounded-2xl border border-gray-200 bg-gray-50 p-8 md:p-10">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div>
+            <h2 className="text-2xl md:text-3xl font-bold">Tarif indicatif</h2>
+            <p className="text-gray-700 mt-1">Forfait de base incluant : diagnostic, statuts sur mesure, annonce légale et dépôt au greffe.</p>
+          </div>
+          <div className="text-center md:text-right">
+            <div className="text-3xl font-extrabold">180 € HT</div>
+            <div className="text-gray-600">Délai moyen : 48 heures</div>
+            <div className="mt-3">
+              <button onClick={() => handleSmartScroll('contact')} className="btn-devis">
+                Démarrer ma création
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section>
+        <h2 className="text-2xl md:text-3xl font-bold mb-6">Questions fréquentes</h2>
+        <div className="space-y-4">
+          {[
+            ['Quel statut choisir pour un indépendant ?', 'Cela dépend de votre activité, de votre protection sociale souhaitée et de vos objectifs. Je vous oriente entre EURL/SASU/SARL/SAS avec simulations à l’appui.'],
+            ['Quel est le coût d’une annonce légale ?', 'Variable selon le département et la longueur du texte : en pratique autour de 150–200 €. Je gère la publication.'],
+            ['Quel délai pour obtenir un Kbis ?', 'Après dépôt complet, en général 24 à 48 h selon le greffe.'],
+          ].map(([q, a], i) => (
+            <details key={i} className="group rounded-lg border border-gray-200 p-4">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4">
+                <span className="font-medium">{q}</span>
+                <span className="transition-transform group-open:rotate-180">▾</span>
+              </summary>
+              <p className="mt-2 text-gray-700">{a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      {/* CTA Final – conserve ton style de bouton */}
+      <motion.section
+        className="text-center space-y-6"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.4 }}
+        viewport={{ once: true }}
+      >
+        <h2 className="text-2xl font-semibold text-green-700">Prêt à démarrer ?</h2>
+        <p className="text-lg text-gray-700">
+          Contactez-nous pour une première consultation offerte de 30 minutes. Ensemble, structurons votre projet sur des bases solides.
+        </p>
+        <button className="btn-devis" onClick={() => handleSmartScroll('contact')}>
+          Discuter de mon besoin
+        </button>
+      </motion.section>
+    </main>
   )
 }

@@ -2,13 +2,22 @@
 
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
-import { ElementType, AnchorHTMLAttributes, ButtonHTMLAttributes } from 'react';
+import React, { ElementType, AnchorHTMLAttributes, ButtonHTMLAttributes } from 'react';
+
+type ButtonSize = 'sm' | 'md' | 'lg';
+
+const sizeClasses: Record<ButtonSize, string> = {
+  sm: 'px-3 py-2 text-sm',
+  md: 'px-4 py-2.5',
+  lg: 'px-6 py-3 text-base md:text-lg',
+};
 
 type ButtonProps = {
   children: React.ReactNode;
   icon?: ElementType;
   className?: string;
   href?: string;
+  size?: ButtonSize;                 // 🔹 ajouté
 } & ButtonHTMLAttributes<HTMLButtonElement> &
   AnchorHTMLAttributes<HTMLAnchorElement>;
 
@@ -17,13 +26,12 @@ export default function Button({
   icon: Icon,
   className,
   href,
+  size = 'md',                       // 🔹 défaut
   ...props
 }: ButtonProps) {
   const classNames = cn(
-    'inline-flex items-center justify-center gap-2 rounded-full border border-black px-6 py-2 font-medium text-black min-w-[160px]',
-    'transition-all duration-300 ease-in-out',
-    'hover:bg-[var(--accent)] hover:text-white hover:shadow-lg hover:scale-[1.03]',
-    'focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:ring-offset-2',
+    'inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
+    sizeClasses[size],               // 🔹 applique la taille
     className
   );
 
