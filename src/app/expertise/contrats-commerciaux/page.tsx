@@ -3,6 +3,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { usePathname, useRouter } from 'next/navigation'
+import { StepsRail, stepsContrats } from '../../../components/StepsRail'
 
 export default function ContratsPage() {
   const pathname = usePathname()
@@ -38,31 +39,12 @@ export default function ContratsPage() {
         <span className="inline-flex items-center gap-2 rounded-full border border-gray-200 px-3 py-1 text-sm text-gray-700">🤝 Négociation & avenants</span>
       </section>
 
-      {/* Étapes – grille 4 cartes */}
-      <section>
-        <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">Un accompagnement en 4 étapes</h2>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          {[
-            { title: 'Analyse du besoin', desc: 'Modèle économique, parties, risques clés, pièces et contraintes.' },
-            { title: 'Rédaction', desc: 'Clauses claires, opérationnelles, adaptées à votre activité.' },
-            { title: 'Validation & négociation', desc: 'Allers‑retours, conformité juridique, arbitrages et options.' },
-            { title: 'Signature & suivi', desc: 'Version finale, annexes, process de signature, mises à jour.' },
-          ].map((step, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.35, delay: i * 0.05 }}
-              className="rounded-xl border border-gray-200 p-6 bg-white shadow-sm"
-            >
-              <div className="text-green-700 font-semibold mb-2">{String(i + 1).padStart(2, '0')}</div>
-              <h3 className="font-semibold text-lg">{step.title}</h3>
-              <p className="text-gray-700 mt-1">{step.desc}</p>
-            </motion.div>
-          ))}
-        </div>
-      </section>
+      {/* Étapes – rail façon Infogreffe */}
+      <StepsRail
+        title="Un accompagnement en 4 étapes"
+        subtitle="Analyse, rédaction, validation & négociation, signature & suivi."
+        steps={stepsContrats}
+      />
 
       {/* Pourquoi + Garanties – 2 colonnes */}
       <section className="grid grid-cols-1 md:grid-cols-2 gap-10">

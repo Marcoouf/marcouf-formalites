@@ -3,6 +3,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { usePathname, useRouter } from 'next/navigation'
+import { StepsRail, stepsPI } from '../../../components/StepsRail'
 
 export default function ProprieteIntellectuellePage() {
   const pathname = usePathname()
@@ -38,31 +39,12 @@ export default function ProprieteIntellectuellePage() {
         <span className="inline-flex items-center gap-2 rounded-full border border-gray-200 px-3 py-1 text-sm text-gray-700">📜 Cession & licence</span>
       </section>
 
-      {/* Étapes – grille 4 cartes */}
-      <section>
-        <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">Un accompagnement en 4 étapes</h2>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          {[
-            { title: 'Audit & analyse', desc: 'Recensement des actifs (marques, droits d’auteur, noms de domaine) et évaluation des risques.' },
-            { title: 'Stratégie de protection', desc: 'Choix des classes, territoires, procédures (INPI, enveloppe Soleau), calendrier et budget.' },
-            { title: 'Dépôt & suivi', desc: 'Dépôt de marque à l’INPI, gestion des échanges, renouvellements et surveillances.' },
-            { title: 'Contrats & exploitation', desc: 'Cession, licence, confidentialité, propriété des améliorations et redevances.' },
-          ].map((step, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.35, delay: i * 0.05 }}
-              className="rounded-xl border border-gray-200 p-6 bg-white shadow-sm"
-            >
-              <div className="text-green-700 font-semibold mb-2">{String(i + 1).padStart(2, '0')}</div>
-              <h3 className="font-semibold text-lg">{step.title}</h3>
-              <p className="text-gray-700 mt-1">{step.desc}</p>
-            </motion.div>
-          ))}
-        </div>
-      </section>
+      {/* Étapes – rail façon Infogreffe */}
+      <StepsRail
+        title="Un accompagnement en 4 étapes"
+        subtitle="Audit, stratégie de protection, dépôt & suivi, contrats & exploitation."
+        steps={stepsPI}
+      />
 
       {/* Pourquoi + Garanties – 2 colonnes */}
       <section className="grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -79,7 +61,7 @@ export default function ProprieteIntellectuellePage() {
           <h3 className="text-xl font-semibold">Mes garanties</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {[
-              ['Réactivité', 'Retour sous 24 h'],
+              ['Réactivité', 'Retour sous 24\u00A0h'],
               ['Transparence', 'Process clair et étapes expliquées'],
               ['Conformité', 'Dossiers complets et délais respectés'],
               ['Confidentialité', 'Protection stricte de vos données'],

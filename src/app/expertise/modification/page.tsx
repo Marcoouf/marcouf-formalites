@@ -3,6 +3,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { usePathname, useRouter } from 'next/navigation'
+import { StepsRail, stepsModification } from '../../../components/StepsRail'
 
 export default function ModificationService() {
   const pathname = usePathname()
@@ -34,36 +35,17 @@ export default function ModificationService() {
 
       {/* Badges confiance (style Mukio) */}
       <section className="flex flex-wrap items-center justify-center gap-3 md:gap-4">
-        <span className="inline-flex items-center gap-2 rounded-full border border-gray-200 px-3 py-1 text-sm text-gray-700">⏱ Délai moyen 48 h</span>
-        <span className="inline-flex items-center gap-2 rounded-full border border-gray-200 px-3 py-1 text-sm text-gray-700">💶 À partir de 180 € HT</span>
+        <span className="inline-flex items-center gap-2 rounded-full border border-gray-200 px-3 py-1 text-sm text-gray-700">⏱ Délai moyen <span className="whitespace-nowrap">48 h</span></span>
+        <span className="inline-flex items-center gap-2 rounded-full border border-gray-200 px-3 py-1 text-sm text-gray-700">💶 À partir de <span className="whitespace-nowrap">180 € HT</span></span>
         <span className="inline-flex items-center gap-2 rounded-full border border-gray-200 px-3 py-1 text-sm text-gray-700">📑 Dossier vérifié Greffe</span>
       </section>
 
-      {/* Étapes – grille 4 cartes (identique au layout Création) */}
-      <section>
-        <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">Votre modification en 4 étapes</h2>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          {[
-            { title: 'Diagnostic', desc: 'Vérification des statuts, impacts juridiques et pièces nécessaires.' },
-            { title: 'Actes & Statuts', desc: 'PV (AGO/AGE), statuts mis à jour, rapports si besoin.' },
-            { title: 'Formalités', desc: 'Annonce légale, formulaires M2/M3/DBE, dépôt et suivi greffe.' },
-            { title: 'Kbis & Suivi', desc: 'Réception du Kbis modifié et recommandations post‑modification.' },
-          ].map((step, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.35, delay: i * 0.05 }}
-              className="rounded-xl border border-gray-200 p-6 bg-white shadow-sm"
-            >
-              <div className="text-green-700 font-semibold mb-2">{String(i + 1).padStart(2, '0')}</div>
-              <h3 className="font-semibold text-lg">{step.title}</h3>
-              <p className="text-gray-700 mt-1">{step.desc}</p>
-            </motion.div>
-          ))}
-        </div>
-      </section>
+      {/* Étapes – rail façon Infogreffe */}
+      <StepsRail
+        title="Votre modification en 4 étapes"
+        subtitle="Diagnostic, actes & statuts, formalités, Kbis & suivi."
+        steps={stepsModification}
+      />
 
       {/* Pourquoi + Garanties – 2 colonnes (identique au layout Création) */}
       <section className="grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -102,8 +84,8 @@ export default function ModificationService() {
             <p className="text-gray-700 mt-1">Forfait incluant : PV, statuts mis à jour, annonce légale et formalités au greffe.</p>
           </div>
           <div className="text-center md:text-right">
-            <div className="text-3xl font-extrabold">À partir de 180 € HT</div>
-            <div className="text-gray-600">Délai moyen : 48 heures</div>
+            <div className="text-3xl font-extrabold">À partir de <span className="whitespace-nowrap">180 € HT</span></div>
+            <div className="text-gray-600">Délai moyen : <span className="whitespace-nowrap">48 heures</span></div>
             <div className="mt-3">
               <button onClick={() => handleSmartScroll('contact')} className="btn-devis">
                 Demander un devis

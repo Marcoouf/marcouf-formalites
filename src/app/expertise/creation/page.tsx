@@ -3,6 +3,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { usePathname, useRouter } from 'next/navigation'
+import { StepsRail, stepsCreation } from '../../../components/StepsRail'
 
 export default function CreationService() {
   const pathname = usePathname()
@@ -33,36 +34,17 @@ export default function CreationService() {
 
       {/* Badges confiance (style Mukio) */}
       <section className="flex flex-wrap items-center justify-center gap-3 md:gap-4">
-        <span className="inline-flex items-center gap-2 rounded-full border border-gray-200 px-3 py-1 text-sm text-gray-700">⏱ Délai moyen 48 h</span>
-        <span className="inline-flex items-center gap-2 rounded-full border border-gray-200 px-3 py-1 text-sm text-gray-700">💶 À partir de 180 € HT</span>
+        <span className="inline-flex items-center gap-2 rounded-full border border-gray-200 px-3 py-1 text-sm text-gray-700">⏱ Délai moyen <span className="whitespace-nowrap">48 h</span></span>
+        <span className="inline-flex items-center gap-2 rounded-full border border-gray-200 px-3 py-1 text-sm text-gray-700">💶 À partir de <span className="whitespace-nowrap">180 € HT</span></span>
         <span className="inline-flex items-center gap-2 rounded-full border border-gray-200 px-3 py-1 text-sm text-gray-700">🏢 +150 créations accompagnées</span>
       </section>
 
-      {/* Étapes – grille 4 cartes */}
-      <section>
-        <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">Mon accompagnement en 4 étapes</h2>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          {[
-            { title: 'Diagnostic', desc: 'Analyse de votre activité, objectifs et modèle économique.' },
-            { title: 'Choix de la structure', desc: 'Comparatif EURL, SASU, SARL, SAS… et simulations fiscales/sociales.' },
-            { title: 'Statuts sur mesure', desc: 'Rédaction claire, adaptée à votre projet et conforme au droit.' },
-            { title: 'Formalités & Kbis', desc: 'Annonce légale, dépôt au greffe, suivi jusqu’au Kbis.' },
-          ].map((step, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.35, delay: i * 0.05 }}
-              className="rounded-xl border border-gray-200 p-6 bg-white shadow-sm"
-            >
-              <div className="text-green-700 font-semibold mb-2">{String(i + 1).padStart(2, '0')}</div>
-              <h3 className="font-semibold text-lg">{step.title}</h3>
-              <p className="text-gray-700 mt-1">{step.desc}</p>
-            </motion.div>
-          ))}
-        </div>
-      </section>
+      {/* Étapes – rail façon Infogreffe */}
+      <StepsRail
+        title="Mon accompagnement en 4 étapes"
+        subtitle="Diagnostic, statuts, formalités, Kbis."
+        steps={stepsCreation}
+      />
 
       {/* Pourquoi + Garanties – 2 colonnes */}
       <section className="grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -101,8 +83,8 @@ export default function CreationService() {
             <p className="text-gray-700 mt-1">Forfait de base incluant : diagnostic, statuts sur mesure, annonce légale et dépôt au greffe.</p>
           </div>
           <div className="text-center md:text-right">
-            <div className="text-3xl font-extrabold">180 € HT</div>
-            <div className="text-gray-600">Délai moyen : 48 heures</div>
+            <div className="text-3xl font-extrabold"><span className="whitespace-nowrap">180 € HT</span></div>
+            <div className="text-gray-600">Délai moyen : <span className="whitespace-nowrap">48 h</span></div>
             <div className="mt-3">
               <button onClick={() => handleSmartScroll('contact')} className="btn-devis">
                 Démarrer ma création

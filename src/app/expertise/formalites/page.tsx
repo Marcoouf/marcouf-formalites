@@ -3,6 +3,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { usePathname, useRouter } from 'next/navigation'
+import { StepsRail, stepsFormalites } from '../../../components/StepsRail'
 
 export default function FormalitesPage() {
   const pathname = usePathname()
@@ -39,31 +40,12 @@ export default function FormalitesPage() {
         <span className="inline-flex items-center gap-2 rounded-full border border-gray-200 px-3 py-1 text-sm text-gray-700">🏛️ Dépôt & suivi greffe</span>
       </section>
 
-      {/* Étapes – 4 cartes */}
-      <section>
-        <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">Un accompagnement en 4 étapes</h2>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          {[
-            { title: 'Recueil & vérification', desc: 'Vérification de la situation, liste des pièces, planning personnalisé.' },
-            { title: 'Préparation du dossier', desc: 'Formulaires, justificatifs, rédaction conforme des actes.' },
-            { title: 'Dépôt & échanges', desc: 'Transmission dématérialisée, relances et réponses au greffe.' },
-            { title: 'Obtention & archivage', desc: 'K‑bis, attestations de parution, dossiers certifiés et rappels.' },
-          ].map((step, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.35, delay: i * 0.05 }}
-              className="rounded-xl border border-gray-200 p-6 bg-white shadow-sm"
-            >
-              <div className="text-green-700 font-semibold mb-2">{String(i + 1).padStart(2, '0')}</div>
-              <h3 className="font-semibold text-lg">{step.title}</h3>
-              <p className="text-gray-700 mt-1">{step.desc}</p>
-            </motion.div>
-          ))}
-        </div>
-      </section>
+      {/* Étapes – rail façon Infogreffe */}
+      <StepsRail
+        title="Un accompagnement en 4 étapes"
+        subtitle="Recueil des pièces, préparation, dépôt/échanges, obtention & archivage."
+        steps={stepsFormalites}
+      />
 
       {/* Pourquoi + Garanties – 2 colonnes */}
       <section className="grid grid-cols-1 md:grid-cols-2 gap-10">
