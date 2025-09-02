@@ -1,7 +1,12 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  /* config options here */
-};
+  async redirects() {
+    return [
+      { source: '/expertise/contrats-commerciaux', destination: '/expertise/contrats-et-documentation', permanent: true },
+      { source: '/expertise/formalites', destination: '/expertise/modification', permanent: false },
+    ]
+  },
+}
 
-export default nextConfig;
+export default nextConfig

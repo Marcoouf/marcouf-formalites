@@ -4,34 +4,34 @@ import { motion } from 'framer-motion'
 
 const domaines = [
   {
+    titre: 'Modification de société',
+    description:
+      'Changement de dirigeant/siège/objet/dénomination, capital, transformation, dossiers greffe.',
+    href: '/expertise/modification',
+  },
+  {
+    titre: 'Contrats & documentation interne',
+    description:
+      'Contrats (prestation, distribution…), CGV/CGU, NDA, pacte d’associés, baux commerciaux, chartes et documentation RGPD adaptés à votre activité.',
+    href: '/expertise/contrats-et-documentation',
+  },
+  {
     titre: 'Création d’entreprise',
     description:
-      'Choisissez la structure la plus adaptée et démarrez sur des bases solides, avec un accompagnement complet.',
+      'Conseil sur la forme (SAS, SARL, EURL…), statuts, dossier greffe, guichet unique (INPI) et publication.',
     href: '/expertise/creation',
+  },
+  {
+    titre: 'Secrétariat juridique & actes de société',
+    description:
+      'Approbation des comptes, PV AGO/AGE, délégations de pouvoirs, statuts à jour, registres légaux.',
+    href: '/expertise/redaction-actes',
   },
   {
     titre: 'Propriété intellectuelle',
     description:
-      'Protégez vos créations, marques et idées. Dépôts, recherches d’antériorité, stratégie de protection.',
+      'Marques et actifs immatériels : recherches d’antériorité, dépôt (INPI/EUIPO) et suivi jusqu’à l’enregistrement.',
     href: '/expertise/propriete-intellectuelle',
-  },
-  {
-    titre: 'Modification de société',
-    description:
-      'Adaptez votre structure à l’évolution de votre activité : transfert, changement de dirigeant, augmentation de capital…',
-    href: '/expertise/modification',
-  },
-  {
-    titre: 'Formalités juridiques',
-    description:
-      'Clôture, radiation, dissolution ou publication d’annonce légale : je m’occupe de toutes les démarches.',
-    href: '/expertise/formalites',
-  },
-  {
-    titre: 'Contrats commerciaux',
-    description:
-      'Mettez en place des contrats solides et adaptés à votre activité : CGV, partenariats, prestations de service…',
-    href: '/expertise/contrats-commerciaux',
   },
 ]
 
