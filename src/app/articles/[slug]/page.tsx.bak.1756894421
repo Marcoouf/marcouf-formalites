@@ -6,7 +6,6 @@ import rehypeSlug from 'rehype-slug'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import { getAllSlugs, getArticleBySlug } from '../../../lib/articles'
 import Link from 'next/link'
-import type { PageProps } from 'next'
 
 // Local type for related articles
 type LoadedArticle = {
@@ -33,21 +32,13 @@ function formatFR(dateISO?: string) {
 
 function stripMarkdown(s: string) {
   return s
-    // blocs de code ``` ```
     .replace(/```[\s\S]*?```/g, '')
-    // code inline `code`
     .replace(/`[^`]*`/g, '')
-    // images ![alt](url)
-    .replace(/!\[[^\]]*\]\([^\)]+\)/g, '')
-    // math LaTeX $$...$$ et $...$
-    .replace(/\$\$[\s\S]*?\$\$/g, '')
-    .replace(/\$[^$]*\$/g, '')
-    // listes
+    .replace(/!\[[^\]]*\]$begin:math:text$[^$end:math:text$]+\)/g, '')
+    .replace(/$begin:math:display$([^$end:math:display$]+)\]$begin:math:text$[^$end:math:text$]+\)/g, '$1')
     .replace(/^[>\s]*[-*+]\s+/gm, '')
     .replace(/^[>\s]*\d+\.\s+/gm, '')
-    // mise en forme
     .replace(/[*_#>~`]/g, '')
-    // sauts de ligne multiples
     .replace(/\n{2,}/g, '\n')
     .trim()
 }
@@ -101,9 +92,8 @@ export async function generateStaticParams() {
   return slugs.map((slug) => ({ slug }))
 }
 
-export async function generateMetadata({ params }: PageProps<{ slug: string }>) {
-  const { slug } = await params;
-  const got = await getArticleBySlug(slug).catch(() => null)
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+  const got = await getArticleBySlug(params.slug).catch(() => null)
   if (!got) return {}
   const { meta } = got
   return {
@@ -119,9 +109,8 @@ export async function generateMetadata({ params }: PageProps<{ slug: string }>) 
   }
 }
 
-export default async function ArticlePage({ params }: PageProps<{ slug: string }>) {
-  const { slug } = await params;
-  const got = await getArticleBySlug(slug).catch(() => null)
+export default async function ArticlePage({ params }: { params: { slug: string } }) {
+  const got = await getArticleBySlug(params.slug).catch(() => null)
   if (!got) return notFound()
   const { meta, content } = got
 
@@ -135,7 +124,7 @@ export default async function ArticlePage({ params }: PageProps<{ slug: string }
   const allSlugs = await getAllSlugs()
   const relatedRaw = (await Promise.all(
     allSlugs
-      .filter((s) => s !== (meta.slug ?? slug))
+      .filter((s) => s !== (meta.slug ?? params.slug))
       .slice(0, 10)
       .map(async (s) => await getArticleBySlug(s).catch(() => null))
   )) as (LoadedArticle | null)[]
@@ -266,7 +255,7 @@ export default async function ArticlePage({ params }: PageProps<{ slug: string }
             publisher: { '@type': 'Organization', name: 'Marcouf Formalités' },
             mainEntityOfPage: {
               '@type': 'WebPage',
-              '@id': `https://www.marcouf-formalites.fr/articles/${meta.slug ?? slug}`,
+              '@id': `https://www.marcouf-formalites.fr/articles/${meta.slug ?? params.slug}`,
             },
           }),
         }}
