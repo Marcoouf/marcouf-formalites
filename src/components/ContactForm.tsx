@@ -106,7 +106,10 @@ export default function ContactForm() {
     e.preventDefault()
     const newErrors = validate(formData)
     setErrors(newErrors)
-    if (Object.keys(newErrors).length > 0) return
+    if (Object.keys(newErrors).length > 0) {
+      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+      return
+    }
 
     // Anti‑spam : si honeypot rempli → succès silencieux ; si envoi trop rapide + message trop court → on bloque avec un message clair
     const elapsed = mountedAt ? Date.now() - mountedAt : 9999
@@ -116,6 +119,7 @@ export default function ContactForm() {
     }
     if (elapsed < 1200 && formData.message.trim().length < 40) {
       setErrors({ general: 'Envoi trop rapide — merci de patienter une seconde et de détailler un peu votre demande.' })
+      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
       return
     }
 
@@ -146,9 +150,11 @@ export default function ContactForm() {
         setErrors({})
       } else {
         setErrors({ general: 'Une erreur est survenue. Veuillez réessayer.' })
+        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
       }
     } catch {
       setErrors({ general: "Impossible d'envoyer le message. Veuillez réessayer plus tard." })
+      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
     } finally {
       setLoading(false)
     }
@@ -170,21 +176,6 @@ export default function ContactForm() {
           noValidate
           className="space-y-8 bg-white shadow-xl p-8 md:p-10 rounded-2xl border border-gray-100"
         >
-          {submitted && (
-            <div className="rounded-lg border border-green-200 bg-green-50 text-green-800 p-4 text-sm">
-              <p className="font-medium">✅ Message envoyé.</p>
-              <p className="mt-1">
-                Merci&nbsp;! Je vous recontacte rapidement. En attendant, vous pouvez consulter mes{' '}
-                <Link href="/articles" className="underline">derniers articles</Link> ou mes{' '}
-                <Link href="/#expertise" className="underline">domaines d’expertise</Link>.
-              </p>
-            </div>
-          )}
-          {errors.general && (
-            <div className="rounded-lg border border-red-200 bg-red-50 text-red-800 p-4 text-sm">
-              {errors.general}
-            </div>
-          )}
 
           {/* Honeypot */}
           <div className="hidden" aria-hidden>
@@ -410,7 +401,7 @@ export default function ContactForm() {
           {errors.consent && <p className="text-red-500 text-sm mt-1">{errors.consent}</p>}
 
           {/* CTA */}
-          <div className="flex items-center justify-center gap-3">
+          <div className="flex flex-col items-center justify-center gap-3">
             <button
               type="submit"
               disabled={!ready || loading}
@@ -420,6 +411,17 @@ export default function ContactForm() {
             >
               {loading ? 'Envoi…' : 'Envoyer'}
             </button>
+
+            {submitted && (
+              <div className="mt-3 text-center rounded-lg border border-green-200 bg-green-50 text-green-800 p-3 text-sm">
+                ✅ Message envoyé. Merci ! Je vous recontacte rapidement.
+              </div>
+            )}
+            {errors.general && (
+              <div className="mt-3 text-center rounded-lg border border-red-200 bg-red-50 text-red-800 p-3 text-sm">
+                {errors.general}
+              </div>
+            )}
           </div>
 
           {/* Coordonnées alternatives */}
