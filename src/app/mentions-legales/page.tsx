@@ -126,30 +126,6 @@ export default function MentionsLegales() {
         </p>
       </section>
 
-      {/* SI E-COMMERCE : BLOCS OPTIONNELS */}
-      <section className="space-y-2 mb-8">
-        <h2 className="text-xl font-semibold">9. Informations complémentaires (si e‑commerce)</h2>
-        <p>
-          <em>Le site est un site vitrine de prestations juridiques, sans vente en ligne.</em> Les informations ci‑dessous ne s’appliquent qu’en cas de commerce électronique à destination de consommateurs.
-        </p>
-        <ul className="list-disc pl-5 space-y-1">
-          <li>
-            <strong>Identité du vendeur professionnel&nbsp;:</strong> [à compléter&nbsp;: dénomination, adresse, contact].
-          </li>
-          <li>
-            <strong>Conditions de vente&nbsp;:</strong> consulter les <a href="/cgv" className="underline">conditions
-            générales de vente</a>.
-          </li>
-          <li>
-            <strong>Droit de rétractation (B2C)&nbsp;:</strong> modalités, délai légal (14 jours – Code de la consommation) et
-            formulaire type disponibles dans les CGV.
-          </li>
-          <li>
-            <strong>Médiation de la consommation&nbsp;:</strong> coordonnées du médiateur compétent conformément à l’article
-            L.612‑1 du Code de la consommation. {/* À compléter si le site vise des consommateurs */}
-          </li>
-        </ul>
-      </section>
 
       <p className="text-sm text-gray-500">Dernière mise à jour&nbsp;: 2025.</p>
     </main>
