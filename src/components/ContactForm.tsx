@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 
 interface FormData {
@@ -42,14 +42,16 @@ export default function ContactForm() {
   const [loading, setLoading] = useState(false)
   const [submitted, setSubmitted] = useState(false)
 
-  // Honeypot + tempo anti‑spam (ex: < 3s)
+  // Honeypot + tempo anti‑spam (réglage plus souple)
   const [hp, setHp] = useState('') // champ leurre invisible
   const [mountedAt, setMountedAt] = useState<number | null>(null)
   useEffect(() => setMountedAt(Date.now()), [])
-  const tooFast = useMemo(() => {
-    if (!mountedAt) return false
-    return Date.now() - mountedAt < 3000
-  }, [mountedAt])
+  // Petit délai d'armement du bouton pour éviter les envois robots
+  const [ready, setReady] = useState(false)
+  useEffect(() => {
+    const t = setTimeout(() => setReady(true), 1200)
+    return () => clearTimeout(t)
+  }, [])
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -106,20 +108,14 @@ export default function ContactForm() {
     setErrors(newErrors)
     if (Object.keys(newErrors).length > 0) return
 
-    // Anti‑spam: si honeypot rempli ou envoi trop rapide, on retourne un succès silencieux
-    if (hp || tooFast) {
+    // Anti‑spam : si honeypot rempli → succès silencieux ; si envoi trop rapide + message trop court → on bloque avec un message clair
+    const elapsed = mountedAt ? Date.now() - mountedAt : 9999
+    if (hp) {
       setSubmitted(true)
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        subject: '',
-        message: '',
-        preferredContact: 'email',
-        timePreference: 'indifferent',
-        heardFrom: '',
-        consent: false,
-      })
+      return
+    }
+    if (elapsed < 1200 && formData.message.trim().length < 40) {
+      setErrors({ general: 'Envoi trop rapide — merci de patienter une seconde et de détailler un peu votre demande.' })
       return
     }
 
@@ -356,6 +352,7 @@ export default function ContactForm() {
               id="message"
               name="message"
               rows={6}
+              minLength={20}
               maxLength={1000}
               value={formData.message}
               onChange={handleChange}
@@ -404,9 +401,9 @@ export default function ContactForm() {
             />
             <label htmlFor="consent" className="text-sm text-gray-700">
               J’ai lu et j’accepte la{' '}
-              <a href="/politique-de-confidentialite" className="underline text-green-700 hover:text-green-600">
+              <Link href="/politique-de-confidentialite" className="underline text-green-700 hover:text-green-600">
                 politique de confidentialité
-              </a>
+              </Link>
               .
             </label>
           </div>
@@ -416,7 +413,8 @@ export default function ContactForm() {
           <div className="flex items-center justify-center gap-3">
             <button
               type="submit"
-              disabled={loading}
+              disabled={!ready || loading}
+              title={!ready ? 'Initialisation du formulaire…' : undefined}
               className="btn-devis disabled:opacity-50 disabled:cursor-not-allowed"
               aria-live="polite"
             >
