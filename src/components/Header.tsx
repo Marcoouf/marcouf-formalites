@@ -135,7 +135,7 @@ export default function Header() {
             height={40}
             className="drop-shadow-sm w-8 h-8 sm:w-10 sm:h-10"
           />
-          <span className="ml-2 hidden sm:inline text-lg font-semibold tracking-tight text-black">
+          <span className="flex-1 text-center sm:inline sm:flex-none ml-2 text-lg font-semibold tracking-tight text-black">
             Marcouf|<span className="text-[var(--accent)] font-light">Formalités</span>
           </span>
         </div>
@@ -167,12 +167,6 @@ export default function Header() {
 
         {/* Mobile menu toggle + quick CTA */}
         <div className="lg:hidden flex items-center gap-2">
-          <button
-            onClick={() => handleSmartScroll('contact')}
-            className="hidden sm:inline-block btn-devis rounded-full px-4 py-2"
-          >
-            Devis
-          </button>
           <button
             type="button"
             aria-label={menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
