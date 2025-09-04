@@ -6,7 +6,6 @@ import rehypeSlug from 'rehype-slug'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import { getAllSlugs, getArticleBySlug } from '../../../lib/articles'
 import Link from 'next/link'
-import type { PageProps } from 'next'
 
 // Local type for related articles
 type LoadedArticle = {
@@ -33,26 +32,20 @@ function formatFR(dateISO?: string) {
 
 function stripMarkdown(s: string) {
   return s
-    // blocs de code ``` ```
     .replace(/```[\s\S]*?```/g, '')
-    // code inline `code`
     .replace(/`[^`]*`/g, '')
-    // images ![alt](url)
-    .replace(/!\[[^\]]*\]\([^\)]+\)/g, '')
-    // math LaTeX $$...$$ et $...$
-    .replace(/\$\$[\s\S]*?\$\$/g, '')
+    // images / maths (défensif)
+    .replace(/!$begin:math:display$[^$end:math:display$]*\]$begin:math:text$[^)]+$end:math:text$/g, '')
     .replace(/\$[^$]*\$/g, '')
-    // listes
+    // listes / emphases
     .replace(/^[>\s]*[-*+]\s+/gm, '')
     .replace(/^[>\s]*\d+\.\s+/gm, '')
-    // mise en forme
     .replace(/[*_#>~`]/g, '')
-    // sauts de ligne multiples
     .replace(/\n{2,}/g, '\n')
     .trim()
 }
 
-// Supprime le H1 tout en haut du MDX s'il duplique meta.title
+// Supprime le H1 si identique au meta.title
 function stripLeadingH1(md: string, metaTitle?: string) {
   const m = md.match(/^\s*#\s+([^\n]+)\s*\n/)
   if (!m) return md
@@ -75,7 +68,7 @@ function extractFaqPairs(md: string): { q: string; a: string }[] {
 
   const pairs: { q: string; a: string }[] = []
 
-  // Pattern 1: ### Question + answer until next heading
+  // ### Question
   const reH3 = /(^|\n)###\s+(.+?)\s*\n([\s\S]*?)(?=\n###\s+|\n##\s+|$)/g
   let m: RegExpExecArray | null
   while ((m = reH3.exec(section)) !== null) {
@@ -84,7 +77,7 @@ function extractFaqPairs(md: string): { q: string; a: string }[] {
     if (q && a) pairs.push({ q, a })
   }
 
-  // Pattern 2: **Question** puis réponses
+  // **Question**
   const reBold = /(^|\n)\*\*(.+?)\*\*\s*\n([\s\S]*?)(?=\n\*\*|\n###\s+|\n##\s+|$)/g
   while ((m = reBold.exec(section)) !== null) {
     const q = m[2].trim()
@@ -101,8 +94,9 @@ export async function generateStaticParams() {
   return slugs.map((slug) => ({ slug }))
 }
 
-export async function generateMetadata({ params }: PageProps<{ slug: string }>) {
-  const { slug } = await params;
+// ✅ No PageProps import, and params is a plain object
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
   const got = await getArticleBySlug(slug).catch(() => null)
   if (!got) return {}
   const { meta } = got
@@ -119,8 +113,8 @@ export async function generateMetadata({ params }: PageProps<{ slug: string }>) 
   }
 }
 
-export default async function ArticlePage({ params }: PageProps<{ slug: string }>) {
-  const { slug } = await params;
+export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
   const got = await getArticleBySlug(slug).catch(() => null)
   if (!got) return notFound()
   const { meta, content } = got
@@ -131,7 +125,7 @@ export default async function ArticlePage({ params }: PageProps<{ slug: string }
 
   const sourceForMDX = stripLeadingH1(content, meta.title)
 
-  // Build a small list of related articles (exclude current)
+  // Related articles
   const allSlugs = await getAllSlugs()
   const relatedRaw = (await Promise.all(
     allSlugs
@@ -149,7 +143,6 @@ export default async function ArticlePage({ params }: PageProps<{ slug: string }
     })
     .slice(0, 3)
 
-  // Expertise links (static list)
   const expertise = [
     { href: '/expertise/creation', title: "Création d’entreprise", desc: 'Choix du statut, statuts sur mesure, formalités jusqu’au Kbis.' },
     { href: '/expertise/contrats-et-documentation', title: 'Contrats & documentation', desc: 'Contrats commerciaux, conditions générales, clauses clés.' },
@@ -163,10 +156,7 @@ export default async function ArticlePage({ params }: PageProps<{ slug: string }
     options: {
       mdxOptions: {
         remarkPlugins: [remarkGfm],
-        rehypePlugins: [
-          rehypeSlug,
-          [rehypeAutolinkHeadings, { behavior: 'append' }],
-        ],
+        rehypePlugins: [rehypeSlug, [rehypeAutolinkHeadings, { behavior: 'append' }]],
       },
     },
   })
@@ -177,48 +167,34 @@ export default async function ArticlePage({ params }: PageProps<{ slug: string }
         <h1 className="text-3xl md:text-4xl font-extrabold">{meta.title}</h1>
         {meta.description && <p className="text-gray-600">{meta.description}</p>}
         <div className="text-sm text-gray-500" suppressHydrationWarning>
-          {meta.publishedAt && (
-            <time dateTime={meta.publishedAt}>Publié le {formatFR(meta.publishedAt)}</time>
-          )}
-          {meta.updatedAt && meta.updatedAt !== meta.publishedAt && (
-            <span> — Mis à jour le {formatFR(meta.updatedAt)}</span>
-          )}
+          {meta.publishedAt && <time dateTime={meta.publishedAt}>Publié le {formatFR(meta.publishedAt)}</time>}
+          {meta.updatedAt && meta.updatedAt !== meta.publishedAt && <span> — Mis à jour le {formatFR(meta.updatedAt)}</span>}
           <span> • </span>
           <span>{readText}</span>
         </div>
       </header>
 
-      <article
-        className="
-          prose prose-neutral md:prose-lg max-w-none
-          prose-a:text-green-700 hover:prose-a:underline
-          prose-headings:scroll-mt-24 prose-h2:mt-10
-          prose-img:rounded-xl prose-hr:my-10
-          prose-code:bg-gray-100 prose-code:px-1 prose-code:rounded
-          bg-white border border-gray-200 rounded-2xl shadow-sm p-6 md:p-8
-        "
-      >
+      <article className="prose prose-neutral md:prose-lg max-w-none prose-a:text-green-700 hover:prose-a:underline prose-headings:scroll-mt-24 prose-h2:mt-10 prose-img:rounded-xl prose-hr:my-10 prose-code:bg-gray-100 prose-code:px-1 prose-code:rounded bg-white border border-gray-200 rounded-2xl shadow-sm p-6 md:p-8">
         {MDXContent}
       </article>
 
       <section className="rounded-2xl border border-gray-200 bg-gray-50 p-6 md:p-8 text-center">
         <h2 className="text-xl md:text-2xl font-semibold mb-2">Pour aller plus loin</h2>
-        <p className="text-gray-700 mb-5">
-          Faites appel à un juriste pour sécuriser votre projet et gagner du temps.
-        </p>
+        <p className="text-gray-700 mb-5">Faites appel à un juriste pour sécuriser votre projet et gagner du temps.</p>
         <Link href="/#contact" className="btn-devis inline-block" aria-label="Aller au formulaire de contact">
           Contacter un juriste
         </Link>
       </section>
 
-      {related.length > 0 && (
+      {related.length > 0 ? (
         <section className="space-y-4">
           <h2 className="text-xl md:text-2xl font-semibold">À lire ensuite</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {related.map(({ meta }) => (
               <Link key={meta.slug} href={`/articles/${meta.slug}`} className="group block rounded-xl border border-gray-200 bg-white p-5 hover:shadow-md transition">
                 <div className="text-sm text-gray-500" suppressHydrationWarning>
-                  {meta.publishedAt && new Intl.DateTimeFormat('fr-FR', { timeZone: 'UTC' }).format(new Date(meta.publishedAt))}
+                  {meta.publishedAt &&
+                    new Intl.DateTimeFormat('fr-FR', { timeZone: 'UTC' }).format(new Date(meta.publishedAt))}
                 </div>
                 <h3 className="mt-1 font-semibold group-hover:underline">{meta.title}</h3>
                 {meta.description && <p className="mt-1 text-gray-700 text-sm">{meta.description}</p>}
@@ -226,11 +202,10 @@ export default async function ArticlePage({ params }: PageProps<{ slug: string }
             ))}
           </div>
         </section>
-      )}
-      {related.length === 0 && (
+      ) : (
         <section className="space-y-2">
           <h2 className="text-xl md:text-2xl font-semibold">À lire ensuite</h2>
-          <p className="text-gray-700">Les autres articles arrivent bientôt. En attendant, explorez mes domaines d’expertise ci‑dessous.</p>
+          <p className="text-gray-700">Les autres articles arrivent bientôt. En attendant, explorez mes domaines d’expertise ci-dessous.</p>
         </section>
       )}
 
@@ -271,6 +246,7 @@ export default async function ArticlePage({ params }: PageProps<{ slug: string }
           }),
         }}
       />
+      {/* JSON-LD FAQ */}
       {faqPairs.length > 0 && (
         <script
           type="application/ld+json"
