@@ -6,6 +6,7 @@ import rehypeSlug from 'rehype-slug'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import { getAllSlugs, getArticleBySlug } from '../../../lib/articles'
 import Link from 'next/link'
+import Image from 'next/image'
 
 // Local type for related articles
 type LoadedArticle = {
@@ -15,6 +16,8 @@ type LoadedArticle = {
     description?: string
     publishedAt?: string
     updatedAt?: string
+    cover?: string
+    coverAlt?: string
   }
   content: string
 }
@@ -35,7 +38,8 @@ function stripMarkdown(s: string) {
     .replace(/```[\s\S]*?```/g, '')
     .replace(/`[^`]*`/g, '')
     // images / maths (défensif)
-    .replace(/!$begin:math:display$[^$end:math:display$]*\]$begin:math:text$[^)]+$end:math:text$/g, '')
+    .replace(/!\[[^\]]*\]\([^\)]+\)/g, '')
+    .replace(/\$\$[\s\S]*?\$\$/g, '')
     .replace(/\$[^$]*\$/g, '')
     // listes / emphases
     .replace(/^[>\s]*[-*+]\s+/gm, '')
@@ -109,6 +113,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       description: meta.description,
       url: `https://www.marcouf-formalites.fr/articles/${meta.slug}`,
       type: 'article',
+      images: meta.cover ? [{ url: meta.cover }] : undefined,
+    },
+    twitter: {
+      card: meta.cover ? 'summary_large_image' : 'summary',
+      images: meta.cover ? [meta.cover] : undefined,
     },
   }
 }
@@ -163,6 +172,20 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
   return (
     <main className="mx-auto max-w-6xl px-6 sm:px-16 py-16 space-y-12">
+      {meta.cover && (
+        <figure className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen -mt-[80px] sm:-mt-[96px]">
+          <div className="relative h-[45vh] md:h-[60vh] lg:h-[66vh]">
+            <Image
+              src={meta.cover}
+              alt={meta.coverAlt ?? meta.title}
+              fill
+              sizes="100vw"
+              className="object-cover"
+              priority
+            />
+          </div>
+        </figure>
+      )}
       <header className="space-y-2">
         <h1 className="text-3xl md:text-4xl font-extrabold">{meta.title}</h1>
         {meta.description && <p className="text-gray-600">{meta.description}</p>}
@@ -191,13 +214,38 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           <h2 className="text-xl md:text-2xl font-semibold">À lire ensuite</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {related.map(({ meta }) => (
-              <Link key={meta.slug} href={`/articles/${meta.slug}`} className="group block rounded-xl border border-gray-200 bg-white p-5 hover:shadow-md transition">
-                <div className="text-sm text-gray-500" suppressHydrationWarning>
-                  {meta.publishedAt &&
-                    new Intl.DateTimeFormat('fr-FR', { timeZone: 'UTC' }).format(new Date(meta.publishedAt))}
+              <Link
+                key={meta.slug}
+                href={`/articles/${meta.slug}`}
+                className="group block overflow-hidden rounded-xl border border-gray-200 bg-white hover:shadow-md transition"
+                aria-label={meta.title}
+              >
+                <div className="relative aspect-[16/9] w-full bg-gradient-to-br from-gray-100 to-gray-200">
+                  {meta.cover ? (
+                    <Image
+                      src={meta.cover}
+                      alt={meta.coverAlt ?? meta.title ?? ''}
+                      fill
+                      sizes="(min-width:1024px) 33vw, 100vw"
+                      className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                      priority={false}
+                    />
+                  ) : (
+                    <div className="absolute inset-0 grid place-items-center text-gray-400 text-sm">
+                      Article
+                    </div>
+                  )}
                 </div>
-                <h3 className="mt-1 font-semibold group-hover:underline">{meta.title}</h3>
-                {meta.description && <p className="mt-1 text-gray-700 text-sm">{meta.description}</p>}
+                <div className="p-5">
+                  <div className="text-sm text-gray-500" suppressHydrationWarning>
+                    {meta.publishedAt &&
+                      new Intl.DateTimeFormat('fr-FR', { timeZone: 'UTC' }).format(new Date(meta.publishedAt))}
+                  </div>
+                  <h3 className="mt-1 font-semibold group-hover:underline">{meta.title}</h3>
+                  {meta.description && (
+                    <p className="mt-1 text-gray-700 text-sm">{meta.description}</p>
+                  )}
+                </div>
               </Link>
             ))}
           </div>

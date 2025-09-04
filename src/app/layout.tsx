@@ -6,6 +6,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import LatestArticlesRail from '@/components/LatestArticlesRail'
 import ShowOnPath from '@/components/ShowOnPath'
+import { Analytics } from "@vercel/analytics/next"
 
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
@@ -58,6 +59,7 @@ export default function RootLayout({
           </ShowOnPath>
         </main>
         <Footer />
+        <Analytics />
       </body>
     </html>
   );

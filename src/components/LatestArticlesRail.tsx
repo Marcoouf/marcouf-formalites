@@ -1,16 +1,120 @@
 // src/components/LatestArticlesRail.tsx
-import Link from 'next/link'
-import { getLatestArticles } from '@/lib/articles' // ajuste l'alias si besoin
+// Composant d’affichage + utilitaires de lecture des articles MDX (sans any)
 
+import fs from 'fs/promises'
+import path from 'path'
+import matter from 'gray-matter'
+import Link from 'next/link'
+import Image from 'next/image'
+
+// Métadonnées complètes présentes dans le front-matter des .mdx
+export type ArticleMeta = {
+  title: string
+  slug: string
+  description?: string
+  category?: string
+  tags?: string[]
+  publishedAt?: string | null
+  updatedAt?: string | null
+  cover?: string | null
+  coverAlt?: string | null
+}
+
+// Données minimales pour une carte « Derniers articles »
+export type ArticleCard = {
+  slug: string
+  title: string
+  description?: string
+  publishedAt?: string | null
+  cover?: string | null
+  coverAlt?: string | null
+}
+
+// Répertoire des articles MDX
+const ARTICLES_DIR = path.join(process.cwd(), 'content', 'articles')
+
+// Formatage de date FR sécurisé (évite les erreurs d’hydratation)
+function formatFR(dateISO?: string | null) {
+  if (!dateISO) return null
+  try {
+    const iso = dateISO.length === 10 ? `${dateISO}T00:00:00Z` : dateISO
+    const d = new Date(iso)
+    return new Intl.DateTimeFormat('fr-FR', { timeZone: 'UTC' }).format(d)
+  } catch {
+    return dateISO
+  }
+}
+
+// Petit helper pour typer le front-matter sans any
+type Frontmatter = Partial<
+  Pick<
+    ArticleMeta,
+    | 'title'
+    | 'description'
+    | 'publishedAt'
+    | 'updatedAt'
+    | 'cover'
+    | 'coverAlt'
+  >
+>
+
+// Lecture des derniers articles pour la home / layout / footer
+export async function getLatestArticles(limit: number = 3): Promise<ArticleCard[]> {
+  const files = await fs.readdir(ARTICLES_DIR)
+
+  const items: ArticleCard[] = await Promise.all(
+    files
+      .filter((f) => f.endsWith('.mdx'))
+      .map(async (file) => {
+        const slug = file.replace(/\.mdx$/, '')
+        const raw = await fs.readFile(path.join(ARTICLES_DIR, file), 'utf8')
+        const { data } = matter(raw)
+        const fm = data as Frontmatter
+
+        const title = typeof fm.title === 'string' ? fm.title : slug
+        const description = typeof fm.description === 'string' ? fm.description : ''
+        const publishedAt = typeof fm.publishedAt === 'string' ? fm.publishedAt : null
+        const cover = typeof fm.cover === 'string' ? fm.cover : null
+        const coverAlt =
+          typeof fm.coverAlt === 'string'
+            ? fm.coverAlt
+            : typeof fm.title === 'string'
+              ? fm.title
+              : null
+
+        return { slug, title, description, publishedAt, cover, coverAlt }
+      })
+  )
+
+  // Tri décroissant par date de publication
+  items.sort((a, b) => {
+    if (!a.publishedAt) return 1
+    if (!b.publishedAt) return -1
+    return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+  })
+
+  return items.slice(0, limit)
+}
+
+// UI (Server Component)
 export default async function LatestArticlesRail({ limit = 3 }: { limit?: number }) {
   const items = await getLatestArticles(limit)
-  if (!items?.length) return null
+  if (!items.length) return null
 
   return (
-    <section aria-labelledby="latest-articles" className="mx-auto max-w-6xl px-6 sm:px-16 py-16">
-      <div className="flex items-end justify-between mb-6">
-        <h2 id="latest-articles" className="text-2xl md:text-3xl font-bold">Derniers articles</h2>
-        <Link href="/articles" className="text-green-700 hover:underline">Tous les articles</Link>
+    <section id="latest-articles" aria-labelledby="latest-articles-title" className="mx-auto max-w-6xl px-6 sm:px-16 py-12">
+      <div className="mb-6 flex items-baseline justify-between gap-4">
+        <h2 id="latest-articles-title" className="text-xl md:text-2xl font-semibold scroll-mt-28">
+          Derniers articles
+        </h2>
+        <Link
+          href="/articles"
+          prefetch={false}
+          className="group inline-flex items-center gap-2 text-sm px-3 py-1 border border-black rounded-full hover:bg-black hover:text-white transition"          aria-label="Voir tous les articles"
+        >
+          Tous les articles
+          <span aria-hidden className="text-[var(--accent)] transition-transform group-hover:translate-x-0.5">→</span>
+        </Link>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -18,14 +122,33 @@ export default async function LatestArticlesRail({ limit = 3 }: { limit?: number
           <Link
             key={a.slug}
             href={`/articles/${a.slug}`}
-            className="block rounded-2xl border border-gray-200 bg-white p-6 hover:shadow-md transition"
+            className="group overflow-hidden rounded-2xl border border-gray-200 bg-white hover:shadow-md transition"
           >
-            <div className="text-sm text-gray-500 mb-1" suppressHydrationWarning>
-              {a.publishedAt &&
-                new Intl.DateTimeFormat('fr-FR', { timeZone: 'UTC' }).format(new Date(a.publishedAt))}
+            {a.cover && (
+              <div className="relative aspect-[16/9] w-full overflow-hidden">
+                <Image
+                  src={a.cover}
+                  alt={a.coverAlt ?? a.title}
+                  fill
+                  sizes="(min-width:1024px) 33vw, 100vw"
+                  className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                  priority={false}
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-gray-900/0" aria-hidden />
+              </div>
+            )}
+
+            <div className="p-5">
+              <h3 className="font-semibold text-lg leading-snug group-hover:underline">
+                {a.title}
+              </h3>
+              {a.description && (
+                <p className="mt-1 text-gray-700 text-sm line-clamp-2">{a.description}</p>
+              )}
+              {a.publishedAt && (
+                <p className="mt-3 text-xs text-gray-500">{formatFR(a.publishedAt)}</p>
+              )}
             </div>
-            <h3 className="font-semibold text-lg leading-snug">{a.title}</h3>
-            {a.description && <p className="text-gray-700 mt-2 text-sm">{a.description}</p>}
           </Link>
         ))}
       </div>

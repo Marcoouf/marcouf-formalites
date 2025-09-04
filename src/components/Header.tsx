@@ -37,7 +37,7 @@ export default function Header() {
       return
     }
 
-    const ids = ['apropos', 'expertise', 'contact']
+    const ids = ['apropos', 'expertise', 'latest-articles', 'contact']
     const observer = new IntersectionObserver(
       (entries) => {
         const visible = entries
@@ -147,11 +147,14 @@ export default function Header() {
           <NavItem onClick={() => handleSmartScroll('expertise')} active={currentPath === '/' && activeSection === 'expertise'}>
             Services
           </NavItem>
-          <NavItem href="/articles" active={isActive('/articles')}>
-            Articles
-          </NavItem>
           <NavItem onClick={() => handleSmartScroll('contact')} active={currentPath === '/' && activeSection === 'contact'}>
             Contact
+          </NavItem>
+            <NavItem
+            onClick={() => handleSmartScroll('latest-articles')}
+            active={(currentPath === '/' && activeSection === 'latest-articles') || isActive('/articles')}
+          >
+            Articles
           </NavItem>
         </nav>
 
@@ -196,7 +199,14 @@ export default function Header() {
           <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 grid gap-2">
             <button onClick={() => handleSmartScroll('apropos')} className={`text-left px-3 py-2 rounded-lg hover:bg-gray-100 hover:text-[var(--accent)] ${currentPath === '/' && activeSection === 'apropos' ? 'text-[var(--accent)]' : ''}`}>À propos</button>
             <button onClick={() => handleSmartScroll('expertise')} className={`text-left px-3 py-2 rounded-lg hover:bg-gray-100 hover:text-[var(--accent)] ${currentPath === '/' && activeSection === 'expertise' ? 'text-[var(--accent)]' : ''}`}>Services</button>
-            <button onClick={() => router.push('/articles')} className={`text-left px-3 py-2 rounded-lg hover:bg-gray-100 hover:text-[var(--accent)] ${isActive('/articles') ? 'text-[var(--accent)]' : ''}`}>Articles</button>
+            <button
+              onClick={() => handleSmartScroll('latest-articles')}
+              className={`text-left px-3 py-2 rounded-lg hover:bg-gray-100 hover:text-[var(--accent)] ${
+                (currentPath === '/' && activeSection === 'latest-articles') || isActive('/articles') ? 'text-[var(--accent)]' : ''
+              }`}
+            >
+              Articles
+            </button>
             <button onClick={() => handleSmartScroll('contact')} className="mt-2 btn-devis rounded-full">Demander un devis</button>
           </div>
         </div>

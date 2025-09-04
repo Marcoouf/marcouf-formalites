@@ -10,6 +10,8 @@ export type ArticleMeta = {
   tags?: string[]
   publishedAt?: string // ISO
   updatedAt?: string   // ISO
+  cover?: string       
+  coverAlt?: string       
 }
 
 export const ARTICLES_DIR = path.join(process.cwd(), 'content/articles')
@@ -30,6 +32,8 @@ export async function getAllArticlesMeta(): Promise<ArticleMeta[]> {
       tags: data.tags ?? [],
       publishedAt: data.publishedAt,
       updatedAt: data.updatedAt ?? data.publishedAt,
+      cover: data.cover,
+      coverAlt: data.coverAlt,
     })
   }
   // tri par date décroissante
@@ -48,6 +52,8 @@ export async function getArticleBySlug(slug: string) {
     tags: data.tags ?? [],
     publishedAt: data.publishedAt,
     updatedAt: data.updatedAt ?? data.publishedAt,
+    cover: data.cover,
+    coverAlt: data.coverAlt,
   }
   return { meta, content }
 }
@@ -61,6 +67,8 @@ export type ArticleCard = {
   title: string
   description?: string
   publishedAt?: string
+  cover?: string
+  coverAlt?: string
 }
 
 export async function getAllArticlesMetaSorted(): Promise<ArticleCard[]> {
@@ -75,6 +83,8 @@ export async function getAllArticlesMetaSorted(): Promise<ArticleCard[]> {
         title: meta.title ?? s,
         description: meta.description,
         publishedAt: meta.publishedAt ?? null,
+        cover: meta.cover,
+        coverAlt: meta.coverAlt,
       } as ArticleCard
     })
   )
@@ -92,4 +102,3 @@ export async function getLatestArticles(limit = 3): Promise<ArticleCard[]> {
   const all = await getAllArticlesMetaSorted()
   return all.slice(0, limit)
 }
-
