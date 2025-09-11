@@ -105,6 +105,44 @@ function extractFaqPairs(md: string): { q: string; a: string }[] {
   return pairs.filter((p) => (!seen.has(p.q) && seen.add(p.q)))
 }
 
+/** Slugify aligné sur rehype-slug (conserve les accents) + dédoublonnage */
+const _slugCounts: Record<string, number> = {}
+function slugify(input: string) {
+  const base = input
+    .toLowerCase()
+    .trim()
+    // retire la ponctuation mais conserve lettres/chiffres Unicode et espaces/tirets
+    .replace(/[^\p{L}\p{N}\s-]/gu, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+
+  const count = _slugCounts[base] ?? 0
+  _slugCounts[base] = count + 1
+  return count === 0 ? base : `${base}-${count}`
+}
+
+/** Construit un sommaire à partir des H2/H3 du MDX nettoyé (après retrait du H1) */
+function buildToc(md: string): { id: string; text: string; level: 2 | 3 }[] {
+  // reset counts for this article
+  for (const k in _slugCounts) delete _slugCounts[k]
+  const lines = md.split('\n')
+  const toc: { id: string; text: string; level: 2 | 3 }[] = []
+  for (const line of lines) {
+    const m2 = line.match(/^\s*##\s+(.+?)\s*$/)
+    if (m2) {
+      const text = m2[1].trim()
+      toc.push({ id: slugify(text), text, level: 2 })
+      continue
+    }
+    const m3 = line.match(/^\s*###\s+(.+?)\s*$/)
+    if (m3) {
+      const text = m3[1].trim()
+      toc.push({ id: slugify(text), text, level: 3 })
+    }
+  }
+  return toc
+}
+
 export async function generateStaticParams() {
   const slugs = await getAllSlugs()
   return slugs.map((slug) => ({ slug }))
@@ -152,6 +190,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   // Supprime le H1 en doublon sur la version nettoyée
   const sourceForMDX = stripLeadingH1(cleaned, meta.title)
 
+  const toc = buildToc(sourceForMDX)
+
   // Related articles
   const allSlugs = await getAllSlugs()
   const relatedRaw = (await Promise.all(
@@ -189,7 +229,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   })
 
   return (
-    <main className="mx-auto max-w-6xl px-6 sm:px-16 py-16 space-y-12">
+    <main className="mx-auto max-w-[90rem] px-4 sm:px-6 lg:px-8 py-16 space-y-12 scroll-smooth">
       {meta.cover && (
         <figure className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen -mt-[80px] sm:-mt-[96px]">
           <div className="relative h-[45vh] md:h-[60vh] lg:h-[66vh]">
@@ -201,6 +241,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               className="object-cover"
               priority
             />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/0 via-black/0 to-black/10" />
           </div>
         </figure>
       )}
@@ -215,7 +256,29 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         </div>
       </header>
 
-      <article className="prose prose-neutral md:prose-lg max-w-none prose-a:text-green-700 hover:prose-a:underline prose-headings:scroll-mt-24 prose-h2:mt-10 prose-img:rounded-xl prose-hr:my-10 prose-code:bg-gray-100 prose-code:px-1 prose-code:rounded bg-white border border-gray-200 rounded-2xl shadow-sm p-6 md:p-8">
+      {toc.length >= 2 && (
+        <nav
+          id="toc"
+          aria-label="Sommaire de l’article"
+          className="rounded-2xl border border-gray-200 bg-white/70 supports-[backdrop-filter]:bg-white/60 backdrop-blur p-5 md:p-6 shadow-sm"
+        >
+          <div className="mb-3 text-sm font-semibold text-gray-700">Sommaire</div>
+          <ol className="list-decimal pl-6 text-[15px] leading-6 space-y-1 columns-1 sm:columns-2 md:columns-2 lg:columns-2 [column-gap:2rem]">
+            {toc.map((item) => (
+              <li key={item.id} className={(item.level === 3 ? 'ml-2 text-[14px]' : '') + ' break-inside-avoid'}>
+                <a
+                  href={`#${item.id}`}
+                  className="block truncate text-gray-800 hover:text-green-700 hover:underline"
+                >
+                  {item.text}
+                </a>
+              </li>
+            ))}
+          </ol>
+        </nav>
+      )}
+
+      <article className="prose prose-neutral md:prose-lg max-w-none prose-a:text-green-700 hover:prose-a:underline prose-headings:scroll-mt-24 prose-h2:mt-10 prose-img:rounded-xl prose-hr:my-10 prose-code:bg-gray-100 prose-code:px-1 prose-code:rounded bg-white border border-gray-200 rounded-2xl shadow-sm p-6 md:p-10 lg:p-12 text-justify">
         {MDXContent}
       </article>
 
@@ -329,6 +392,15 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           }}
         />
       )}
+      {/* Bouton flottant “Sommaire” */}
+      <Link
+        href="#toc"
+        aria-label="Revenir au sommaire"
+        className="fixed bottom-6 right-6 z-40 inline-flex items-center gap-2 rounded-full border border-black bg-white/90 px-4 py-2 text-sm font-medium shadow-lg backdrop-blur transition hover:bg-accent hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-green-600"
+      >
+        <span aria-hidden>↑</span>
+        <span>Sommaire</span>
+      </Link>
     </main>
   )
 }
