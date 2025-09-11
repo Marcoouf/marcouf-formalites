@@ -7,6 +7,8 @@ import Footer from "../components/Footer";
 import LatestArticlesRail from '@/components/LatestArticlesRail'
 import ShowOnPath from '@/components/ShowOnPath'
 import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from "@vercel/speed-insights/next"
+
 
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
@@ -53,7 +55,7 @@ export default function RootLayout({
         <Header />
       <main className="pt-[80px] min-h-screen bg-transparent text-black">
           {children}
-          {/* Derniers articles (affichés uniquement sur la home) */}
+        <SpeedInsights />
         <ShowOnPath startsWith={["/"]}>
           <LatestArticlesRail limit={3} />
         </ShowOnPath> 
