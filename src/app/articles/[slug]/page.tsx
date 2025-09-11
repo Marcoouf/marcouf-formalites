@@ -61,6 +61,18 @@ function stripLeadingH1(md: string, metaTitle?: string) {
   return md
 }
 
+function stripJsonLd(md: string) {
+  if (!md) return md
+  // Supprime les balises JSON‑LD collées dans le MDX pour éviter l’affichage en clair et les erreurs de build.
+  return md
+    // <script type="application/ld+json"> ... </script>
+    .replace(/<script[^>]*type=["']application\/ld\+json["'][\s\S]*?<\/script>/gi, '')
+    // Variante générique si l’attribut type a été omis
+    .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, (m) => (m.includes('ld+json') ? '' : m))
+    // Blocs Markdown de type ```json-ld ... ```
+    .replace(/```(?:json(?:-ld)?|ld\+json)[\s\S]*?```/gi, '')
+}
+
 function extractFaqPairs(md: string): { q: string; a: string }[] {
   const start = md.search(/^##\s+FAQ\b.*$/m)
   if (start === -1) return []
@@ -130,9 +142,15 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
   const stats = readingTime(content)
   const readText = stats.text.replace('min read', 'min de lecture').replace('read', 'de lecture')
-  const faqPairs = extractFaqPairs(content)
 
-  const sourceForMDX = stripLeadingH1(content, meta.title)
+  // Nettoie le contenu pour retirer d’éventuels scripts JSON‑LD collés dans le MDX
+  const cleaned = stripJsonLd(content)
+
+  // Extrait la FAQ à partir du contenu nettoyé
+  const faqPairs = extractFaqPairs(cleaned)
+
+  // Supprime le H1 en doublon sur la version nettoyée
+  const sourceForMDX = stripLeadingH1(cleaned, meta.title)
 
   // Related articles
   const allSlugs = await getAllSlugs()

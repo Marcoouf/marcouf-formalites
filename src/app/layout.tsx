@@ -51,17 +51,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr" suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable}`}>
-<body suppressHydrationWarning className="antialiased bg-transparent text-black">
+      <body suppressHydrationWarning className="antialiased bg-transparent text-black">
         <Header />
-      <main className="pt-[80px] min-h-screen bg-transparent text-black">
+        <main className="pt-[80px] min-h-screen bg-transparent text-black">
           {children}
-        <SpeedInsights />
-        <ShowOnPath startsWith={["/"]}>
-          <LatestArticlesRail limit={3} />
-        </ShowOnPath> 
+          <ShowOnPath startsWith={["/"]}>
+            <LatestArticlesRail limit={3} />
+          </ShowOnPath>
         </main>
         <Footer />
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
