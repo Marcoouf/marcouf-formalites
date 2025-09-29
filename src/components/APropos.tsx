@@ -13,15 +13,16 @@ export default function APropos() {
         {/* Photo avec style original */}
         <div className="relative mx-auto w-full max-w-sm">
           <div className="rounded-3xl overflow-hidden shadow-xl transform rotate-2 hover:rotate-0 transition duration-700">
-          <Image
-            src={photoMarcouf}
-            alt="Marcouf Lebar"
-            className="object-cover w-full h-auto"
-            width={500}
-            height={600}
-            priority
-            />
-          </div>
+        <Image
+  src={photoMarcouf}
+  alt="Marcouf Lebar"
+  className="object-cover w-full h-auto"
+  width={500}
+  height={600}
+  priority
+  sizes="(max-width: 768px) 100vw, 50vw"
+  fetchPriority="high"
+/>          </div>
         </div>
 
         {/* Texte + valeurs */}
