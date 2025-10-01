@@ -4,8 +4,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import LatestArticlesRail from '@/components/LatestArticlesRail'
-import ShowOnPath from '@/components/ShowOnPath'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from "@vercel/speed-insights/react"
 
@@ -55,9 +53,6 @@ export default function RootLayout({
         <Header />
         <main className="pt-[80px] min-h-screen bg-transparent text-black">
           {children}
-          <ShowOnPath startsWith={["/"]}>
-            <LatestArticlesRail limit={3} />
-          </ShowOnPath>
         </main>
         <Footer />
         <Analytics />

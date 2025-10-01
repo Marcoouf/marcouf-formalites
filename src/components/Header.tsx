@@ -127,13 +127,15 @@ export default function Header() {
       }`}
     >
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
-        <div onClick={handleLogoClick} className="flex items-center text-black cursor-pointer">
+        <div onClick={handleLogoClick} aria-label="Accueil" className="flex items-center text-black cursor-pointer">
           <Image
             src="/logo.webp"
             alt="Marcouf Formalités"
             width={40}
             height={40}
             className="drop-shadow-sm w-8 h-8 sm:w-10 sm:h-10"
+            priority
+            fetchPriority="high"
           />
           <span className="flex-1 text-center sm:inline sm:flex-none ml-2 text-lg font-semibold tracking-tight text-black">
             Marcouf|<span className="text-[var(--accent)] font-light">Formalités</span>

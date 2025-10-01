@@ -45,7 +45,7 @@ export default function Button({
   }
 
   return (
-    <button {...props} className={classNames}>
+    <button type="button" {...props} className={classNames}>
       {children}
       {Icon && <Icon className="w-5 h-5 ml-2" />}
     </button>

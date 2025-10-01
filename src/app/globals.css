@@ -103,3 +103,9 @@ text-accent {
   margin-right: -50vw;
   width: 100vw;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-gradient-bg {
+    animation: none !important;
+  }
+}

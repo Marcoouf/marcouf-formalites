@@ -37,10 +37,10 @@ const domaines = [
 
 export default function Expertise() {
   return (
-    <section id="expertise" className="py-24 px-6 sm:px-10 lg:px-24 bg-white">
+    <section id="expertise" aria-labelledby="expertise-title" className="py-24 px-6 sm:px-10 lg:px-24 bg-white">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-extrabold text-gray-900 mb-4">Mes domaines d’expertise</h2>
+          <h2 id="expertise-title" className="text-4xl font-extrabold text-gray-900 mb-4">Mes domaines d’expertise</h2>
           <p className="text-gray-600 max-w-2xl mx-auto text-lg">
             J’interviens sur l’ensemble des sujets juridiques liés à la structuration, l’évolution et la protection de votre activité.
           </p>
@@ -70,6 +70,7 @@ export default function Expertise() {
                 <div className="mt-4 flex justify-center">
                   <Button
                     href={domaine.href}
+                    aria-label={`En savoir plus sur ${domaine.titre}`}
                     className="text-sm px-3 py-1 border border-black rounded-full hover:bg-black hover:text-white transition"
                   >
                     En savoir plus
