@@ -1,11 +1,9 @@
 // src/components/LatestArticlesRail.tsx
 // Composant d’affichage + utilitaires de lecture des articles MDX (sans any)
 
-import fs from 'fs/promises'
-import path from 'path'
-import matter from 'gray-matter'
 import Link from 'next/link'
 import Image from 'next/image'
+import { getAllArticlesMeta } from '@/lib/articles'
 
 // Métadonnées complètes présentes dans le front-matter des .mdx
 export type ArticleMeta = {
@@ -30,9 +28,6 @@ export type ArticleCard = {
   coverAlt?: string | null
 }
 
-// Répertoire des articles MDX
-const ARTICLES_DIR = path.join(process.cwd(), 'content', 'articles')
-
 // Formatage de date FR sécurisé (évite les erreurs d’hydratation)
 function formatFR(dateISO?: string | null) {
   if (!dateISO) return null
@@ -45,60 +40,12 @@ function formatFR(dateISO?: string | null) {
   }
 }
 
-// Petit helper pour typer le front-matter sans any
-type Frontmatter = Partial<
-  Pick<
-    ArticleMeta,
-    | 'title'
-    | 'description'
-    | 'publishedAt'
-    | 'updatedAt'
-    | 'cover'
-    | 'coverAlt'
-  >
->
-
-// Lecture des derniers articles pour la home / layout / footer
-export async function getLatestArticles(limit: number = 3): Promise<ArticleCard[]> {
-  const files = await fs.readdir(ARTICLES_DIR)
-
-  const items: ArticleCard[] = await Promise.all(
-    files
-      .filter((f) => f.endsWith('.mdx'))
-      .map(async (file) => {
-        const slug = file.replace(/\.mdx$/, '')
-        const raw = await fs.readFile(path.join(ARTICLES_DIR, file), 'utf8')
-        const { data } = matter(raw)
-        const fm = data as Frontmatter
-
-        const title = typeof fm.title === 'string' ? fm.title : slug
-        const description = typeof fm.description === 'string' ? fm.description : ''
-        const publishedAt = typeof fm.publishedAt === 'string' ? fm.publishedAt : null
-        const cover = typeof fm.cover === 'string' ? fm.cover : null
-        const coverAlt =
-          typeof fm.coverAlt === 'string'
-            ? fm.coverAlt
-            : typeof fm.title === 'string'
-              ? fm.title
-              : null
-
-        return { slug, title, description, publishedAt, cover, coverAlt }
-      })
-  )
-
-  // Tri décroissant par date de publication
-  items.sort((a, b) => {
-    if (!a.publishedAt) return 1
-    if (!b.publishedAt) return -1
-    return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
-  })
-
-  return items.slice(0, limit)
-}
-
 // UI (Server Component)
 export default async function LatestArticlesRail({ limit = 3 }: { limit?: number }) {
-  const items = await getLatestArticles(limit)
+  const items = (await getAllArticlesMeta())
+    .filter((a) => !!a.publishedAt)
+    .sort((a, b) => new Date(b.publishedAt!).getTime() - new Date(a.publishedAt!).getTime())
+    .slice(0, limit)
   if (!items.length) return null
 
   return (
@@ -132,7 +79,6 @@ export default async function LatestArticlesRail({ limit = 3 }: { limit?: number
                   fill
                   sizes="(min-width:1024px) 33vw, 100vw"
                   className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-                  priority={false}
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent to-gray-900/0" aria-hidden />
               </div>

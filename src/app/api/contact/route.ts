@@ -3,7 +3,7 @@ import { resend } from '@/lib/resend'
 
 export async function POST(request: Request) {
   const body = await request.json()
-  const { name, email, subject, message, consent } = body
+  const { name, email, subject, message, consent, contactPreference, timeSlot, referrer } = body
 
   if (!name || !email || !subject || !message || !consent) {
     return NextResponse.json(
@@ -23,9 +23,18 @@ export async function POST(request: Request) {
       html: `
         <p><strong>Nom :</strong> ${name}</p>
         <p><strong>Email :</strong> ${email}</p>
+        ${contactPreference ? `<p><strong>Préférence de contact :</strong> ${contactPreference}</p>` : ''}
+        ${timeSlot ? `<p><strong>Créneau souhaité :</strong> ${timeSlot}</p>` : ''}
+        ${referrer ? `<p><strong>Provenance :</strong> ${referrer}</p>` : ''}
         <p><strong>Message :</strong><br>${message.replace(/\n/g, '<br>')}</p>
       `,
-      text: `Nom : ${name}\nEmail : ${email}\nMessage :\n${message}`
+      text:
+        `Nom : ${name}\n` +
+        `Email : ${email}\n` +
+        (contactPreference ? `Préférence de contact : ${contactPreference}\n` : '') +
+        (timeSlot ? `Créneau souhaité : ${timeSlot}\n` : '') +
+        (referrer ? `Provenance : ${referrer}\n` : '') +
+        `Message :\n${message}`
     })
 
     if (data.error) {
