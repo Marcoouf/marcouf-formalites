@@ -1,26 +1,10 @@
 import { Resend } from 'resend'
 
-const resendApiKey = process.env.RESEND_API_KEY
+const apiKey = process.env.RESEND_API_KEY
 
-type SendParams = Parameters<Resend['emails']['send']>[0]
-type SendResult = Awaited<ReturnType<Resend['emails']['send']>>
-
-const client = resendApiKey ? new Resend(resendApiKey) : null
-
-if (!resendApiKey) {
-  console.error('RESEND_API_KEY manquante : envoi des emails désactivé.')
+if (!apiKey) {
+  // Échec explicite en build/runtime si la clé est absente
+  throw new Error('RESEND_API_KEY manquante dans les variables d\’environnement')
 }
 
-export const resend: Pick<Resend, 'emails'> = {
-  emails: {
-    async send(payload: SendParams): Promise<SendResult> {
-      if (!client) {
-        return {
-          data: null,
-          error: { message: 'RESEND_API_KEY absente : email non envoyé.' },
-        } as SendResult
-      }
-      return client.emails.send(payload)
-    },
-  },
-}
+export const resend = new Resend(apiKey)
