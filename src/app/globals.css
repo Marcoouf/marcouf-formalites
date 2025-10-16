@@ -26,8 +26,8 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
-text-accent {
-  color: var(--accent);
+.text-accent {
+  color: var(--color-accent, #166534);
 }
 
 @keyframes halo-strong {
@@ -88,7 +88,7 @@ text-accent {
   outline: none;
   box-shadow: 0 0 0 3px var(--accent), 0 0 0 6px white;
 }
-.bg-noise {
+.bg-noise, .bg-noise-paper {
   background-image: url('/textures/brilliant.png');
   background-repeat: repeat;
   background-size: auto;
@@ -107,5 +107,9 @@ text-accent {
 @media (prefers-reduced-motion: reduce) {
   .animate-gradient-bg {
     animation: none !important;
+  }
+  .btn-devis, .btn-devis::before, .btn-devis::after {
+    animation: none !important;
+    transition: none !important;
   }
 }

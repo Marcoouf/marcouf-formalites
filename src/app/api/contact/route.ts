@@ -3,7 +3,7 @@ import { resend } from '@/lib/resend'
 
 export async function POST(request: Request) {
   const body = await request.json()
-  const { name, email, subject, message, consent, contactPreference, timeSlot, referrer } = body
+  const { name, email, subject, message, consent, contactPreference, timeSlot, referrer, company, mountedAt, elapsed } = body
 
   if (!name || !email || !subject || !message || !consent) {
     return NextResponse.json(
@@ -26,6 +26,9 @@ export async function POST(request: Request) {
         ${contactPreference ? `<p><strong>Préférence de contact :</strong> ${contactPreference}</p>` : ''}
         ${timeSlot ? `<p><strong>Créneau souhaité :</strong> ${timeSlot}</p>` : ''}
         ${referrer ? `<p><strong>Provenance :</strong> ${referrer}</p>` : ''}
+        ${typeof company !== 'undefined' ? `<p><strong>Honeypot (company) :</strong> ${company || '—'}</p>` : ''}
+        ${mountedAt ? `<p><strong>MountedAt :</strong> ${mountedAt}</p>` : ''}
+        ${typeof elapsed !== 'undefined' ? `<p><strong>Elapsed :</strong> ${elapsed}</p>` : ''}
         <p><strong>Message :</strong><br>${message.replace(/\n/g, '<br>')}</p>
       `,
       text:
@@ -34,6 +37,9 @@ export async function POST(request: Request) {
         (contactPreference ? `Préférence de contact : ${contactPreference}\n` : '') +
         (timeSlot ? `Créneau souhaité : ${timeSlot}\n` : '') +
         (referrer ? `Provenance : ${referrer}\n` : '') +
+        (typeof company !== 'undefined' ? `Honeypot (company) : ${company || '—'}\n` : '') +
+        (mountedAt ? `MountedAt : ${mountedAt}\n` : '') +
+        (typeof elapsed !== 'undefined' ? `Elapsed : ${elapsed}\n` : '') +
         `Message :\n${message}`
     })
 
