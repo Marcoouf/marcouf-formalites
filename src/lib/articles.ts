@@ -72,30 +72,21 @@ export type ArticleCard = {
 }
 
 export async function getAllArticlesMetaSorted(): Promise<ArticleCard[]> {
-  const slugs = await getAllSlugs()
-  const items = await Promise.all(
-    slugs.map(async (s) => {
-      const got = await getArticleBySlug(s).catch(() => null)
-      if (!got) return null
-      const { meta } = got
-      return {
-        slug: meta.slug ?? s,
-        title: meta.title ?? s,
-        description: meta.description,
-        publishedAt: meta.publishedAt ?? null,
-        cover: meta.cover,
-        coverAlt: meta.coverAlt,
-      } as ArticleCard
-    })
-  )
+  const metas = await getAllArticlesMeta()
+  const cards: ArticleCard[] = metas.map((meta) => ({
+    slug: meta.slug,
+    title: meta.title,
+    description: meta.description,
+    publishedAt: meta.publishedAt,
+    cover: meta.cover,
+    coverAlt: meta.coverAlt,
+  }))
 
-  return items
-    .filter((x): x is ArticleCard => Boolean(x))
-    .sort((a, b) => {
-      const da = new Date(a.publishedAt ?? 0).getTime()
-      const db = new Date(b.publishedAt ?? 0).getTime()
-      return db - da // plus récents d'abord
-    })
+  return cards.sort((a, b) => {
+    const da = a.publishedAt ? new Date(a.publishedAt).getTime() : 0
+    const db = b.publishedAt ? new Date(b.publishedAt).getTime() : 0
+    return db - da
+  })
 }
 
 export async function getLatestArticles(limit = 3): Promise<ArticleCard[]> {

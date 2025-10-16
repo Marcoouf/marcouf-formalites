@@ -1,32 +1,6 @@
-// src/components/LatestArticlesRail.tsx
-// Composant d’affichage + utilitaires de lecture des articles MDX (sans any)
-
 import Link from 'next/link'
 import Image from 'next/image'
-import { getAllArticlesMeta } from '@/lib/articles'
-
-// Métadonnées complètes présentes dans le front-matter des .mdx
-export type ArticleMeta = {
-  title: string
-  slug: string
-  description?: string
-  category?: string
-  tags?: string[]
-  publishedAt?: string | null
-  updatedAt?: string | null
-  cover?: string | null
-  coverAlt?: string | null
-}
-
-// Données minimales pour une carte « Derniers articles »
-export type ArticleCard = {
-  slug: string
-  title: string
-  description?: string
-  publishedAt?: string | null
-  cover?: string | null
-  coverAlt?: string | null
-}
+import { getLatestArticles, type ArticleCard } from '@/lib/articles'
 
 // Formatage de date FR sécurisé (évite les erreurs d’hydratation)
 function formatFR(dateISO?: string | null) {
@@ -42,10 +16,7 @@ function formatFR(dateISO?: string | null) {
 
 // UI (Server Component)
 export default async function LatestArticlesRail({ limit = 3 }: { limit?: number }) {
-  const items = (await getAllArticlesMeta())
-    .filter((a) => !!a.publishedAt)
-    .sort((a, b) => new Date(b.publishedAt!).getTime() - new Date(a.publishedAt!).getTime())
-    .slice(0, limit)
+  const items: ArticleCard[] = await getLatestArticles(limit)
   if (!items.length) return null
 
   return (
@@ -57,7 +28,8 @@ export default async function LatestArticlesRail({ limit = 3 }: { limit?: number
         <Link
           href="/articles"
           prefetch={false}
-          className="group inline-flex items-center gap-2 text-sm px-3 py-1 border border-black rounded-full hover:bg-black hover:text-white transition"          aria-label="Voir tous les articles"
+          className="group inline-flex items-center gap-2 text-sm px-3 py-1 border border-black rounded-full hover:bg-black hover:text-white transition"
+          aria-label="Voir tous les articles"
         >
           Tous les articles
           <span aria-hidden className="text-[var(--accent)] transition-transform group-hover:translate-x-0.5">→</span>

@@ -27,7 +27,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 .text-accent {
-  color: var(--color-accent, #166534);
+  color: var(--accent);
 }
 
 @keyframes halo-strong {
@@ -88,14 +88,25 @@ body {
   outline: none;
   box-shadow: 0 0 0 3px var(--accent), 0 0 0 6px white;
 }
-.bg-noise, .bg-noise-paper {
+.bg-noise,
+.bg-noise-paper {
+  position: relative;
+  isolation: isolate;
+}
+
+.bg-noise::before,
+.bg-noise-paper::before {
+  content: '';
+  position: absolute;
+  inset: 0;
   background-image: url('/textures/brilliant.png');
   background-repeat: repeat;
   background-size: auto;
   opacity: 0.06;
-  }
+  pointer-events: none;
+}
 
-  .full-bleed {
+.full-bleed {
   position: relative;
   left: 50%;
   right: 50%;
@@ -108,8 +119,7 @@ body {
   .animate-gradient-bg {
     animation: none !important;
   }
-  .btn-devis, .btn-devis::before, .btn-devis::after {
+  .btn-devis {
     animation: none !important;
-    transition: none !important;
   }
 }
