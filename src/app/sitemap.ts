@@ -30,19 +30,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date()
   const articles = await getAllArticlesMeta().catch(() => [])
 
-  const staticEntries = staticRoutes.map((path) => ({
+  const staticEntries: MetadataRoute.Sitemap = staticRoutes.map((path) => ({
     url: `${base}${path}`,
     lastModified: now,
-    changeFrequency: 'weekly',
+    changeFrequency: 'weekly' as const,
     priority: path === '/' ? 1 : 0.7,
   }))
 
-  const articleEntries = articles.map((article) => {
+  const articleEntries: MetadataRoute.Sitemap = articles.map((article) => {
     const lastModified = parseDate(article.updatedAt) ?? parseDate(article.publishedAt) ?? now
     return {
       url: `${base}/articles/${article.slug}`,
       lastModified,
-      changeFrequency: 'monthly',
+      changeFrequency: 'monthly' as const,
       priority: 0.6,
     } satisfies MetadataRoute.Sitemap[number]
   })
