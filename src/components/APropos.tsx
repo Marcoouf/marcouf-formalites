@@ -32,13 +32,13 @@ export default function APropos() {
           </h2>
 
           <p className="text-lg text-gray-600">
-            Juriste indépendant, j&apos;interviens principalement dans le domaine du droit des affaires, de la propriété intellectuelle et des formalités juridiques.
-            Fort d&apos;une expérience dans l&apos;accompagnement des entrepreneurs et des PME, je propose un service personnalisé, accessible et rigoureux.
+            Spécialiste des formalités d&apos;entreprise, je conçois des guides, modèles et checklists pour aider les dirigeants et dirigeantes à structurer leurs démarches administratives en toute autonomie.
+            Fort d&apos;une expérience auprès des entrepreneurs et des PME, je propose un support personnalisé, accessible et documenté.
           </p>
 
           <p className="text-lg text-gray-600">
-            Mon activité couvre les démarches liées à la création de sociétés, les modifications statutaires, la liquidation, ainsi que le dépôt et la protection des marques.
-            J&apos;accorde une attention particulière à la pédagogie, à la réactivité et à la fiabilité des documents.
+            Mon activité couvre la préparation des dossiers de création de sociétés, les modifications statutaires, la clôture d&apos;activité, ainsi que la mise à disposition d&apos;outils pour protéger vos signes distinctifs.
+            J&apos;accorde une attention particulière à la pédagogie, à la réactivité et à la fiabilité des informations partagées.
           </p>
 
           <div className="grid gap-6 sm:grid-cols-3 pt-4">
@@ -65,6 +65,7 @@ export default function APropos() {
               </p>
             </div>
           </div>
+
         </div>
       </div>
     </section>

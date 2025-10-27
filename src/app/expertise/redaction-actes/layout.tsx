@@ -1,13 +1,13 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: "Secrétariat juridique & actes de société | Marcouf Formalités",
+  title: "Secrétariat de formalités & actes de société | Marcouf Formalités",
   description:
-    "Approbation des comptes, PV AGO/AGE, délégations de pouvoirs, statuts à jour, registres légaux. Rédaction, tenue et formalités associées.",
+    "Approbation des comptes, PV AGO/AGE, délégations de pouvoirs, statuts à jour, registres légaux. Modèles types, tenue documentaire et formalités accompagnées.",
   alternates: { canonical: "https://www.marcouf-formalites.fr/expertise/redaction-actes" },
   openGraph: {
-    title: "Secrétariat juridique & actes de société – clair et conforme",
-    description: "Cadrage & checklist, actes, signature & registres, formalités & archivage.",
+    title: "Secrétariat de formalités & actes de société – clair et documenté",
+    description: "Cadrage & checklist, documents types, signature & registres, formalités & archivage.",
     url: "https://www.marcouf-formalites.fr/expertise/redaction-actes",
     siteName: "Marcouf Formalités",
     locale: "fr_FR",

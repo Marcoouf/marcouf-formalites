@@ -7,9 +7,9 @@ import { StepsRail } from '../../../components/StepsRail'
 
 const stepsActes = [
   { title: 'Cadrage & checklist', desc: 'Besoins, pièces, calendrier. Liste des actes et formalités.' },
-  { title: 'Rédaction des actes', desc: 'PV AGO/AGE, décisions, délégations, mises à jour statutaires.' },
+  { title: 'Modèles d’actes', desc: 'PV AGO/AGE, décisions, délégations et statuts commentés à adapter.' },
   { title: 'Signature & registres', desc: 'Process de signature, inscription dans les registres obligatoires.' },
-  { title: 'Formalités & archivage', desc: 'Dépôts nécessaires, attestations, conservation sécurisée.' },
+  { title: 'Formalités & archivage', desc: 'Transmission du dossier, attestations et conservation sécurisée (sans représentation).' },
 ]
 
 export default function RedactionActesPageClient() {
@@ -30,10 +30,10 @@ export default function RedactionActesPageClient() {
         transition={{ duration: 0.3 }}
       >
         <h1 className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-green-700">
-          Secrétariat juridique & actes de société
+          Secrétariat de formalités & actes de société
         </h1>
         <p className="text-lg text-gray-600">
-          Approbation des comptes, procès‑verbaux (AGO/AGE), délégations de pouvoirs, statuts à jour et registres légaux. Rédaction, relecture et tenue conformes, formalités si besoin.
+          Approbation des comptes, procès‑verbaux (AGO/AGE), délégations de pouvoirs, statuts à jour et registres légaux. Préparation de modèles types, relecture administrative et suivi des formalités.
         </p>
       </motion.header>
 
@@ -46,21 +46,21 @@ export default function RedactionActesPageClient() {
 
       {/* Étapes (rail) */}
       <StepsRail
-        title="Un accompagnement en 4 étapes"
-        subtitle="Cadrage & checklist, actes, signature & registres, formalités & archivage."
+        title="Un parcours formalités en 4 étapes"
+        subtitle="Cadrage & checklist, documents types, signature & registres, formalités & archivage."
         steps={stepsActes}
       />
 
       {/* Pourquoi + Garanties */}
       <section className="grid grid-cols-1 md:grid-cols-2 gap-10">
         <div className="space-y-4">
-          <h2 className="text-2xl md:text-3xl font-bold">Pourquoi faire appel à un juriste ?</h2>
+          <h2 className="text-2xl md:text-3xl font-bold">Pourquoi externaliser votre secrétariat de formalités ?</h2>
           <ul className="space-y-3 text-gray-800">
-            <li><span className="font-medium">Sécurité juridique :</span> éviter les zones grises et les clauses inopérantes.</li>
-            <li><span className="font-medium">Lisibilité opérationnelle :</span> des actes clairs et actionnables par les équipes.</li>
-            <li><span className="font-medium">Gain de temps :</span> structure, annexes et signatures cadrées.</li>
+            <li><span className="font-medium">Documentation fiabilisée :</span> actes types alignés sur vos opérations et checklist associée.</li>
+            <li><span className="font-medium">Lisibilité opérationnelle :</span> documents clairs, prêts à commenter et à signer.</li>
+            <li><span className="font-medium">Gain de temps :</span> planning, annexes et registres tenus à jour en continu.</li>
           </ul>
-          <p className="italic text-gray-600">Un acte précis réduit les litiges et protège vos intérêts.</p>
+          <p className="italic text-gray-600">Un acte précis réduit les retours administratifs et protège vos intérêts. Pour une validation juridique personnalisée, consultez un avocat.</p>
         </div>
         <div className="space-y-4">
           <h3 className="text-xl font-semibold">Mes garanties</h3>
@@ -68,7 +68,7 @@ export default function RedactionActesPageClient() {
             {[
               ['Réactivité', 'Retour sous 24 h'],
               ['Transparence', 'Devis détaillé et étapes claires'],
-              ['Conformité', 'Actes à jour + pièces vérifiées'],
+              ['Documents à jour', 'Actes et registres alignés sur les obligations courantes'],
               ['Confidentialité', 'Secret professionnel'],
             ].map(([t, d], i) => (
               <div key={i} className="rounded-lg border border-gray-200 p-4 bg-white">
@@ -101,10 +101,10 @@ export default function RedactionActesPageClient() {
       <section>
         <h2 className="text-2xl md:text-3xl font-bold mb-6">Questions fréquentes</h2>
         <div className="space-y-4">
-          {[
-            ['Gérez-vous l’approbation des comptes ?', 'Oui : convocation, procès‑verbal, dépôt si requis et tenue des registres.'],
-            ['Pouvez-vous remettre à jour des statuts obsolètes ?', 'Oui : refonte conforme et mise à jour des clauses impactées.'],
-            ['Tenez-vous les registres obligatoires ?', 'Oui : registres des décisions/assemblées et des pouvoirs, avec conservation.'],
+            {[
+            ['Gérez-vous l’approbation des comptes ?', 'Oui : convocation, procès‑verbal, assistance au dépôt si requis et tenue des registres.'],
+            ['Pouvez-vous remettre à jour des statuts obsolètes ?', 'Oui : version consolidée commentée et adaptée aux évolutions décidées.'],
+            ['Tenez-vous les registres obligatoires ?', 'Oui : registres des décisions/assemblées et des pouvoirs, avec conservation sécurisée.'],
             ['Quels sont les délais ?', 'Selon l’urgence : première version en 24–72 h en général.'],
           ].map(([q, a], i) => (
             <details key={i} className="group rounded-lg border border-gray-200 p-4">
@@ -127,9 +127,10 @@ export default function RedactionActesPageClient() {
         viewport={{ once: true }}
       >
         <h2 className="text-2xl font-semibold text-green-700">Un secrétariat juridique clair et à jour ?</h2>
-        <p className="text-lg text-gray-700">Expliquez-moi votre besoin ; je prépare la bonne structure et les clauses clés.</p>
+        <p className="text-lg text-gray-700">Expliquez-moi votre besoin ; je prépare la bonne structure documentaire et les modèles associés.</p>
         <button className="btn-devis" onClick={() => handleSmartScroll('contact')}>Obtenir un devis</button>
       </motion.section>
+
     </main>
   )
 }

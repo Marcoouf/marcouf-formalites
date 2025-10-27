@@ -13,7 +13,7 @@ export default function Footer() {
         <div>
           <h3 className="text-lg font-semibold mb-4">Marcouf Formalités</h3>
           <p className="text-sm text-gray-400">
-            Accompagnement juridique sur mesure pour structurer votre activité avec sécurité.
+            Service de formalités administratives, guides pratiques et modèles types pour structurer votre activité sereinement.
           </p>
           <div className="mt-4">
             <Link

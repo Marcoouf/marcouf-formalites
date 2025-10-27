@@ -5,9 +5,9 @@ const legalServiceJsonLd = {
   '@type': 'LegalService',
   name: "Création d'entreprise Marcouf Formalités",
   description:
-    'Accompagnement complet pour la création de société : diagnostic, statuts sur mesure, annonce légale et dépôt au greffe.',
+    'Support documentaire pour la création de société : cadrage, statuts types commentés, annonce légale préparée et dépôt accompagné.',
   url: 'https://www.marcouf-formalites.fr/expertise/creation',
-  serviceType: 'Création de société',
+  serviceType: 'Support aux formalités de création de société',
   provider: {
     '@type': 'Organization',
     name: 'Marcouf Formalités',
@@ -25,27 +25,27 @@ const legalServiceJsonLd = {
   },
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
-    name: 'Accompagnement création',
+    name: 'Parcours formalités création',
     itemListElement: [
       {
         '@type': 'ListItem',
         position: 1,
-        item: { '@type': 'Service', name: 'Diagnostic du projet' },
+        item: { '@type': 'Service', name: 'Cadrage documentaire du projet' },
       },
       {
         '@type': 'ListItem',
         position: 2,
-        item: { '@type': 'Service', name: 'Rédaction des statuts' },
+        item: { '@type': 'Service', name: 'Modèles de statuts prêts à personnaliser' },
       },
       {
         '@type': 'ListItem',
         position: 3,
-        item: { '@type': 'Service', name: 'Formalités et annonce légale' },
+        item: { '@type': 'Service', name: 'Annonce légale préparée et dossier de formalités' },
       },
       {
         '@type': 'ListItem',
         position: 4,
-        item: { '@type': 'Service', name: 'Dépôt au greffe et suivi Kbis' },
+        item: { '@type': 'Service', name: 'Transmission du dossier et suivi du Kbis' },
       },
     ],
   },

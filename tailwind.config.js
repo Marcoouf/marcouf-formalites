@@ -10,9 +10,7 @@ module.exports = {
     extend: {
       // --- TEXTURES / BACKGROUNDS ---
       backgroundImage: {
-        'noise-paper': "url('/textures/paper-fine.png')",
-        'hex': "url('/textures/hexagons.svg')",
-        'diag': "url('/textures/diagonal-lines.svg')",
+        'noise-paper': "radial-gradient(circle at 0.5px 0.5px, rgba(15, 23, 42, 0.08) 0.5px, transparent 0.5px)",
       },
       backgroundSize: {
         'noise-auto': 'auto',         // pour ta classe bg-noise-auto

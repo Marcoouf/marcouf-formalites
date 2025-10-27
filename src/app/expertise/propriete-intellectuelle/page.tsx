@@ -5,9 +5,9 @@ const legalServiceJsonLd = {
   '@type': 'LegalService',
   name: 'Propriété intellectuelle Marcouf Formalités',
   description:
-    'Dépôt de marques, contrats de cession ou de licence et protection des créations (droit d’auteur, dessins et modèles).',
+    'Support aux dépôts de marques, contrats de cession ou de licence et protection documentaire des créations (droit d’auteur, dessins et modèles).',
   url: 'https://www.marcouf-formalites.fr/expertise/propriete-intellectuelle',
-  serviceType: 'Protection et valorisation de la propriété intellectuelle',
+  serviceType: 'Support aux formalités de propriété intellectuelle',
   provider: {
     '@type': 'Organization',
     name: 'Marcouf Formalités',
@@ -26,27 +26,27 @@ const legalServiceJsonLd = {
   },
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
-    name: 'Accompagnement propriété intellectuelle',
+    name: 'Parcours formalités PI',
     itemListElement: [
       {
         '@type': 'ListItem',
         position: 1,
-        item: { '@type': 'Service', name: 'Recherche et stratégie de dépôt' },
+        item: { '@type': 'Service', name: 'Recherche documentaire et plan de dépôt' },
       },
       {
         '@type': 'ListItem',
         position: 2,
-        item: { '@type': 'Service', name: 'Gestion des formalités INPI/EUIPO' },
+        item: { '@type': 'Service', name: 'Préparation des formalités INPI/EUIPO' },
       },
       {
         '@type': 'ListItem',
         position: 3,
-        item: { '@type': 'Service', name: 'Contrats de cession ou de licence' },
+        item: { '@type': 'Service', name: 'Modèles de cession ou de licence' },
       },
       {
         '@type': 'ListItem',
         position: 4,
-        item: { '@type': 'Service', name: 'Protection des œuvres et preuves' },
+        item: { '@type': 'Service', name: 'Protection des œuvres et traçabilité des preuves' },
       },
     ],
   },

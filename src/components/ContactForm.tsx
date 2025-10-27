@@ -284,7 +284,7 @@ export default function ContactForm() {
               <option>Création d’entreprise</option>
               <option>Modification de société</option>
               <option>Contrats & documentation</option>
-              <option>Rédaction d’actes</option>
+              <option>Modèles d’actes & secrétariat</option>
               <option>Propriété intellectuelle</option>
               <option>Autre demande</option>
             </select>

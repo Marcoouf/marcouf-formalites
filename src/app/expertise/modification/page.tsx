@@ -5,9 +5,9 @@ const legalServiceJsonLd = {
   '@type': 'LegalService',
   name: 'Modification de société Marcouf Formalités',
   description:
-    'Formalités de modification de société : actes, annonces légales, dépôt au greffe et mise à jour du Kbis.',
+    'Support aux formalités de modification : modèles d’actes, annonce légale préparée, dépôt accompagné et suivi du Kbis.',
   url: 'https://www.marcouf-formalites.fr/expertise/modification',
-  serviceType: 'Modification de société',
+  serviceType: 'Support aux formalités de modification de société',
   provider: {
     '@type': 'Organization',
     name: 'Marcouf Formalités',
@@ -25,27 +25,27 @@ const legalServiceJsonLd = {
   },
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
-    name: 'Accompagnement modification',
+    name: 'Parcours formalités modification',
     itemListElement: [
       {
         '@type': 'ListItem',
         position: 1,
-        item: { '@type': 'Service', name: 'Audit des impacts juridiques' },
+        item: { '@type': 'Service', name: 'Cadrage des impacts administratifs' },
       },
       {
         '@type': 'ListItem',
         position: 2,
-        item: { '@type': 'Service', name: 'Rédaction des actes et statuts' },
+        item: { '@type': 'Service', name: 'Modèles d’actes et statuts mis à jour' },
       },
       {
         '@type': 'ListItem',
         position: 3,
-        item: { '@type': 'Service', name: 'Publication de l’annonce légale' },
+        item: { '@type': 'Service', name: 'Annonce légale préparée et consignes de publication' },
       },
       {
         '@type': 'ListItem',
         position: 4,
-        item: { '@type': 'Service', name: 'Dépôt au greffe et suivi' },
+        item: { '@type': 'Service', name: 'Transmission du dossier et suivi du Kbis' },
       },
     ],
   },

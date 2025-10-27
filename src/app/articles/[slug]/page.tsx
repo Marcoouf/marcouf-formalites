@@ -211,9 +211,9 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     .slice(0, 3)
 
   const expertise = [
-    { href: '/expertise/creation', title: "Création d’entreprise", desc: 'Choix du statut, statuts sur mesure, formalités jusqu’au Kbis.' },
-    { href: '/expertise/contrats-et-documentation', title: 'Contrats & documentation', desc: 'Contrats commerciaux, conditions générales, clauses clés.' },
-    { href: '/expertise/redaction-actes', title: 'Rédaction d’actes juridiques', desc: 'Statuts, procès-verbaux, délégations, pactes.' },
+    { href: '/expertise/creation', title: "Création d’entreprise", desc: 'Choix du statut, modèles de statuts, formalités jusqu’au Kbis.' },
+    { href: '/expertise/contrats-et-documentation', title: 'Contrats & documentation', desc: 'Modèles commerciaux, conditions générales, clauses clés.' },
+    { href: '/expertise/redaction-actes', title: 'Secrétariat de formalités', desc: 'Statuts consolidés, procès-verbaux, délégations, registres.' },
     { href: '/expertise/propriete-intellectuelle', title: 'Propriété intellectuelle', desc: 'Marques, dépôts, cession/licence.' },
     { href: '/expertise/modification', title: 'Modification des sociétés', desc: 'Dirigeant, siège, objet, capital…' },
   ] as const
@@ -284,9 +284,9 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
       <section className="rounded-2xl border border-gray-200 bg-gray-50 p-6 md:p-8 text-center">
         <h2 className="text-xl md:text-2xl font-semibold mb-2">Pour aller plus loin</h2>
-        <p className="text-gray-700 mb-5">Faites appel à un juriste pour sécuriser votre projet et gagner du temps.</p>
+        <p className="text-gray-700 mb-5">Profitez d’un service de formalités pour sécuriser votre projet et gagner du temps.</p>
         <Link href="/#contact" className="btn-devis inline-block" aria-label="Aller au formulaire de contact">
-          Contacter un juriste
+          Contacter Marcouf Formalités
         </Link>
       </section>
 

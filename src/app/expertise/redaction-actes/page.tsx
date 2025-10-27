@@ -3,11 +3,11 @@ import RedactionActesPageClient from './RedactionActesPageClient'
 const legalServiceJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'LegalService',
-  name: 'Secrétariat juridique et rédaction d’actes Marcouf Formalités',
+  name: 'Secrétariat de formalités et modèles d’actes Marcouf Formalités',
   description:
-    'Préparation des procès-verbaux, délégations de pouvoirs, registres et mises à jour statutaires avec dépôt si nécessaire.',
+    'Préparation des procès-verbaux, délégations de pouvoirs, registres et mises à jour statutaires avec assistance au dépôt si nécessaire.',
   url: 'https://www.marcouf-formalites.fr/expertise/redaction-actes',
-  serviceType: 'Secrétariat juridique et rédaction d’actes',
+  serviceType: 'Support aux formalités et modèles d’actes',
   provider: {
     '@type': 'Organization',
     name: 'Marcouf Formalités',
@@ -22,7 +22,7 @@ const legalServiceJsonLd = {
     price: '0',
     priceCurrency: 'EUR',
     availability: 'https://schema.org/InStock',
-    description: 'Tarif sur devis selon les actes à préparer',
+    description: 'Tarif sur devis selon le dossier de formalités',
   },
 } as const
 
@@ -35,7 +35,7 @@ const faqJsonLd = {
       name: 'Gérez-vous l’approbation des comptes ?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Oui : convocation, procès-verbal, dépôt si requis et tenue des registres.',
+        text: 'Oui : convocation, procès-verbal, assistance au dépôt si requis et tenue des registres.',
       },
     },
     {
@@ -43,7 +43,7 @@ const faqJsonLd = {
       name: 'Pouvez-vous remettre à jour des statuts obsolètes ?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Oui : refonte conforme et mise à jour des clauses impactées.',
+        text: 'Oui : version consolidée commentée et adaptée aux évolutions décidées.',
       },
     },
     {
@@ -51,7 +51,7 @@ const faqJsonLd = {
       name: 'Tenez-vous les registres obligatoires ?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Oui : registres des décisions/assemblées et des pouvoirs, avec conservation.',
+        text: 'Oui : registres des décisions/assemblées et des pouvoirs, avec conservation sécurisée.',
       },
     },
     {

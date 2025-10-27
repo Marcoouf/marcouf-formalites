@@ -28,7 +28,7 @@ export default function ModificationPageClient() {
       >
         <h1 className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-green-700">Modification de société</h1>
         <p className="text-lg text-gray-600">
-          Changement de dirigeant, siège social, objet, capital ou dénomination : je prends en charge les actes, l’annonce légale et le dépôt au greffe, jusqu’à la mise à jour de votre Kbis.
+          Changement de dirigeant, siège social, objet, capital ou dénomination : je prépare vos documents types, l’annonce légale et le dossier pour un dépôt serein jusqu’à la mise à jour du Kbis.
         </p>
       </motion.header>
 
@@ -41,21 +41,21 @@ export default function ModificationPageClient() {
 
       {/* Étapes – rail façon Infogreffe */}
       <StepsRail
-        title="Votre modification en 4 étapes"
-        subtitle="Diagnostic, actes & statuts, formalités, Kbis & suivi."
+        title="Votre dossier de modification en 4 étapes"
+        subtitle="Cadrage, documents types, formalités et suivi administratif."
         steps={stepsModification}
       />
 
       {/* Pourquoi + Garanties – 2 colonnes (identique au layout Création) */}
       <section className="grid grid-cols-1 md:grid-cols-2 gap-10">
         <div className="space-y-4">
-          <h2 className="text-2xl md:text-3xl font-bold">Pourquoi faire appel à un juriste ?</h2>
+          <h2 className="text-2xl md:text-3xl font-bold">Pourquoi confier vos formalités de modification ?</h2>
           <ul className="space-y-3 text-gray-800">
-            <li><span className="font-medium">Conformité :</span> sécuriser les actes et éviter les rejets du greffe.</li>
-            <li><span className="font-medium">Optimisation :</span> choisir les bonnes options (dates d’effet, fiscal/social, mentions).</li>
-            <li><span className="font-medium">Gain de temps :</span> dossier complet et suivi jusqu’au Kbis.</li>
+            <li><span className="font-medium">Dossier complet :</span> modèles de PV et statuts à jour avec les bonnes pièces jointes.</li>
+            <li><span className="font-medium">Clarté des étapes :</span> planning, checklist et consignes de signature adaptées à votre situation.</li>
+            <li><span className="font-medium">Suivi fluide :</span> dépôt accompagné et réponses rapides aux demandes du greffe.</li>
           </ul>
-          <p className="italic text-gray-600">Un accompagnement précis évite des retours greffe et des retards coûteux.</p>
+          <p className="italic text-gray-600">Un support précis évite des retours greffe et des retards coûteux. Pour arbitrer des questions juridiques, appuyez-vous sur un avocat.</p>
         </div>
         <div className="space-y-4">
           <h3 className="text-xl font-semibold">Mes garanties</h3>
@@ -63,8 +63,8 @@ export default function ModificationPageClient() {
             {[
               ['Réactivité', 'Réponse sous 24 h'],
               ['Transparence', 'Devis clair et frais annoncés'],
-              ['Conformité', 'Documents à jour et pièces vérifiées'],
-              ['Suivi', 'Jusqu’au Kbis mis à jour'],
+              ['Documents à jour', 'Modèles alignés sur votre opération'],
+              ['Suivi administratif', 'Jusqu’au Kbis mis à jour'],
             ].map(([t, d], i) => (
               <div key={i} className="rounded-lg border border-gray-200 p-4 bg-white">
                 <div className="font-medium">{t}</div>
@@ -80,7 +80,7 @@ export default function ModificationPageClient() {
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div>
             <h2 className="text-2xl md:text-3xl font-bold">Tarif indicatif</h2>
-            <p className="text-gray-700 mt-1">Forfait incluant : PV, statuts mis à jour, annonce légale et formalités au greffe.</p>
+            <p className="text-gray-700 mt-1">Forfait incluant : trames de PV/statuts, annonce légale prête à publier, formulaires préremplis et assistance au dépôt.</p>
           </div>
           <div className="text-center md:text-right">
             <div className="text-3xl font-extrabold">À partir de <span className="whitespace-nowrap">180 € HT</span></div>
@@ -99,10 +99,10 @@ export default function ModificationPageClient() {
         <h2 className="text-2xl md:text-3xl font-bold mb-6">Questions fréquentes</h2>
         <div className="space-y-4">
           {[
-            ['Dois‑je publier une annonce légale ?', 'Oui pour la plupart des modifications statutaires (siège, dirigeant, objet, dénomination, capital…). Je rédige et publie pour vous.'],
+            ['Dois‑je publier une annonce légale ?', 'Oui pour la plupart des modifications statutaires (siège, dirigeant, objet, dénomination, capital…). Je prépare le texte et vous guide pour la publication.'],
             ['Qui signe les documents ?', 'Selon le cas : gérant/président, associé(s) ou mandataire. Je vous indique précisément les signataires et pièces.'],
-            ['Le greffe peut‑il refuser ?', 'Oui si une pièce manque ou est inexacte. Je sécurise le dossier et gère les échanges si besoin.'],
-            ['Faut‑il mettre à jour les statuts ?', 'Oui dès qu’une clause statutaire est impactée. Je fournis une version à jour.'],
+            ['Le greffe peut‑il refuser ?', 'Oui si une pièce manque ou est inexacte. Je vous aide à sécuriser le dossier et à répondre rapidement aux demandes.'],
+            ['Faut‑il mettre à jour les statuts ?', 'Oui dès qu’une clause statutaire est impactée. Je fournis une version consolidée prête à personnaliser.'],
           ].map(([q, a], i) => (
             <details key={i} className="group rounded-lg border border-gray-200 p-4">
               <summary className="flex cursor-pointer list-none items-center justify-between gap-4">
@@ -131,6 +131,7 @@ export default function ModificationPageClient() {
           Discuter de mon besoin
         </button>
       </motion.section>
+
     </main>
   )
 }

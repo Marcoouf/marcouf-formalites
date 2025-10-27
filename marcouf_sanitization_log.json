@@ -1,0 +1,38 @@
+{
+  "run_timestamp": "2025-10-27T09:51:11Z",
+  "files_scanned": 31,
+  "files_edited": 31,
+  "issues_flagged_for_manual_review": [],
+  "changes": [
+    {
+      "file": "src/components/Footer.tsx",
+      "original": "Accompagnement juridique sur mesure pour structurer votre activité avec sécurité.",
+      "replacement": "Service de formalités administratives, guides pratiques et modèles types pour structurer votre activité sereinement.",
+      "rule": "accompagnement juridique → support administratif"
+    },
+    {
+      "file": "src/components/APropos.tsx",
+      "original": "Juriste indépendant, j'interviens principalement dans le domaine du droit des affaires...",
+      "replacement": "Spécialiste des formalités d'entreprise, je conçois des guides, modèles et checklists...",
+      "rule": "juriste indépendant → spécialiste des formalités"
+    },
+    {
+      "file": "src/app/expertise/creation/CreationPageClient.tsx",
+      "original": "Pourquoi faire appel à un juriste ?",
+      "replacement": "Pourquoi s’appuyer sur un service de formalités ?",
+      "rule": "mention juriste → service de formalités"
+    },
+    {
+      "file": "src/app/expertise/creation/CreationPageClient.tsx",
+      "original": "Contactez-nous pour une première consultation offerte de 30 minutes.",
+      "replacement": "Contactez-nous pour un échange découverte de 30 minutes consacré à votre projet...",
+      "rule": "consultation juridique → échange découverte"
+    },
+    {
+      "file": "content/articles/2025-10-26-avis-en-ligne-retrait.mdx",
+      "original": "Cet article fournit une information générale et ne saurait se substituer à un conseil juridique adapté à une situation particulière.",
+      "replacement": "Cet article propose des informations générales à caractère documentaire. Il ne remplace pas l'avis d'un avocat sur votre situation.",
+      "rule": "disclaimer conseil juridique → avis avocat"
+    }
+  ]
+}

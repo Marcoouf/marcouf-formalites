@@ -28,7 +28,7 @@ export default function ProprieteIntellectuellePageClient() {
       >
         <h1 className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-green-700">Propriété intellectuelle</h1>
         <p className="text-lg text-gray-600">
-          Protégez vos marques, logos, créations et contrats de cession ou de licence. J’accompagne vos démarches de l’audit au dépôt, puis à l’exploitation de vos droits.
+          Protégez vos marques, logos, créations et contrats de cession ou de licence. Je prépare vos dossiers de dépôt, vos modèles contractuels et le suivi administratif associé.
         </p>
       </motion.header>
 
@@ -41,21 +41,21 @@ export default function ProprieteIntellectuellePageClient() {
 
       {/* Étapes – rail façon Infogreffe */}
       <StepsRail
-        title="Un accompagnement en 4 étapes"
-        subtitle="Audit, stratégie de protection, dépôt & suivi, contrats & exploitation."
+        title="Un parcours PI en 4 étapes"
+        subtitle="Analyse documentaire, plan de dépôt, formalités et modèles d’exploitation."
         steps={stepsPI}
       />
 
       {/* Pourquoi + Garanties – 2 colonnes */}
       <section className="grid grid-cols-1 md:grid-cols-2 gap-10">
         <div className="space-y-4">
-          <h2 className="text-2xl md:text-3xl font-bold">Pourquoi faire appel à un juriste ?</h2>
+          <h2 className="text-2xl md:text-3xl font-bold">Pourquoi déléguer vos formalités PI ?</h2>
           <ul className="space-y-3 text-gray-800">
-            <li><span className="font-medium">Sécurisation de vos droits :</span> identifier et protéger vos marques et œuvres pour prévenir la contrefaçon.</li>
-            <li><span className="font-medium">Valorisation de l’innovation :</span> structurer la cession ou la licence pour monétiser durablement vos créations.</li>
-            <li><span className="font-medium">Prévention des litiges :</span> anticiper les conflits et prévoir des mécanismes de résolution adaptés.</li>
+            <li><span className="font-medium">Dossier complet :</span> choix des classes et justificatifs préparés pour l’INPI/EUIPO.</li>
+            <li><span className="font-medium">Valorisation :</span> modèles de cession/licence et clauses clés pour sécuriser vos partenariats.</li>
+            <li><span className="font-medium">Veille :</span> rappels d’échéances et bonnes pratiques de surveillance pour vos actifs.</li>
           </ul>
-          <p className="italic text-gray-600">Une stratégie de PI cohérente protège et valorise vos actifs immatériels.</p>
+          <p className="italic text-gray-600">Un plan de PI cohérent protège et valorise vos actifs immatériels. Pour les arbitrages juridiques complexes ou les contentieux, rapprochez-vous d’un avocat spécialisé.</p>
         </div>
         <div className="space-y-4">
           <h3 className="text-xl font-semibold">Mes garanties</h3>
@@ -98,11 +98,11 @@ export default function ProprieteIntellectuellePageClient() {
       <section>
         <h2 className="text-2xl md:text-3xl font-bold mb-6">Questions fréquentes</h2>
         <div className="space-y-4">
-          {[
-            ['Dois‑je déposer une marque ?', 'Utile dès que vous exploitez un nom/logo. Le choix des classes dépend de vos produits/services actuels et à venir.'],
-            ['Combien de classes INPI choisir ?', 'On cible l’essentiel selon votre marché. Trop de classes peuvent coûter cher sans utilité.'],
-            ['Cession ou licence : quelle différence ?', 'La cession transfère le droit, la licence l’autorise contre contrepartie (redevances).'],
-            ['Comment prouver mes droits d’auteur ?', 'Enveloppe Soleau, dépôts de preuves, traçabilité des versions et contrats encadrant les contributions.'],
+            {[
+              ['Dois‑je déposer une marque ?', 'Utile dès que vous exploitez un nom/logo. Le choix des classes dépend de vos produits/services actuels et à venir : je vous fournis une recommandation indicative à faire valider par vos conseils.'],
+              ['Combien de classes INPI choisir ?', 'On cible l’essentiel selon votre marché. Trop de classes peuvent coûter cher sans utilité ; je prépare plusieurs scénarios pour décision.'],
+              ['Cession ou licence : quelle différence ?', 'La cession transfère le droit, la licence l’autorise contre contrepartie. Je fournis des modèles types à adapter avec vos conseils juridiques.'],
+              ['Comment prouver mes droits d’auteur ?', 'Enveloppe Soleau, dépôts de preuves, traçabilité des versions et contrats encadrant les contributions : je vous guide sur les ressources disponibles.'],
           ].map(([q, a], i) => (
             <details key={i} className="group rounded-lg border border-gray-200 p-4">
               <summary className="flex cursor-pointer list-none items-center justify-between gap-4">
@@ -124,11 +124,12 @@ export default function ProprieteIntellectuellePageClient() {
         viewport={{ once: true }}
       >
         <h2 className="text-2xl font-semibold text-green-700">Prêt à sécuriser vos créations ?</h2>
-        <p className="text-lg text-gray-700">Expliquez-moi vos besoins (marque, licence, cession, droits d’auteur) et je vous propose la meilleure stratégie.</p>
+        <p className="text-lg text-gray-700">Expliquez-moi vos besoins (marque, licence, cession, droits d’auteur) et je vous propose un plan documentaire et administratif adapté.</p>
         <button className="btn-devis" onClick={() => handleSmartScroll('contact')}>
           Obtenir un devis
         </button>
       </motion.section>
+
     </main>
   )
 }

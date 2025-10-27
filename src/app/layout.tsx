@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     default: 'Marcouf Formalités',
   },
   description:
-    'Votre juriste indépendant — création, modification, contrats & documentation, secrétariat juridique, propriété intellectuelle.',
+    'Service de formalités administratives : création et modification de société, modèles contractuels, secrétariat et propriété intellectuelle.',
   icons: {
     icon: '/favicon.ico',
     apple: '/apple-touch-icon.png',
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Marcouf Formalités',
     description:
-      'Juriste indépendant : création, modification, contrats & documentation, secrétariat juridique, propriété intellectuelle.',
+      'Service de formalités administratives : création et modification de société, modèles contractuels, secrétariat et propriété intellectuelle.',
     url: 'https://www.marcouf-formalites.fr',
     siteName: 'Marcouf Formalités',
     locale: 'fr_FR',

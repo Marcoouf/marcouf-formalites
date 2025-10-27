@@ -30,7 +30,7 @@ export default function CreationPageClient() {
           Création d’entreprise
         </h1>
         <p className="text-lg text-gray-600">
-          Choisissez la structure la plus adaptée et démarrez sur des bases solides, avec un accompagnement complet.
+          Choisissez la structure la plus adaptée et démarrez sur des bases solides grâce à un support administratif et documentaire de bout en bout.
         </p>
       </motion.header>
 
@@ -49,28 +49,28 @@ export default function CreationPageClient() {
 
       {/* Étapes – rail façon Infogreffe */}
       <StepsRail
-        title="Mon accompagnement en 4 étapes"
-        subtitle="Diagnostic, statuts, formalités, Kbis."
+        title="Votre parcours formalités en 4 étapes"
+        subtitle="Cadrage, modèles personnalisables, formalités et suivi."
         steps={stepsCreation}
       />
 
       {/* Pourquoi + Garanties – 2 colonnes */}
       <section className="grid grid-cols-1 md:grid-cols-2 gap-10">
         <div className="space-y-4">
-          <h2 className="text-2xl md:text-3xl font-bold">Pourquoi faire appel à un juriste ?</h2>
+          <h2 className="text-2xl md:text-3xl font-bold">Pourquoi s’appuyer sur un service de formalités ?</h2>
           <ul className="space-y-3 text-gray-800">
             <li>
-              <span className="font-medium">Sécurité juridique :</span> éviter les erreurs dans les statuts et les clauses abusives.
+              <span className="font-medium">Dossier maîtrisé :</span> éviter les oublis dans les statuts type et les formulaires.
             </li>
             <li>
-              <span className="font-medium">Optimisation fiscale & sociale :</span> choisir le régime le plus avantageux.
+              <span className="font-medium">Lecture rapide :</span> recevoir des documents clairs, commentés et facilement adaptables.
             </li>
             <li>
-              <span className="font-medium">Prévention des litiges :</span> anticiper les risques et protéger votre patrimoine.
+              <span className="font-medium">Gain de temps :</span> disposer d’un plan d’action et d’un suivi jusqu’au retour du greffe.
             </li>
           </ul>
           <p className="italic text-gray-600">
-            En confiant votre projet à un juriste, vous gagnez en sérénité et réduisez les coûts cachés d’une erreur.
+            En sécurisant la partie administrative, vous vous concentrez sur le lancement de votre activité. Pour un avis juridique personnalisé, rapprochez-vous d’un avocat.
           </p>
         </div>
         <div className="space-y-4">
@@ -78,9 +78,9 @@ export default function CreationPageClient() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {[
               ['Réactivité', 'Réponse sous 24 h'],
-              ['Transparence', 'Devis clair et adapté'],
-              ['Expérience', '+150 créations accompagnées'],
-              ['Confidentialité', 'Secret professionnel'],
+              ['Transparence', 'Devis détaillé et étapes expliquées'],
+              ['Expérience', '+150 dossiers de formalités traités'],
+              ['Confidentialité', 'Traitement sécurisé de vos pièces'],
             ].map(([t, d], i) => (
               <div key={i} className="rounded-lg border border-gray-200 p-4 bg-white">
                 <div className="font-medium">{t}</div>
@@ -97,7 +97,7 @@ export default function CreationPageClient() {
           <div>
             <h2 className="text-2xl md:text-3xl font-bold">Tarif indicatif</h2>
             <p className="text-gray-700 mt-1">
-              Forfait de base incluant : diagnostic, statuts sur mesure, annonce légale et dépôt au greffe.
+              Forfait de base incluant : dossier documentaire complet (statuts types commentés, formulaires, annonce légale préparée) et assistance au dépôt.
             </p>
           </div>
           <div className="text-center md:text-right">
@@ -123,11 +123,11 @@ export default function CreationPageClient() {
           {[
             [
               'Quel statut choisir pour un indépendant ?',
-              'Cela dépend de votre activité, de votre protection sociale souhaitée et de vos objectifs. Je vous oriente entre EURL/SASU/SARL/SAS avec simulations à l’appui.',
+              'Je fournis un comparatif indicatif (EURL, SASU, SARL, SAS) basé sur votre situation-type et vous recommande de faire valider le choix final par un avocat ou un expert-comptable.',
             ],
             [
               'Quel est le coût d’une annonce légale ?',
-              'Variable selon le département et la longueur du texte : en pratique autour de 150–200 €. Je gère la publication.',
+              'Variable selon le département et la longueur du texte : en pratique autour de 150–200 €. Je prépare le texte et vous accompagne pour la publication.',
             ],
             ['Quel délai pour obtenir un Kbis ?', 'Après dépôt complet, en général 24 à 48 h selon le greffe.'],
           ].map(([q, a], i) => (
@@ -152,12 +152,13 @@ export default function CreationPageClient() {
       >
         <h2 className="text-2xl font-semibold text-green-700">Prêt à démarrer ?</h2>
         <p className="text-lg text-gray-700">
-          Contactez-nous pour une première consultation offerte de 30 minutes. Ensemble, structurons votre projet sur des bases solides.
+          Contactez-nous pour un échange découverte de 30 minutes consacré à votre projet et aux démarches à prévoir.
         </p>
         <button className="btn-devis" onClick={() => handleSmartScroll('contact')}>
           Discuter de mon besoin
         </button>
       </motion.section>
+
     </main>
   )
 }

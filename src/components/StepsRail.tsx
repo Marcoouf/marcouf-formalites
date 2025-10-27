@@ -73,36 +73,36 @@ export function StepsRail({
 /* Jeux d'étapes prêts à l'emploi */
 
 export const stepsCreation: StepItem[] = [
-  { title: 'Diagnostic', desc: 'Analyse de votre activité, objectifs et modèle économique.' },
-  { title: 'Choix de la structure', desc: 'Comparatif EURL, SASU, SARL, SAS…' },
-  { title: 'Statuts sur mesure', desc: 'Rédaction claire, adaptée à votre projet et conforme au droit.' },
-  { title: 'Formalités & Kbis', desc: 'Annonce légale, dépôt au greffe, suivi jusqu’au Kbis.' },
+  { title: 'Cadrage', desc: 'Analyse de votre activité, objectifs et pièces à réunir.' },
+  { title: 'Choix de la structure', desc: 'Comparatif EURL, SASU, SARL, SAS et impacts administratifs.' },
+  { title: 'Modèles & guides', desc: 'Statuts types commentés, lettres et formulaires prêts à personnaliser.' },
+  { title: 'Formalités & suivi', desc: 'Annonce légale pré-rédigée, dépôt accompagné et suivi du Kbis.' },
 ]
 
 export const stepsModification: StepItem[] = [
-  { title: 'Diagnostic', desc: 'Vérification des statuts, impacts juridiques et pièces nécessaires.' },
-  { title: 'Actes & Statuts', desc: 'PV (AGO/AGE), statuts mis à jour, rapports si besoin.' },
-  { title: 'Formalités', desc: 'Annonce légale, formulaires M2/M3/DBE, dépôt et suivi greffe.'},
-  { title: 'Kbis & Suivi', desc: 'Réception du Kbis modifié et recommandations post-modification.' },
+  { title: 'Cadrage', desc: 'Vérification des statuts, impacts administratifs et pièces nécessaires.' },
+  { title: 'Documents types', desc: 'PV, statuts mis à jour et notices explicatives à adapter.' },
+  { title: 'Formalités', desc: 'Annonce légale préparée, formulaires préremplis et checklist dépôt.'},
+  { title: 'Kbis & suivi', desc: 'Transmission du dossier et suivi administratif (sans représentation).' },
 ]
 
 export const stepsPI: StepItem[] = [
-  { title: 'Audit & analyse', desc: 'Recensement des actifs et évaluation des risques.' },
-  { title: 'Stratégie de protection', desc: 'Classes, territoires, procédures (INPI, Soleau), calendrier.' },
-  { title: 'Dépôt & suivi', desc: 'Dépôt INPI, échanges, renouvellements et surveillances.' },
-  { title: 'Contrats & exploitation', desc: 'Cession, licence, confidentialité et redevances.' },
+  { title: 'Analyse documentaire', desc: 'Recensement des actifs immatériels et de leur usage.' },
+  { title: 'Plan de dépôt', desc: 'Choix des classes, territoires et calendrier de dépôt.' },
+  { title: 'Dépôt & suivi', desc: 'Préparation du dossier INPI/EUIPO, transmission et relances.' },
+  { title: 'Modèles & exploitation', desc: 'Trames de cession/licence, clauses clés et suivi administratif.' },
 ]
 
 export const stepsFormalites: StepItem[] = [
   { title: 'Recueil & vérification', desc: 'Check des pièces et planning personnalisé.' },
-  { title: 'Préparation du dossier', desc: 'Formulaires, justificatifs, rédaction conforme des actes.' },
+  { title: 'Préparation du dossier', desc: 'Formulaires complétés, justificatifs et modèles d’actes.' },
   { title: 'Dépôt & échanges', desc: 'Transmission dématérialisée, relances et réponses au greffe.' },
-  { title: 'Obtention & archivage', desc: 'K-bis, attestations et dossiers certifiés.'},
+  { title: 'Obtention & archivage', desc: 'K-bis, attestations et dossiers classés.'},
 ]
 
 export const stepsContrats: StepItem[] = [
   { title: 'Analyse du besoin', desc: 'Modèle économique, parties, risques clés.' },
-  { title: 'Rédaction', desc: 'Clauses claires et opérationnelles, adaptées à votre activité.' },
-  { title: 'Validation & négociation', desc: 'Allers-retours, conformité et arbitrages.' },
-  { title: 'Signature & suivi', desc: 'Version finale, annexes, process de signature, mises à jour.' },
+  { title: 'Modèles', desc: 'Clauses types clarifiées et adaptées à votre activité.' },
+  { title: 'Validation & échanges', desc: 'Allers-retours, conformité documentaire et arbitrages.' },
+  { title: 'Signature & suivi', desc: 'Version finalisée, annexes, processus de signature et mises à jour.' },
 ]
