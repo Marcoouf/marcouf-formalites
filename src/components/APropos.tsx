@@ -7,7 +7,7 @@ export default function APropos() {
   return (
     <section
       id="apropos"
-      className="relative isolate scroll-mt-28 px-6 py-24 sm:py-32 lg:px-16 bg-white"
+      className="relative isolate scroll-mt-32 px-6 py-24 sm:py-32 lg:px-16 bg-white"
     >
       <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
         {/* Photo avec style original */}

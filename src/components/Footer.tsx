@@ -2,26 +2,64 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+import { usePathname, useRouter } from 'next/navigation';
 import { FaLinkedin } from 'react-icons/fa';
 import { FiMapPin, FiPhone, FiMail } from 'react-icons/fi';
 
 export default function Footer() {
+  const pathname = usePathname()
+  const router = useRouter()
+
+  const scrollToSectionWithOffset = (id: string) => {
+    const section = document.getElementById(id)
+    if (!section) return
+    const top = section.getBoundingClientRect().top + window.scrollY - 130
+    window.scrollTo({ top: Math.max(top, 0), behavior: 'smooth' })
+  }
+
+  const handleSmartScroll = (id: string) => {
+    if (pathname === '/') {
+      scrollToSectionWithOffset(id)
+    } else {
+      router.push(`/#${id}`)
+    }
+  }
+
+  const handleHome = () => {
+    if (pathname === '/') {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    } else {
+      router.push('/')
+    }
+  }
+
   return (
     <footer className="bg-black text-white py-12 px-6">
       <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {/* Colonne marque + description + micro-CTA */}
         <div>
-          <h3 className="text-lg font-semibold mb-4">Marcouf Formalités</h3>
+          <div className="mb-4 flex items-center gap-2">
+            <Image
+              src="/logo-footer.webp"
+              alt="Marcouf Formalités"
+              width={320}
+              height={96}
+              className="w-28 h-auto"
+            />
+            <h3 className="text-lg font-semibold">Marcouf Formalités</h3>
+          </div>
           <p className="text-sm text-gray-400">
             Service de formalités administratives, guides pratiques et modèles types pour structurer votre activité sereinement.
           </p>
           <div className="mt-4">
-            <Link
-              href="/#contact"
+            <button
+              type="button"
+              onClick={() => handleSmartScroll('contact')}
               className="inline-block text-sm px-3 py-1 border border-white rounded-full hover:bg-white hover:text-black transition"
             >
               Demander un devis
-            </Link>
+            </button>
           </div>
         </div>
 
@@ -29,11 +67,11 @@ export default function Footer() {
         <nav aria-label="Navigation principale">
           <h4 className="text-sm font-semibold mb-4 uppercase text-gray-400">Navigation</h4>
           <ul className="space-y-2 text-sm">
-            <li><Link href="/" className="hover:underline underline-offset-4">Accueil</Link></li>
-            <li><Link href="/#apropos" className="hover:underline underline-offset-4">À propos</Link></li>
-            <li><Link href="/#expertise" className="hover:underline underline-offset-4">Services</Link></li>
-            <li><Link href="/#contact" className="hover:underline underline-offset-4">Contact</Link></li>
-            <li><Link href="/#latest-articles" className="hover:underline underline-offset-4">Derniers articles</Link></li>
+            <li><button type="button" onClick={handleHome} className="hover:underline underline-offset-4">Accueil</button></li>
+            <li><button type="button" onClick={() => handleSmartScroll('apropos')} className="hover:underline underline-offset-4">À propos</button></li>
+            <li><button type="button" onClick={() => handleSmartScroll('expertise')} className="hover:underline underline-offset-4">Services</button></li>
+            <li><button type="button" onClick={() => handleSmartScroll('contact')} className="hover:underline underline-offset-4">Contact</button></li>
+            <li><button type="button" onClick={() => handleSmartScroll('latest-articles')} className="hover:underline underline-offset-4">Derniers articles</button></li>
           </ul>
         </nav>
 

@@ -163,7 +163,7 @@ export default function ContactForm() {
   const remaining = 1000 - formData.message.length
 
   return (
-    <section id="contact" className="scroll-mt-28 py-24 px-6 bg-gradient-to-br from-white via-gray-50 to-slate-100">
+    <section id="contact" className="scroll-mt-32 py-24 px-6 bg-gradient-to-br from-white via-gray-50 to-slate-100">
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-10">
           <h2 className="text-4xl font-bold text-black">Un projet, une question&nbsp;?</h2>
@@ -196,7 +196,7 @@ export default function ContactForm() {
             {/* Nom */}
             <div className="group">
               <label htmlFor="name" className="block mb-2 text-sm font-medium">
-                Nom
+                Nom *
               </label>
               <input
                 id="name"
@@ -221,7 +221,7 @@ export default function ContactForm() {
             {/* Email */}
             <div className="group">
               <label htmlFor="email" className="block mb-2 text-sm font-medium">
-                Email
+                Email *
               </label>
               <input
                 id="email"
@@ -245,9 +245,9 @@ export default function ContactForm() {
             </div>
           </div>
 
-          {/* Téléphone (optionnel) */}
+          {/* Téléphone */}
           <div className="group">
-            <label htmlFor="phone" className="block mb-2 text-sm font-medium">Téléphone (optionnel)</label>
+            <label htmlFor="phone" className="block mb-2 text-sm font-medium">Téléphone</label>
             <input
               id="phone"
               type="tel"
@@ -266,7 +266,7 @@ export default function ContactForm() {
           {/* Sujet */}
           <div className="group">
             <label htmlFor="subject" className="block mb-2 text-sm font-medium">
-              Sujet
+              Sujet *
             </label>
             <select
               id="subject"
@@ -333,7 +333,7 @@ export default function ContactForm() {
           <div className="group">
             <div className="flex items-baseline justify-between">
               <label htmlFor="message" className="block mb-2 text-sm font-medium">
-                Message
+                Message *
               </label>
               <span className={`text-xs ${remaining < 0 ? 'text-red-600' : 'text-gray-400'}`}>
                 {Math.max(0, remaining)} caractères restants
@@ -362,7 +362,7 @@ export default function ContactForm() {
 
           {/* Origine */}
           <div className="group">
-            <label htmlFor="heardFrom" className="block mb-2 text-sm font-medium">Comment avez‑vous connu Marcouf Formalités&nbsp;? (optionnel)</label>
+            <label htmlFor="heardFrom" className="block mb-2 text-sm font-medium">Comment avez‑vous connu Marcouf Formalités&nbsp;?</label>
             <select
               id="heardFrom"
               name="heardFrom"
@@ -391,7 +391,7 @@ export default function ContactForm() {
               className="mt-1 mr-2"
             />
             <label htmlFor="consent" className="text-sm text-gray-700">
-              J’ai lu et j’accepte la{' '}
+              * J’ai lu et j’accepte la{' '}
               <Link href="/politique-de-confidentialite" className="underline text-green-700 hover:text-green-600">
                 politique de confidentialité
               </Link>

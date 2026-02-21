@@ -20,7 +20,7 @@ export default function Hero() {
   }
 
   return (
-    <section className="relative isolate overflow-hidden rounded-xl shadow-md px-6 py-24 sm:py-32 lg:px-16 text-center bg-white">
+    <section className="mt-2 sm:mt-3 relative isolate overflow-hidden rounded-xl shadow-md px-6 py-24 sm:py-32 lg:px-16 text-center bg-white">
       {/* Fond décoratif vert accentué animé */}
       <div className="absolute inset-0 -z-10 animate-gradient-bg bg-gradient-to-br from-green-200 via-white to-green-100 opacity-100 blur-md" />
 

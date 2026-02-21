@@ -44,13 +44,25 @@ module.exports = {
             h1: { color: '#111827', fontWeight: '800' },
             h2: { color: '#111827', fontWeight: '700', marginTop: '1.75em' },
             h3: { color: '#111827', fontWeight: '600' },
-            a: { color: '#047857', textDecoration: 'none' }, // green-600
+            a: {
+              color: '#047857',
+              textDecoration: 'none',
+              overflowWrap: 'anywhere',
+              wordBreak: 'break-word',
+            }, // green-600
             'a:hover': { textDecoration: 'underline' },
             code: { backgroundColor: '#f3f4f6', padding: '0.15rem 0.35rem', borderRadius: '0.35rem' },
-            blockquote: { borderLeftColor: '#86efac' },
+            blockquote: { borderLeftColor: '#15803d' },
             hr: { marginTop: '2.5rem', marginBottom: '2.5rem' },
             img: { borderRadius: '0.75rem' },
-            table: { width: '100%' },
+            table: {
+              width: '100%',
+              display: 'block',
+              overflowX: 'auto',
+              WebkitOverflowScrolling: 'touch',
+            },
+            th: { whiteSpace: 'normal' },
+            td: { whiteSpace: 'normal' },
             thead: { backgroundColor: '#f9fafb' },
           },
         },

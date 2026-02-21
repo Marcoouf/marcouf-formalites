@@ -66,7 +66,7 @@ export default function Header() {
   const scrollToSectionWithOffset = (id: string) => {
     const section = document.getElementById(id)
     if (!section) return
-    const top = section.getBoundingClientRect().top + window.scrollY - 110
+    const top = section.getBoundingClientRect().top + window.scrollY - 130
     window.scrollTo({ top: Math.max(top, 0), behavior: 'smooth' })
   }
 
@@ -126,24 +126,21 @@ export default function Header() {
     <header
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-white/85 backdrop-blur border-b border-gray-200 shadow-sm'
-          : 'bg-transparent'
+          ? 'bg-white/95 backdrop-blur border-b border-gray-200 shadow-sm'
+          : 'bg-white/95 border-b border-gray-200'
       }`}
     >
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
         <div onClick={handleLogoClick} aria-label="Accueil" className="flex items-center text-black cursor-pointer">
           <Image
-            src="/logo.webp"
+            src="/logo-header-v2.webp"
             alt="Marcouf Formalités"
-            width={40}
-            height={40}
-            className="drop-shadow-sm w-8 h-8 sm:w-10 sm:h-10"
+            width={320}
+            height={96}
+            className="w-[150px] sm:w-[190px] lg:w-[240px] h-auto"
             priority
             fetchPriority="high"
           />
-          <span className="flex-1 text-center sm:inline sm:flex-none ml-2 text-lg font-semibold tracking-tight text-black">
-            Marcouf|<span className="text-[var(--accent)] font-light">Formalités</span>
-          </span>
         </div>
 
         <nav className="hidden lg:flex items-center gap-6">

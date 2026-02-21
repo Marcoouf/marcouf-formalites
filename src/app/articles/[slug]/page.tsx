@@ -244,9 +244,9 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   })
 
   return (
-    <main className="mx-auto max-w-[90rem] px-4 sm:px-6 lg:px-8 py-16 space-y-12 scroll-smooth">
+    <main className={`mx-auto max-w-[90rem] px-4 sm:px-6 lg:px-8 ${meta.cover ? 'pt-0 pb-16' : 'py-16'} space-y-12 scroll-smooth`}>
       {meta.cover && (
-        <figure className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen -mt-[80px] sm:-mt-[96px]">
+        <figure className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen -mt-[42px] sm:-mt-[54px]">
           <div className="relative h-[45vh] md:h-[60vh] lg:h-[66vh]">
             <Image
               src={meta.cover}
@@ -293,7 +293,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         </nav>
       )}
 
-      <article className="prose prose-neutral md:prose-lg max-w-none prose-a:text-green-700 hover:prose-a:underline prose-headings:scroll-mt-24 prose-h2:mt-10 prose-img:rounded-xl prose-hr:my-10 prose-code:bg-gray-100 prose-code:px-1 prose-code:rounded bg-white border border-gray-200 rounded-2xl shadow-sm p-6 md:p-10 lg:p-12 text-justify">
+      <article className="prose prose-neutral md:prose-lg max-w-none prose-a:text-green-700 hover:prose-a:underline prose-headings:scroll-mt-24 prose-h2:mt-10 prose-img:rounded-xl prose-hr:my-10 prose-code:bg-gray-100 prose-code:px-1 prose-code:rounded bg-white border border-gray-200 rounded-2xl shadow-sm p-4 sm:p-6 md:p-10 lg:p-12 text-left md:text-justify overflow-x-hidden">
         {MDXContent}
       </article>
 
