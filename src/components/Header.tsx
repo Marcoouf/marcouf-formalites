@@ -63,12 +63,16 @@ export default function Header() {
     return () => observer.disconnect()
   }, [pathname])
 
+  const scrollToSectionWithOffset = (id: string) => {
+    const section = document.getElementById(id)
+    if (!section) return
+    const top = section.getBoundingClientRect().top + window.scrollY - 110
+    window.scrollTo({ top: Math.max(top, 0), behavior: 'smooth' })
+  }
+
   const handleSmartScroll = (id: string) => {
     if (pathname === '/') {
-      const section = document.getElementById(id)
-      if (section) {
-        section.scrollIntoView({ behavior: 'smooth' })
-      }
+      scrollToSectionWithOffset(id)
     } else {
       router.push(`/#${id}`)
     }
@@ -152,9 +156,9 @@ export default function Header() {
           <NavItem onClick={() => handleSmartScroll('contact')} active={currentPath === '/' && activeSection === 'contact'}>
             Contact
           </NavItem>
-            <NavItem
+          <NavItem
             onClick={() => handleSmartScroll('latest-articles')}
-            active={(currentPath === '/' && activeSection === 'latest-articles') || isActive('/articles')}
+            active={currentPath === '/' && activeSection === 'latest-articles'}
           >
             Articles
           </NavItem>
@@ -198,7 +202,7 @@ export default function Header() {
             <button
               onClick={() => handleSmartScroll('latest-articles')}
               className={`text-left px-3 py-2 rounded-lg hover:bg-gray-100 hover:text-[var(--accent)] ${
-                (currentPath === '/' && activeSection === 'latest-articles') || isActive('/articles') ? 'text-[var(--accent)]' : ''
+                currentPath === '/' && activeSection === 'latest-articles' ? 'text-[var(--accent)]' : ''
               }`}
             >
               Articles

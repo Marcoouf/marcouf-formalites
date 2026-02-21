@@ -20,7 +20,7 @@ export default async function LatestArticlesRail({ limit = 3 }: { limit?: number
   if (!items.length) return null
 
   return (
-    <section id="latest-articles" aria-labelledby="latest-articles-title" className="mx-auto max-w-6xl px-6 sm:px-16 py-12">
+    <section id="latest-articles" aria-labelledby="latest-articles-title" className="scroll-mt-28 mx-auto max-w-6xl px-6 sm:px-16 py-12">
       <div className="mb-6 flex items-baseline justify-between gap-4">
         <h2 id="latest-articles-title" className="text-xl md:text-2xl font-semibold scroll-mt-28">
           Derniers articles

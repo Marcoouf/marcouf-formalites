@@ -163,7 +163,7 @@ export default function ContactForm() {
   const remaining = 1000 - formData.message.length
 
   return (
-    <section id="contact" className="py-24 px-6 bg-gradient-to-br from-white via-gray-50 to-slate-100">
+    <section id="contact" className="scroll-mt-28 py-24 px-6 bg-gradient-to-br from-white via-gray-50 to-slate-100">
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-10">
           <h2 className="text-4xl font-bold text-black">Un projet, une question&nbsp;?</h2>

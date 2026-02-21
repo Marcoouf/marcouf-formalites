@@ -16,6 +16,16 @@ export type ArticleMeta = {
 
 export const ARTICLES_DIR = path.join(process.cwd(), 'content/articles')
 
+function normalizeCover(cover?: unknown): string | undefined {
+  if (typeof cover !== 'string' || !cover.trim()) return undefined
+  const value = cover.trim()
+  if (value.startsWith('/') || value.startsWith('http://') || value.startsWith('https://')) {
+    return value
+  }
+  // Allow short notation in frontmatter: "my-cover.webp"
+  return `/images/articles/${value}`
+}
+
 export async function getAllArticlesMeta(): Promise<ArticleMeta[]> {
   const files = await fs.readdir(ARTICLES_DIR)
   const mdxFiles = files.filter(f => f.endsWith('.mdx'))
@@ -32,7 +42,7 @@ export async function getAllArticlesMeta(): Promise<ArticleMeta[]> {
       tags: data.tags ?? [],
       publishedAt: data.publishedAt,
       updatedAt: data.updatedAt ?? data.publishedAt,
-      cover: data.cover,
+      cover: normalizeCover(data.cover),
       coverAlt: data.coverAlt,
     })
   }
@@ -52,7 +62,7 @@ export async function getArticleBySlug(slug: string) {
     tags: data.tags ?? [],
     publishedAt: data.publishedAt,
     updatedAt: data.updatedAt ?? data.publishedAt,
-    cover: data.cover,
+    cover: normalizeCover(data.cover),
     coverAlt: data.coverAlt,
   }
   return { meta, content }
