@@ -73,6 +73,15 @@ function stripJsonLd(md: string) {
     .replace(/```(?:json(?:-ld)?|ld\+json)[\s\S]*?```/gi, '')
 }
 
+function injectCtaBeforeSources(md: string): { source: string; inserted: boolean } {
+  const re = /\n##\s+Sources\s*\n/
+  if (!re.test(md)) return { source: md, inserted: false }
+  return {
+    source: md.replace(re, '\n<PreSourcesCta />\n\n## Sources\n'),
+    inserted: true,
+  }
+}
+
 function extractFaqPairs(md: string): { q: string; a: string }[] {
   const start = md.search(/^##\s+FAQ\b.*$/m)
   if (start === -1) return []
@@ -121,23 +130,17 @@ function slugify(input: string) {
   return count === 0 ? base : `${base}-${count}`
 }
 
-/** Construit un sommaire à partir des H2/H3 du MDX nettoyé (après retrait du H1) */
-function buildToc(md: string): { id: string; text: string; level: 2 | 3 }[] {
+/** Construit un sommaire à partir des H2 du MDX nettoyé (après retrait du H1) */
+function buildToc(md: string): { id: string; text: string }[] {
   // reset counts for this article
   for (const k in _slugCounts) delete _slugCounts[k]
   const lines = md.split('\n')
-  const toc: { id: string; text: string; level: 2 | 3 }[] = []
+  const toc: { id: string; text: string }[] = []
   for (const line of lines) {
     const m2 = line.match(/^\s*##\s+(.+?)\s*$/)
     if (m2) {
       const text = m2[1].trim()
-      toc.push({ id: slugify(text), text, level: 2 })
-      continue
-    }
-    const m3 = line.match(/^\s*###\s+(.+?)\s*$/)
-    if (m3) {
-      const text = m3[1].trim()
-      toc.push({ id: slugify(text), text, level: 3 })
+      toc.push({ id: slugify(text), text })
     }
   }
   return toc
@@ -189,8 +192,9 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
   // Supprime le H1 en doublon sur la version nettoyée
   const sourceForMDX = stripLeadingH1(cleaned, meta.title)
+  const { source: sourceWithInlineCta, inserted: hasInlineCta } = injectCtaBeforeSources(sourceForMDX)
 
-  const toc = buildToc(sourceForMDX)
+  const toc = buildToc(sourceWithInlineCta)
 
   // Related articles
   const allSlugs = await getAllSlugs()
@@ -219,7 +223,18 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   ] as const
 
   const { content: MDXContent } = await compileMDX({
-    source: sourceForMDX,
+    source: sourceWithInlineCta,
+    components: {
+      PreSourcesCta: () => (
+        <section className="not-prose my-10 rounded-2xl border border-gray-200 bg-gray-50 p-6 md:p-8 text-center">
+          <h2 className="text-xl md:text-2xl font-semibold mb-2">Pour aller plus loin</h2>
+          <p className="text-gray-700 mb-5">Profitez d’un service de formalités pour sécuriser votre projet et gagner du temps.</p>
+          <Link href="/#contact" className="btn-devis inline-block" aria-label="Aller au formulaire de contact">
+            Contacter Marcouf Formalités
+          </Link>
+        </section>
+      ),
+    },
     options: {
       mdxOptions: {
         remarkPlugins: [remarkGfm],
@@ -265,7 +280,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           <div className="mb-3 text-sm font-semibold text-gray-700">Sommaire</div>
           <ol className="list-decimal pl-6 text-[15px] leading-6 space-y-1 columns-1 sm:columns-2 md:columns-2 lg:columns-2 [column-gap:2rem]">
             {toc.map((item) => (
-              <li key={item.id} className={(item.level === 3 ? 'ml-2 text-[14px]' : '') + ' break-inside-avoid'}>
+              <li key={item.id} className="break-inside-avoid">
                 <a
                   href={`#${item.id}`}
                   className="block truncate text-gray-800 hover:text-green-700 hover:underline"
@@ -282,13 +297,15 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         {MDXContent}
       </article>
 
-      <section className="rounded-2xl border border-gray-200 bg-gray-50 p-6 md:p-8 text-center">
-        <h2 className="text-xl md:text-2xl font-semibold mb-2">Pour aller plus loin</h2>
-        <p className="text-gray-700 mb-5">Profitez d’un service de formalités pour sécuriser votre projet et gagner du temps.</p>
-        <Link href="/#contact" className="btn-devis inline-block" aria-label="Aller au formulaire de contact">
-          Contacter Marcouf Formalités
-        </Link>
-      </section>
+      {!hasInlineCta && (
+        <section className="rounded-2xl border border-gray-200 bg-gray-50 p-6 md:p-8 text-center">
+          <h2 className="text-xl md:text-2xl font-semibold mb-2">Pour aller plus loin</h2>
+          <p className="text-gray-700 mb-5">Profitez d’un service de formalités pour sécuriser votre projet et gagner du temps.</p>
+          <Link href="/#contact" className="btn-devis inline-block" aria-label="Aller au formulaire de contact">
+            Contacter Marcouf Formalités
+          </Link>
+        </section>
+      )}
 
       {related.length > 0 ? (
         <section className="space-y-4">
