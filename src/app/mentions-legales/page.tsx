@@ -16,7 +16,7 @@ export default function MentionsLegales() {
           <strong>Forme juridique&nbsp;:</strong> Entrepreneur individuel
         </p>
         <p>
-          <strong>Siège social&nbsp;:</strong> 40 rue Charlot, 75003 Paris, France
+          <strong>Siège social&nbsp;:</strong> 26 rue de la vannerie, 50750, CANISY
         </p>
         <p>
           <strong>SIREN&nbsp;:</strong> 912&nbsp;345&nbsp;678

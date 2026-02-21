@@ -51,7 +51,7 @@ export default function Footer() {
             </li>
             <li className="flex items-start gap-2">
               <FiMapPin className="mt-0.5 text-gray-400" />
-              <span>40 rue Charlot, 75003 Paris</span>
+              <span>Paris, France</span>
             </li>
           </ul>
 

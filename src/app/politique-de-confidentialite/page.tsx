@@ -25,7 +25,7 @@ export default function PolitiqueConfidentialite() {
           <strong>Responsable :</strong> Marcouf LEBAR – Entrepreneur individuel (Marcouf Formalités)
         </p>
         <p>
-          <strong>Adresse professionnelle :</strong> 40 rue Charlot, 75003, Paris
+          <strong>Adresse professionnelle :</strong> 26 rue de la vannerie, 50750, CANISY
         </p>
         <p>
           <strong>Contact :</strong> <a className="underline" href="mailto:contact@marcouf-formalites.fr">contact@marcouf-formalites.fr</a>

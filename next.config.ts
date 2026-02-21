@@ -1,10 +1,10 @@
 import type { NextConfig } from 'next'
 import createMDX from '@next/mdx'
-import remarkGfm from 'remark-gfm'
 
 const withMDX = createMDX({
   options: {
-    remarkPlugins: [remarkGfm],
+    // Next 16/Turbopack expects serializable loader options.
+    remarkPlugins: ['remark-gfm'],
   },
 })
 
