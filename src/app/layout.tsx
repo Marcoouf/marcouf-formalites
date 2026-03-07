@@ -1,16 +1,23 @@
-// src/app/layout.tsx
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import type { Metadata } from 'next'
+import { Manrope, Source_Sans_3 } from 'next/font/google'
+import './globals.css'
+import Header from '../components/Header'
+import Footer from '../components/Footer'
+import ScrollToTopOnRouteChange from '../components/ScrollToTopOnRouteChange'
 import { Analytics } from '@vercel/analytics/react'
-import { SpeedInsights } from "@vercel/speed-insights/react"
+import { SpeedInsights } from '@vercel/speed-insights/react'
 
+const headingFont = Manrope({
+  variable: '--font-heading',
+  subsets: ['latin'],
+  weight: ['600', '700', '800'],
+})
 
-
-const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
-const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
+const bodyFont = Source_Sans_3({
+  variable: '--font-body',
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+})
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.marcouf-formalites.fr'),
@@ -19,7 +26,7 @@ export const metadata: Metadata = {
     default: 'Marcouf Formalités',
   },
   description:
-    'Service de formalités administratives : création et modification de société, modèles contractuels, secrétariat et propriété intellectuelle.',
+    'Service centré sur les formalités d’entreprise, la mise à jour des statuts, les procès-verbaux d’assemblée et la recherche d’antériorité.',
   icons: {
     icon: '/favicon.ico',
     apple: '/apple-touch-icon.png',
@@ -30,7 +37,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Marcouf Formalités',
     description:
-      'Service de formalités administratives : création et modification de société, modèles contractuels, secrétariat et propriété intellectuelle.',
+      'Service centré sur les formalités d’entreprise, la mise à jour des statuts, les procès-verbaux d’assemblée et la recherche d’antériorité.',
     url: 'https://www.marcouf-formalites.fr',
     siteName: 'Marcouf Formalités',
     locale: 'fr_FR',
@@ -40,24 +47,23 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
-};
+}
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
-    <html lang="fr" suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body suppressHydrationWarning className="antialiased bg-transparent text-black">
+    <html lang="fr" suppressHydrationWarning className={`${headingFont.variable} ${bodyFont.variable}`}>
+      <body suppressHydrationWarning className="antialiased">
+        <ScrollToTopOnRouteChange />
         <Header />
-        <main className="pt-[128px] sm:pt-[140px] min-h-screen bg-transparent text-black">
-          {children}
-        </main>
+        <main className="pt-[82px] sm:pt-[92px] min-h-screen">{children}</main>
         <Footer />
         <Analytics />
         <SpeedInsights />
       </body>
     </html>
-  );
+  )
 }

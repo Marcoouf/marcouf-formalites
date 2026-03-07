@@ -215,18 +215,17 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     .slice(0, 3)
 
   const expertise = [
-    { href: '/expertise/creation', title: "Création d’entreprise", desc: 'Choix du statut, modèles de statuts, formalités jusqu’au Kbis.' },
-    { href: '/expertise/contrats-et-documentation', title: 'Contrats & documentation', desc: 'Modèles commerciaux, conditions générales, clauses clés.' },
-    { href: '/expertise/redaction-actes', title: 'Secrétariat de formalités', desc: 'Statuts consolidés, procès-verbaux, délégations, registres.' },
-    { href: '/expertise/propriete-intellectuelle', title: 'Propriété intellectuelle', desc: 'Marques, dépôts, cession/licence.' },
-    { href: '/expertise/modification', title: 'Modification des sociétés', desc: 'Dirigeant, siège, objet, capital…' },
+    { href: '/expertise/creation', title: 'Formalités d’entreprise', desc: 'Création, modification, dissolution, liquidation et radiation: parcours administratif structuré.' },
+    { href: '/expertise/modification', title: 'Mise à jour des statuts', desc: 'Statuts consolidés après changement de siège, objet, capital ou dirigeant.' },
+    { href: '/expertise/redaction-actes', title: 'Procès-verbaux d’assemblée', desc: 'PV AGO/AGE, décisions associées et formalisation documentaire.' },
+    { href: '/expertise/propriete-intellectuelle', title: 'Recherche d’antériorité', desc: 'Analyse des antériorités avant dépôt de marque.' },
   ] as const
 
   const { content: MDXContent } = await compileMDX({
     source: sourceWithInlineCta,
     components: {
       PreSourcesCta: () => (
-        <section className="not-prose my-10 rounded-2xl border border-gray-200 bg-gray-50 p-6 md:p-8 text-center">
+        <section className="card-with-button not-prose my-10 rounded-2xl border border-gray-200 bg-[var(--background)] p-6 md:p-8 text-center">
           <h2 className="text-xl md:text-2xl font-semibold mb-2">Pour aller plus loin</h2>
           <p className="text-gray-700 mb-5">Profitez d’un service de formalités pour sécuriser votre projet et gagner du temps.</p>
           <Link href="/#contact" className="btn-devis inline-block" aria-label="Aller au formulaire de contact">
@@ -283,7 +282,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               <li key={item.id} className="break-inside-avoid">
                 <a
                   href={`#${item.id}`}
-                  className="block truncate text-gray-800 hover:text-green-700 hover:underline"
+                  className="block truncate text-gray-800 hover:text-[var(--accent)] hover:underline"
                 >
                   {item.text}
                 </a>
@@ -293,12 +292,12 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         </nav>
       )}
 
-      <article className="prose prose-neutral md:prose-lg max-w-none prose-a:text-green-700 hover:prose-a:underline prose-headings:scroll-mt-24 prose-h2:mt-10 prose-img:rounded-xl prose-hr:my-10 prose-code:bg-gray-100 prose-code:px-1 prose-code:rounded bg-white border border-gray-200 rounded-2xl shadow-sm p-4 sm:p-6 md:p-10 lg:p-12 text-left md:text-justify overflow-x-hidden">
+      <article className="article-prose prose prose-neutral md:prose-lg max-w-none prose-a:text-[var(--accent)] hover:prose-a:underline prose-headings:scroll-mt-24 prose-h2:mt-10 prose-img:rounded-xl prose-hr:my-10 prose-code:bg-gray-100 prose-code:px-1 prose-code:rounded bg-[var(--background)] border border-gray-200 rounded-2xl shadow-sm p-4 sm:p-6 md:p-10 lg:p-12 text-left md:text-justify overflow-x-hidden">
         {MDXContent}
       </article>
 
       {!hasInlineCta && (
-        <section className="rounded-2xl border border-gray-200 bg-gray-50 p-6 md:p-8 text-center">
+        <section className="card-with-button rounded-2xl border border-gray-200 bg-[var(--background)] p-6 md:p-8 text-center">
           <h2 className="text-xl md:text-2xl font-semibold mb-2">Pour aller plus loin</h2>
           <p className="text-gray-700 mb-5">Profitez d’un service de formalités pour sécuriser votre projet et gagner du temps.</p>
           <Link href="/#contact" className="btn-devis inline-block" aria-label="Aller au formulaire de contact">
@@ -315,7 +314,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               <Link
                 key={meta.slug}
                 href={`/articles/${meta.slug}`}
-                className="group block overflow-hidden rounded-xl border border-gray-200 bg-white hover:shadow-md transition"
+                className="card-clickable group block overflow-hidden rounded-xl border-[3px] border-[var(--accent)] bg-[var(--background)]"
                 aria-label={meta.title}
               >
                 <div className="relative aspect-[16/9] w-full bg-gradient-to-br from-gray-100 to-gray-200">
@@ -362,11 +361,11 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             <Link
               key={it.href}
               href={it.href}
-              className={`group block rounded-xl border bg-white p-5 hover:shadow-md transition min-h-[140px] ${
-                i === 0 ? 'lg:col-span-2 border-green-200 ring-1 ring-green-100' : 'border-gray-200'
+              className={`card-clickable group block rounded-xl border-[3px] border-[var(--accent)] bg-[var(--background)] p-5 min-h-[140px] ${
+                i === 0 ? 'lg:col-span-2' : ''
               }`}
             >
-              <h3 className="font-semibold group-hover:text-green-700 group-hover:underline">{it.title}</h3>
+              <h3 className="font-semibold group-hover:text-[var(--accent)] group-hover:underline">{it.title}</h3>
               <p className="text-gray-700 text-sm mt-1">{it.desc}</p>
             </Link>
           ))}

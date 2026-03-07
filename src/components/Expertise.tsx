@@ -1,85 +1,75 @@
 'use client'
+
 import Button from '@/components/Button'
-import { motion } from 'framer-motion'
 
 const domaines = [
   {
-    titre: 'Modification de société',
+    titre: 'Formalités d’entreprise',
     description:
-      'Changement de dirigeant/siège/objet/dénomination, capital, transformation, dossiers greffe.',
-    href: '/expertise/modification',
-  },
-  {
-    titre: 'Contrats & documentation interne',
-    description:
-      'Contrats (prestation, distribution…), CGV/CGU, NDA, pacte d’associés, baux commerciaux, chartes et documentation RGPD adaptés à votre activité.',
-    href: '/expertise/contrats-et-documentation',
-  },
-  {
-    titre: 'Création d’entreprise',
-    description:
-      'Conseil sur la forme (SAS, SARL, EURL…), statuts, dossier greffe, guichet unique (INPI) et publication.',
+      'Création, modification, dissolution, liquidation ou radiation: préparation des pièces et parcours administratif complet.',
+    cible: 'Pour les dirigeants qui veulent avancer sans blocage administratif',
+    prix: 'À partir de 160 € HT',
     href: '/expertise/creation',
   },
   {
-    titre: 'Secrétariat juridique & actes de société',
+    titre: 'Mise à jour des statuts',
     description:
-      'Approbation des comptes, PV AGO/AGE, délégations de pouvoirs, statuts à jour, registres légaux.',
+      'Statuts consolidés après changement de siège, objet, capital, dirigeant ou dénomination.',
+    cible: 'Pour les sociétés en évolution',
+    prix: 'Sur devis',
+    href: '/expertise/modification',
+  },
+  {
+    titre: 'Procès-verbaux d’assemblée',
+    description:
+      'Préparation des PV AGO/AGE, décisions associées et trames de signatures conformes.',
+    cible: 'Pour les assemblées annuelles et extraordinaires',
+    prix: 'Sur devis',
     href: '/expertise/redaction-actes',
   },
   {
-    titre: 'Propriété intellectuelle',
+    titre: 'Recherche d’antériorité de marque',
     description:
-      'Marques et actifs immatériels : recherches d’antériorité, dépôt (INPI/EUIPO) et suivi jusqu’à l’enregistrement.',
+      'Analyse des antériorités disponibles avant dépôt pour limiter les risques de conflit.',
+    cible: 'Pour sécuriser un nom, une marque ou un signe distinctif',
+    prix: 'Sur devis',
     href: '/expertise/propriete-intellectuelle',
   },
 ]
 
 export default function Expertise() {
   return (
-    <section id="expertise" aria-labelledby="expertise-title" className="scroll-mt-32 py-24 px-6 sm:px-10 lg:px-24 bg-white">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 id="expertise-title" className="text-4xl font-extrabold text-gray-900 mb-4">Mes domaines d’expertise</h2>
-          <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-            J’interviens sur l’ensemble des sujets juridiques liés à la structuration, l’évolution et la protection de votre activité.
-          </p>
-        </div>
+    <section id="expertise" aria-labelledby="expertise-title" className="section-shell scroll-mt-14 py-16 sm:py-20">
+      <div className="max-w-3xl">
+        <p className="text-sm font-semibold tracking-[0.08em] uppercase text-[#053725]">Services</p>
+        <h2 id="expertise-title" className="section-title mt-2">Un périmètre clair: formalités, statuts, PV et antériorité</h2>
+        <p className="section-lead mt-3">
+          L’offre est recentrée sur les actes utiles à la vie de l’entreprise, avec des documents lisibles et exploitables.
+        </p>
+      </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {domaines.map((domaine, index) => {
-            const isMiddle = index === 2
+      <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
+        {domaines.map((domaine) => (
+          <article key={domaine.titre} className="surface-card flex h-full flex-col p-6">
+            <div className="flex items-start justify-between gap-4">
+              <h3 className="text-xl font-semibold text-slate-900">{domaine.titre}</h3>
+              <span className="chip whitespace-nowrap">{domaine.prix}</span>
+            </div>
 
-            return (
-              <motion.div
-                key={domaine.titre}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className={`rounded-xl border border-black/10 shadow-md p-6 flex flex-col justify-between transition-all duration-500 ease-in-out hover:scale-[1.02] hover:shadow-xl ${
-                  isMiddle
-                    ? 'lg:col-span-2 text-center bg-gradient-to-br from-green-100 via-white to-green-50'
-                    : 'bg-white text-left'
-                }`}
+            <p className="mt-3 text-slate-700">{domaine.description}</p>
+            <p className="mt-2 text-sm text-slate-600">{domaine.cible}</p>
+
+            <div className="mt-5">
+              <Button
+                href={domaine.href}
+                aria-label={`En savoir plus sur ${domaine.titre}`}
+                className="btn-outline"
               >
-                <div>
-                  <h3 className="text-xl font-bold mb-2">{domaine.titre}</h3>
-                  <p className="text-gray-600 text-sm">{domaine.description}</p>
-                </div>
-                <div className="mt-4 flex justify-center">
-                  <Button
-                    href={domaine.href}
-                    aria-label={`En savoir plus sur ${domaine.titre}`}
-                    className="text-sm px-3 py-1 border border-black rounded-full hover:bg-black hover:text-white transition"
-                  >
-                    En savoir plus
-                  </Button>
-                </div>
-              </motion.div>
-            )
-          })}
-        </div>
+                En savoir plus
+              </Button>
+            </div>
+          </article>
+        ))}
       </div>
     </section>
   )

@@ -1,9 +1,12 @@
 import Hero from '@/components/Hero'
 import APropos from '@/components/APropos'
-import Expertise from "@/components/Expertise";
-import ContactForm from '@/components/ContactForm';
-import Commitments from '@/components/Commitments';
+import Expertise from '@/components/Expertise'
+import ProcessSection from '@/components/ProcessSection'
+import PricingSection from '@/components/PricingSection'
+import Commitments from '@/components/Commitments'
 import LatestArticlesRail from '@/components/LatestArticlesRail'
+import HomeFaq from '@/components/HomeFaq'
+import ContactForm from '@/components/ContactForm'
 
 export default function Home() {
   return (
@@ -11,9 +14,12 @@ export default function Home() {
       <Hero />
       <APropos />
       <Expertise />
+      <ProcessSection />
+      <PricingSection />
       <Commitments />
-      <ContactForm />
       <LatestArticlesRail limit={3} />
+      <HomeFaq />
+      <ContactForm />
     </main>
   )
 }

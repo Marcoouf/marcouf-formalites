@@ -3,11 +3,11 @@ import ContratsPageClient from './ContratsPageClient'
 const legalServiceJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'LegalService',
-  name: 'Contrats et documentation interne Marcouf Formalités',
+  name: 'Formalités exceptionnelles Marcouf Formalités',
   description:
-    'Modèles contractuels, CGV/CGU, NDA et documentation interne : préparation de trames, relecture administrative et suivi des versions.',
+    'Support documentaire pour dissolution, liquidation, cessation et radiation.',
   url: 'https://www.marcouf-formalites.fr/expertise/contrats-et-documentation',
-  serviceType: 'Support documentaire contractuel',
+  serviceType: 'Support aux formalités exceptionnelles',
   provider: {
     '@type': 'Organization',
     name: 'Marcouf Formalités',
@@ -22,31 +22,31 @@ const legalServiceJsonLd = {
     price: '0',
     priceCurrency: 'EUR',
     availability: 'https://schema.org/InStock',
-    description: 'Tarif sur devis selon le livrable',
+    description: 'Tarif sur devis selon la formalité à traiter',
   },
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
-    name: 'Parcours documentation contractuelle',
+    name: 'Parcours formalités exceptionnelles',
     itemListElement: [
       {
         '@type': 'ListItem',
         position: 1,
-        item: { '@type': 'Service', name: 'Analyse du besoin et cartographie des risques documentaires' },
+        item: { '@type': 'Service', name: 'Qualification de la formalité' },
       },
       {
         '@type': 'ListItem',
         position: 2,
-        item: { '@type': 'Service', name: 'Modèles de contrats et CGV/CGU adaptés' },
+        item: { '@type': 'Service', name: 'Préparation des actes' },
       },
       {
         '@type': 'ListItem',
         position: 3,
-        item: { '@type': 'Service', name: 'Allers-retours documentaires et préparation aux échanges' },
+        item: { '@type': 'Service', name: 'Dépôt et publicité légale' },
       },
       {
         '@type': 'ListItem',
         position: 4,
-        item: { '@type': 'Service', name: 'Remise des modèles et suivi des mises à jour' },
+        item: { '@type': 'Service', name: 'Clôture documentaire du dossier' },
       },
     ],
   },

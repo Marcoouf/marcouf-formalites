@@ -5,8 +5,10 @@ import { useEffect, useState } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
+import { scrollSectionToCenter } from '@/lib/scrollSectionToCenter'
 
 export default function Header() {
+  const logoSrc = '/logo-footer.webp?v=20260307-1'
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState<string | null>(null)
@@ -63,16 +65,9 @@ export default function Header() {
     return () => observer.disconnect()
   }, [pathname])
 
-  const scrollToSectionWithOffset = (id: string) => {
-    const section = document.getElementById(id)
-    if (!section) return
-    const top = section.getBoundingClientRect().top + window.scrollY - 130
-    window.scrollTo({ top: Math.max(top, 0), behavior: 'smooth' })
-  }
-
   const handleSmartScroll = (id: string) => {
     if (pathname === '/') {
-      scrollToSectionWithOffset(id)
+      scrollSectionToCenter(id)
     } else {
       router.push(`/#${id}`)
     }
@@ -88,7 +83,6 @@ export default function Header() {
   }
 
   const currentPath = pathname ?? '/'
-  const isActive = (p: string) => currentPath === p || currentPath.startsWith(p + '/')
 
   const NavItem = ({
     children,
@@ -124,23 +118,28 @@ export default function Header() {
 
   return (
     <header
+      data-site-header="true"
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-white/95 backdrop-blur border-b border-gray-200 shadow-sm'
-          : 'bg-white/95 border-b border-gray-200'
+          ? 'bg-[var(--background)]/95 backdrop-blur border-b border-[var(--border)] shadow-sm'
+          : 'bg-[var(--background)]/95 border-b border-[var(--border)]'
       }`}
     >
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
-        <div onClick={handleLogoClick} aria-label="Accueil" className="flex items-center text-black cursor-pointer">
+        <div onClick={handleLogoClick} aria-label="Accueil" className="flex items-center gap-2 sm:gap-3 text-black cursor-pointer">
           <Image
-            src="/logo-header-v2.webp"
+            src={logoSrc}
             alt="Marcouf Formalités"
-            width={320}
+            width={96}
             height={96}
-            className="w-[150px] sm:w-[190px] lg:w-[240px] h-auto"
+            className="w-12 sm:w-14 lg:w-16 h-auto object-contain"
             priority
             fetchPriority="high"
+            unoptimized
           />
+          <span className="text-[var(--accent)] font-semibold text-base sm:text-lg lg:text-xl tracking-tight whitespace-nowrap">
+            Marcouf Formalités
+          </span>
         </div>
 
         <nav className="hidden lg:flex items-center gap-6">
@@ -150,20 +149,20 @@ export default function Header() {
           <NavItem onClick={() => handleSmartScroll('expertise')} active={currentPath === '/' && activeSection === 'expertise'}>
             Services
           </NavItem>
-          <NavItem onClick={() => handleSmartScroll('contact')} active={currentPath === '/' && activeSection === 'contact'}>
-            Contact
-          </NavItem>
           <NavItem
             onClick={() => handleSmartScroll('latest-articles')}
             active={currentPath === '/' && activeSection === 'latest-articles'}
           >
             Articles
           </NavItem>
+          <NavItem onClick={() => handleSmartScroll('contact')} active={currentPath === '/' && activeSection === 'contact'}>
+            Contact
+          </NavItem>
         </nav>
 
         {/* Desktop CTA */}
         <div className="hidden lg:block">
-          <button onClick={() => handleSmartScroll('contact')} className="btn-devis rounded-full">
+          <button onClick={() => handleSmartScroll('contact')} className="btn-devis rounded-full bg-[var(--accent)] text-[var(--background)] border-[var(--accent)] hover:bg-[var(--accent-strong)]">
             Demander un devis
           </button>
         </div>
@@ -174,7 +173,7 @@ export default function Header() {
             type="button"
             aria-label={menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
             onClick={() => setMenuOpen((v) => !v)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-gray-300 bg-white/80 backdrop-blur hover:bg-white focus:outline-none focus:ring-2 focus:ring-green-600"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--background)]/90 backdrop-blur hover:bg-[var(--background)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
           >
             {/* Icone burger / croix */}
             {menuOpen ? (
@@ -192,19 +191,19 @@ export default function Header() {
 
       {/* Mobile dropdown */}
       {menuOpen && (
-        <div className="lg:hidden absolute inset-x-0 top-full border-t border-gray-200 bg-white/95 backdrop-blur shadow">
+        <div className="lg:hidden absolute inset-x-0 top-full border-t border-[var(--border)] bg-[var(--background)]/95 backdrop-blur shadow">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 grid gap-2">
-            <button onClick={() => handleSmartScroll('apropos')} className={`text-left px-3 py-2 rounded-lg hover:bg-gray-100 hover:text-[var(--accent)] ${currentPath === '/' && activeSection === 'apropos' ? 'text-[var(--accent)]' : ''}`}>À propos</button>
-            <button onClick={() => handleSmartScroll('expertise')} className={`text-left px-3 py-2 rounded-lg hover:bg-gray-100 hover:text-[var(--accent)] ${currentPath === '/' && activeSection === 'expertise' ? 'text-[var(--accent)]' : ''}`}>Services</button>
+            <button onClick={() => handleSmartScroll('apropos')} className={`text-left px-3 py-2 rounded-lg hover:bg-[#f2efdb] hover:text-[var(--accent)] ${currentPath === '/' && activeSection === 'apropos' ? 'text-[var(--accent)]' : ''}`}>À propos</button>
+            <button onClick={() => handleSmartScroll('expertise')} className={`text-left px-3 py-2 rounded-lg hover:bg-[#f2efdb] hover:text-[var(--accent)] ${currentPath === '/' && activeSection === 'expertise' ? 'text-[var(--accent)]' : ''}`}>Services</button>
+            <button onClick={() => handleSmartScroll('contact')} className="mt-2 btn-devis rounded-full bg-[var(--accent)] text-[var(--background)] border-[var(--accent)] hover:bg-[var(--accent-strong)]">Demander un devis</button>
             <button
               onClick={() => handleSmartScroll('latest-articles')}
-              className={`text-left px-3 py-2 rounded-lg hover:bg-gray-100 hover:text-[var(--accent)] ${
+              className={`text-left px-3 py-2 rounded-lg hover:bg-[#f2efdb] hover:text-[var(--accent)] ${
                 currentPath === '/' && activeSection === 'latest-articles' ? 'text-[var(--accent)]' : ''
               }`}
             >
               Articles
             </button>
-            <button onClick={() => handleSmartScroll('contact')} className="mt-2 btn-devis rounded-full">Demander un devis</button>
           </div>
         </div>
       )}

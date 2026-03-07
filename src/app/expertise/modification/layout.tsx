@@ -1,17 +1,17 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: "Modification de société | Marcouf Formalités",
+  title: 'Mise à jour des statuts | Marcouf Formalités',
   description:
-    "Changement de dirigeant, siège, objet, dénomination, capital. Modèles d’actes, annonce légale préparée, dépôt accompagné, Kbis suivi en 48 h. À partir de 180 € HT.",
-  alternates: { canonical: "https://www.marcouf-formalites.fr/expertise/modification" },
+    'Mise à jour statutaire après changement de siège, objet, capital, dirigeant ou dénomination. Version consolidée claire et exploitable.',
+  alternates: { canonical: 'https://www.marcouf-formalites.fr/expertise/modification' },
   openGraph: {
-    title: "Modification de société – formalités documentées",
-    description: "Cadrage, documents types, formalités accompagnées, suivi du Kbis. Devis en 24 h.",
-    url: "https://www.marcouf-formalites.fr/expertise/modification",
-    siteName: "Marcouf Formalités",
-    locale: "fr_FR",
-    type: "website",
+    title: 'Mise à jour des statuts – version consolidée',
+    description: 'Audit des clauses, rédaction consolidée, pièces annexes et validation finale.',
+    url: 'https://www.marcouf-formalites.fr/expertise/modification',
+    siteName: 'Marcouf Formalités',
+    locale: 'fr_FR',
+    type: 'website',
   },
 }
 

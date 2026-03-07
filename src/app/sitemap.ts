@@ -1,21 +1,17 @@
-// app/sitemap.ts
 import type { MetadataRoute } from 'next'
 import { getAllArticlesMeta } from '@/lib/articles'
 
 const base = 'https://www.marcouf-formalites.fr'
 
-// ➜ Liste uniquement les URL FINALES (pas d’anciennes .html, pas d’URL qui redirigent)
 const staticRoutes: string[] = [
-  '/',                                  // Accueil
-  '/services/creation-entreprise',
-  '/services/modification-societe',
-  '/services/propriete-intellectuelle',
-  '/services/formalites-juridiques',
-  '/services/contrats-commerciaux',
-  '/a-propos',
-  '/contact',
+  '/',
+  '/expertise/creation',
+  '/expertise/modification',
+  '/expertise/redaction-actes',
+  '/expertise/propriete-intellectuelle',
+  '/expertise/contrats-et-documentation',
   '/mentions-legales',
-  '/politique-confidentialite',
+  '/politique-de-confidentialite',
   '/articles',
 ]
 

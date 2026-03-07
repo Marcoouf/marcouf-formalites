@@ -4,72 +4,71 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { usePathname, useRouter } from 'next/navigation'
 import { StepsRail } from '../../../components/StepsRail'
+import { scrollSectionToCenter } from '@/lib/scrollSectionToCenter'
 
-const stepsActes = [
-  { title: 'Cadrage & checklist', desc: 'Besoins, pièces, calendrier. Liste des actes et formalités.' },
-  { title: 'Modèles d’actes', desc: 'PV AGO/AGE, décisions, délégations et statuts commentés à adapter.' },
-  { title: 'Signature & registres', desc: 'Process de signature, inscription dans les registres obligatoires.' },
-  { title: 'Formalités & archivage', desc: 'Transmission du dossier, attestations et conservation sécurisée (sans représentation).' },
+const stepsPv = [
+  { title: 'Collecte des décisions', desc: 'Vous listez les résolutions à acter et le contexte de l’assemblée.' },
+  { title: 'Rédaction du PV', desc: 'Je prépare une trame claire AGO/AGE adaptée à votre besoin.' },
+  { title: 'Vérification formelle', desc: 'Contrôle des mentions essentielles, signatures et annexes.' },
+  { title: 'Archivage & suivi', desc: 'Version finale prête à classer et à utiliser pour les démarches suivantes.' },
 ]
 
 export default function RedactionActesPageClient() {
   const pathname = usePathname()
   const router = useRouter()
+
   const handleSmartScroll = (id: string) => {
-    if (pathname === '/') document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+    if (pathname === '/') scrollSectionToCenter(id)
     else router.push(`/#${id}`)
   }
 
   return (
     <main className="relative z-10 min-h-screen mx-auto max-w-6xl px-6 sm:px-16 py-16 space-y-16 text-gray-800 overflow-hidden bg-white bg-noise-paper bg-repeat">
-      {/* HERO */}
       <motion.header
         className="text-center space-y-4"
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
       >
-        <h1 className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-green-700">
-          Secrétariat de formalités & actes de société
+        <h1 className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#053725] to-[#04281b]">
+          Procès-verbaux d’assemblée
         </h1>
         <p className="text-lg text-gray-600">
-          Approbation des comptes, procès‑verbaux (AGO/AGE), délégations de pouvoirs, statuts à jour et registres légaux. Préparation de modèles types, relecture administrative et suivi des formalités.
+          Préparation des PV AGO/AGE, décisions associées et formalisation documentaire pour garder un historique propre de la vie sociale.
         </p>
       </motion.header>
 
-      {/* Badges */}
       <section className="flex flex-wrap items-center justify-center gap-3 md:gap-4">
-        <span className="inline-flex items-center gap-2 rounded-full border border-gray-200 px-3 py-1 text-sm text-gray-700">📅 Secrétariat annuel</span>
-        <span className="inline-flex items-center gap-2 rounded-full border border-gray-200 px-3 py-1 text-sm text-gray-700">📘 Statuts à jour</span>
-        <span className="inline-flex items-center gap-2 rounded-full border border-gray-200 px-3 py-1 text-sm text-gray-700">🗂️ Registres & PV</span>
+        <span className="inline-flex items-center gap-2 rounded-full border border-gray-200 px-3 py-1 text-sm text-gray-700">🧾 PV AGO / AGE</span>
+        <span className="inline-flex items-center gap-2 rounded-full border border-gray-200 px-3 py-1 text-sm text-gray-700">✅ Mentions essentielles contrôlées</span>
+        <span className="inline-flex items-center gap-2 rounded-full border border-gray-200 px-3 py-1 text-sm text-gray-700">🗂️ Dossier archivable</span>
       </section>
 
-      {/* Étapes (rail) */}
       <StepsRail
-        title="Un parcours formalités en 4 étapes"
-        subtitle="Cadrage & checklist, documents types, signature & registres, formalités & archivage."
-        steps={stepsActes}
+        title="Rédaction de PV en 4 étapes"
+        subtitle="Décisions, trame, vérification formelle et remise finale."
+        steps={stepsPv}
       />
 
-      {/* Pourquoi + Garanties */}
       <section className="grid grid-cols-1 md:grid-cols-2 gap-10">
         <div className="space-y-4">
-          <h2 className="text-2xl md:text-3xl font-bold">Pourquoi externaliser votre secrétariat de formalités ?</h2>
+          <h2 className="text-2xl md:text-3xl font-bold">Pourquoi formaliser correctement les PV ?</h2>
           <ul className="space-y-3 text-gray-800">
-            <li><span className="font-medium">Documentation fiabilisée :</span> actes types alignés sur vos opérations et checklist associée.</li>
-            <li><span className="font-medium">Lisibilité opérationnelle :</span> documents clairs, prêts à commenter et à signer.</li>
-            <li><span className="font-medium">Gain de temps :</span> planning, annexes et registres tenus à jour en continu.</li>
+            <li><span className="font-medium">Sécurité documentaire :</span> décisions traçables et exploitables en cas de contrôle.</li>
+            <li><span className="font-medium">Cohérence :</span> alignement entre PV, statuts et démarches administratives.</li>
+            <li><span className="font-medium">Gain de temps :</span> modèles prêts à signer et à classer.</li>
           </ul>
-          <p className="italic text-gray-600">Un acte précis réduit les retours administratifs et protège vos intérêts. Pour une validation juridique personnalisée, consultez un avocat.</p>
+          <p className="italic text-gray-600">Pour des questions de stratégie juridique de fond, un avis d’avocat peut être utile en complément.</p>
         </div>
+
         <div className="space-y-4">
           <h3 className="text-xl font-semibold">Mes garanties</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {[
               ['Réactivité', 'Retour sous 24 h'],
-              ['Transparence', 'Devis détaillé et étapes claires'],
-              ['Documents à jour', 'Actes et registres alignés sur les obligations courantes'],
-              ['Confidentialité', 'Secret professionnel'],
+              ['Clarté', 'Documents structurés et lisibles'],
+              ['Rigueur', 'Vérification des mentions clés'],
+              ['Confidentialité', 'Traitement sécurisé des informations'],
             ].map(([t, d], i) => (
               <div key={i} className="rounded-lg border border-gray-200 p-4 bg-white">
                 <div className="font-medium">{t}</div>
@@ -80,16 +79,15 @@ export default function RedactionActesPageClient() {
         </div>
       </section>
 
-      {/* Tarif */}
-      <section className="rounded-2xl border border-gray-200 bg-gray-50 p-8 md:p-10">
+      <section className="card-with-button rounded-2xl border border-gray-200 bg-gray-50 p-8 md:p-10">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div>
             <h2 className="text-2xl md:text-3xl font-bold">Tarif indicatif</h2>
-            <p className="text-gray-700 mt-1">Selon l’acte (PV, statuts, délégations, registres…) et la complexité.</p>
+            <p className="text-gray-700 mt-1">Sur devis selon le type d’assemblée et le volume d’actes à produire.</p>
           </div>
           <div className="text-center md:text-right">
             <div className="text-3xl font-extrabold">Sur devis</div>
-            <div className="text-gray-600">Planning adapté à vos échéances</div>
+            <div className="text-gray-600">Délai adapté à vos échéances</div>
             <div className="mt-3">
               <button onClick={() => handleSmartScroll('contact')} className="btn-devis">Demander un devis</button>
             </div>
@@ -97,15 +95,13 @@ export default function RedactionActesPageClient() {
         </div>
       </section>
 
-      {/* FAQ */}
       <section>
         <h2 className="text-2xl md:text-3xl font-bold mb-6">Questions fréquentes</h2>
         <div className="space-y-4">
-            {[
-            ['Gérez-vous l’approbation des comptes ?', 'Oui : convocation, procès‑verbal, assistance au dépôt si requis et tenue des registres.'],
-            ['Pouvez-vous remettre à jour des statuts obsolètes ?', 'Oui : version consolidée commentée et adaptée aux évolutions décidées.'],
-            ['Tenez-vous les registres obligatoires ?', 'Oui : registres des décisions/assemblées et des pouvoirs, avec conservation sécurisée.'],
-            ['Quels sont les délais ?', 'Selon l’urgence : première version en 24–72 h en général.'],
+          {[
+            ['Traitez-vous AGO et AGE ?', 'Oui, la rédaction couvre les deux types d’assemblée avec leurs particularités.'],
+            ['Pouvez-vous relire un PV déjà rédigé ?', 'Oui, je peux reprendre un document existant pour le fiabiliser formellement.'],
+            ['Les PV peuvent-ils servir aux formalités ensuite ?', 'Oui, ils sont préparés pour être exploitables dans les étapes administratives liées.'],
           ].map(([q, a], i) => (
             <details key={i} className="group rounded-lg border border-gray-200 p-4">
               <summary className="flex cursor-pointer list-none items-center justify-between gap-4">
@@ -118,7 +114,6 @@ export default function RedactionActesPageClient() {
         </div>
       </section>
 
-      {/* CTA */}
       <motion.section
         className="text-center space-y-6"
         initial={{ opacity: 0, y: 20 }}
@@ -126,11 +121,10 @@ export default function RedactionActesPageClient() {
         transition={{ duration: 0.3, delay: 0.4 }}
         viewport={{ once: true }}
       >
-        <h2 className="text-2xl font-semibold text-green-700">Un secrétariat juridique clair et à jour ?</h2>
-        <p className="text-lg text-gray-700">Expliquez-moi votre besoin ; je prépare la bonne structure documentaire et les modèles associés.</p>
+        <h2 className="text-2xl font-semibold text-[var(--accent)]">Besoin d’un PV d’assemblée clair ?</h2>
+        <p className="text-lg text-gray-700">Je vous aide à formaliser les décisions avec une trame propre et exploitable.</p>
         <button className="btn-devis" onClick={() => handleSmartScroll('contact')}>Obtenir un devis</button>
       </motion.section>
-
     </main>
   )
 }

@@ -3,11 +3,11 @@ import RedactionActesPageClient from './RedactionActesPageClient'
 const legalServiceJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'LegalService',
-  name: 'Secrétariat de formalités et modèles d’actes Marcouf Formalités',
+  name: 'Procès-verbaux d’assemblée Marcouf Formalités',
   description:
-    'Préparation des procès-verbaux, délégations de pouvoirs, registres et mises à jour statutaires avec assistance au dépôt si nécessaire.',
+    'Préparation de PV AGO/AGE, décisions associées et formalisation documentaire.',
   url: 'https://www.marcouf-formalites.fr/expertise/redaction-actes',
-  serviceType: 'Support aux formalités et modèles d’actes',
+  serviceType: 'Support à la rédaction de PV d’assemblée',
   provider: {
     '@type': 'Organization',
     name: 'Marcouf Formalités',
@@ -22,7 +22,7 @@ const legalServiceJsonLd = {
     price: '0',
     priceCurrency: 'EUR',
     availability: 'https://schema.org/InStock',
-    description: 'Tarif sur devis selon le dossier de formalités',
+    description: 'Tarif sur devis selon le volume d’actes',
   },
 } as const
 
@@ -32,34 +32,26 @@ const faqJsonLd = {
   mainEntity: [
     {
       '@type': 'Question',
-      name: 'Gérez-vous l’approbation des comptes ?',
+      name: 'Traitez-vous AGO et AGE ?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Oui : convocation, procès-verbal, assistance au dépôt si requis et tenue des registres.',
+        text: 'Oui, la rédaction couvre les deux types d’assemblée avec leurs particularités.',
       },
     },
     {
       '@type': 'Question',
-      name: 'Pouvez-vous remettre à jour des statuts obsolètes ?',
+      name: 'Pouvez-vous relire un PV déjà rédigé ?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Oui : version consolidée commentée et adaptée aux évolutions décidées.',
+        text: 'Oui, un document existant peut être repris pour fiabiliser sa forme.',
       },
     },
     {
       '@type': 'Question',
-      name: 'Tenez-vous les registres obligatoires ?',
+      name: 'Les PV peuvent-ils servir aux formalités ensuite ?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Oui : registres des décisions/assemblées et des pouvoirs, avec conservation sécurisée.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Quels sont les délais ?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Selon l’urgence : première version en 24–72 h en général.',
+        text: 'Oui, ils sont structurés pour être exploitables dans les démarches administratives liées.',
       },
     },
   ],

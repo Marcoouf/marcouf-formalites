@@ -3,11 +3,11 @@ import CreationPageClient from './CreationPageClient'
 const legalServiceJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'LegalService',
-  name: "Création d'entreprise Marcouf Formalités",
+  name: 'Formalités d’entreprise Marcouf Formalités',
   description:
-    'Support documentaire pour la création de société : cadrage, statuts types commentés, annonce légale préparée et dépôt accompagné.',
+    'Accompagnement documentaire pour création, modification, dissolution, liquidation et radiation.',
   url: 'https://www.marcouf-formalites.fr/expertise/creation',
-  serviceType: 'Support aux formalités de création de société',
+  serviceType: 'Support aux formalités d’entreprise',
   provider: {
     '@type': 'Organization',
     name: 'Marcouf Formalités',
@@ -19,33 +19,33 @@ const legalServiceJsonLd = {
   },
   offers: {
     '@type': 'Offer',
-    price: '180.00',
+    price: '160.00',
     priceCurrency: 'EUR',
     availability: 'https://schema.org/InStock',
   },
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
-    name: 'Parcours formalités création',
+    name: 'Parcours formalités d’entreprise',
     itemListElement: [
       {
         '@type': 'ListItem',
         position: 1,
-        item: { '@type': 'Service', name: 'Cadrage documentaire du projet' },
+        item: { '@type': 'Service', name: 'Qualification de la formalité' },
       },
       {
         '@type': 'ListItem',
         position: 2,
-        item: { '@type': 'Service', name: 'Modèles de statuts prêts à personnaliser' },
+        item: { '@type': 'Service', name: 'Checklist des pièces' },
       },
       {
         '@type': 'ListItem',
         position: 3,
-        item: { '@type': 'Service', name: 'Annonce légale préparée et dossier de formalités' },
+        item: { '@type': 'Service', name: 'Préparation des actes et documents' },
       },
       {
         '@type': 'ListItem',
         position: 4,
-        item: { '@type': 'Service', name: 'Transmission du dossier et suivi du Kbis' },
+        item: { '@type': 'Service', name: 'Suivi de finalisation administrative' },
       },
     ],
   },

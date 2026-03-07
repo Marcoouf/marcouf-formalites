@@ -3,11 +3,11 @@ import ProprieteIntellectuellePageClient from './ProprieteIntellectuellePageClie
 const legalServiceJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'LegalService',
-  name: 'Propriété intellectuelle Marcouf Formalités',
+  name: 'Recherche d’antériorité Marcouf Formalités',
   description:
-    'Support aux dépôts de marques, contrats de cession ou de licence et protection documentaire des créations (droit d’auteur, dessins et modèles).',
+    'Recherche d’antériorité de marque avant dépôt: screening, analyse des risques et restitution claire.',
   url: 'https://www.marcouf-formalites.fr/expertise/propriete-intellectuelle',
-  serviceType: 'Support aux formalités de propriété intellectuelle',
+  serviceType: 'Support à la recherche d’antériorité',
   provider: {
     '@type': 'Organization',
     name: 'Marcouf Formalités',
@@ -22,31 +22,31 @@ const legalServiceJsonLd = {
     price: '0',
     priceCurrency: 'EUR',
     availability: 'https://schema.org/InStock',
-    description: 'Tarif sur devis selon le périmètre (marques, licences, droits d’auteur)',
+    description: 'Tarif sur devis selon le périmètre de recherche',
   },
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
-    name: 'Parcours formalités PI',
+    name: 'Parcours recherche d’antériorité',
     itemListElement: [
       {
         '@type': 'ListItem',
         position: 1,
-        item: { '@type': 'Service', name: 'Recherche documentaire et plan de dépôt' },
+        item: { '@type': 'Service', name: 'Définition du signe et du périmètre' },
       },
       {
         '@type': 'ListItem',
         position: 2,
-        item: { '@type': 'Service', name: 'Préparation des formalités INPI/EUIPO' },
+        item: { '@type': 'Service', name: 'Recherche sur bases pertinentes' },
       },
       {
         '@type': 'ListItem',
         position: 3,
-        item: { '@type': 'Service', name: 'Modèles de cession ou de licence' },
+        item: { '@type': 'Service', name: 'Analyse des risques identifiés' },
       },
       {
         '@type': 'ListItem',
         position: 4,
-        item: { '@type': 'Service', name: 'Protection des œuvres et traçabilité des preuves' },
+        item: { '@type': 'Service', name: 'Restitution décisionnelle' },
       },
     ],
   },
